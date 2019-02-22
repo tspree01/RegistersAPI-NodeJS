@@ -6,9 +6,9 @@ import { ProductFieldName } from "../constants/fieldNames/productFieldNames";
 const modelName: string = "Product";
 
 export interface ProductAttributes {
-	id?: string;
+	id: string;
 	count: number;
-	createdOn?: Date;
+	createdOn: Date;
 	lookupCode: string;
 }
 
