@@ -45,9 +45,9 @@ export let create = (newEmployee: EmployeeAttributes, createEmployee?: Sequelize
 		});
 };
 
-export let destroy = (employeeListEntry: EmployeeInstance, destroyTransaction?: Sequelize.Transaction): Bluebird<void> => {
+export let destroy = (employeeListEntry: EmployeeInstance, destroyEmployee?: Sequelize.Transaction): Bluebird<void> => {
 	return employeeListEntry.destroy(
 		<Sequelize.InstanceDestroyOptions>{
-			employee: destroyTransaction
+			employee: destroyEmployee
 		});
 };

@@ -6,10 +6,10 @@ import { EmployeeFieldName } from "../constants/fieldNames/employeeFieldNames";
 const modelName: string = "Employee";
 
 export interface EmployeeAttributes {
-    id: string;
+    id: number;
     firstName: string;
     lastName: string;
-    employeeId: string;
+    employeeId: number;
     active: boolean;
     role: string;
     manager: number;
@@ -18,10 +18,10 @@ export interface EmployeeAttributes {
 }
 
 export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes> {
-    id: string;
+    id: number;
     firstName: string;
     lastName: string;
-    employeeId: string;
+    employeeId: number;
     active: boolean;
     role: string;
     manager: number;
@@ -35,7 +35,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
 		<Sequelize.DefineModelAttributes<EmployeeAttributes>>{
 			id: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.ID,
-				type: Sequelize.STRING,
+				type: Sequelize.NUMBER,
 				autoIncrement: true,
 				primaryKey: true
 			},
@@ -53,7 +53,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
             },
             employeeId: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.EmployeeID,
-                type:Sequelize.STRING,
+                type:Sequelize.NUMBER,
                 allowNull: false,
                 defaultValue: ""
             },
