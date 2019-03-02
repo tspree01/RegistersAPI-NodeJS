@@ -6,7 +6,7 @@
             "check-space"
         ],
         "indent": [
-            true,
+            false,
             "tabs"
         ],
         "one-line": [
@@ -26,7 +26,7 @@
             "ignore-bound-class-methods"
         ],
         "whitespace": [
-            true,
+            false,
             "check-branch",
             "check-decl",
             "check-operator",
@@ -54,7 +54,7 @@
         "no-eval": true,
         "no-duplicate-variable": true,
         "no-internal-module": true,
-        "no-trailing-whitespace": true,
+        "no-trailing-whitespace": false,
         "prefer-const": true,
         "jsdoc-format": true
     }

@@ -13,34 +13,34 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 
 	if ((saveEmployeeRequest.id == null) || isNaN(saveEmployeeRequest.id)) {
 		validationResponse.status = 422;
-		validationResponse.message = ErrorCodeLookup.EC2026;
+		validationResponse.message = ErrorCodeLookup.EC2031;
 	} else if (saveEmployeeRequest.id < 0) {
 		validationResponse.status = 422;
-		validationResponse.message = ErrorCodeLookup.EC2028;
+		validationResponse.message = ErrorCodeLookup.EC2033;
 	} else if (saveEmployeeRequest.firstName == null) {
 		validationResponse.status = 422;
-		validationResponse.message = ErrorCodeLookup.EC2027;
+		validationResponse.message = ErrorCodeLookup.EC2035;
 	} else if (saveEmployeeRequest.lastName == null) {
 		validationResponse.status = 422;
-		validationResponse.message = ErrorCodeLookup.EC2027;
+		validationResponse.message = ErrorCodeLookup.EC2036;
 	} else if ((saveEmployeeRequest.employeeId == null) || isNaN(saveEmployeeRequest.employeeId)) {
 		validationResponse.status = 422;
-		validationResponse.message = ErrorCodeLookup.EC2027;
+		validationResponse.message = ErrorCodeLookup.EC2031;
 	} else if (saveEmployeeRequest.employeeId < 0) {
 		validationResponse.status = 422;
-		validationResponse.message = ErrorCodeLookup.EC2028;
+		validationResponse.message = ErrorCodeLookup.EC2033;
 	} else if (saveEmployeeRequest.active == null) {
 		validationResponse.status = 422;
-		validationResponse.message = ErrorCodeLookup.EC2027;
+		validationResponse.message = ErrorCodeLookup.EC2032;
 	} else if ((saveEmployeeRequest.manager == null ) || isNaN(saveEmployeeRequest.employeeId)) {
 		validationResponse.status = 422;
-		validationResponse.message = ErrorCodeLookup.EC2028;
+		validationResponse.message = ErrorCodeLookup.EC2034;
 	} else if (saveEmployeeRequest.manager < 0) {
 		validationResponse.status = 422;
-		validationResponse.message = ErrorCodeLookup.EC2028;
+		validationResponse.message = ErrorCodeLookup.EC2035;
 	} else if ((saveEmployeeRequest.password == null) || (saveEmployeeRequest.password.trim() === "")) {
 		validationResponse.status = 422;
-		validationResponse.message = ErrorCodeLookup.EC2026;
+		validationResponse.message = ErrorCodeLookup.EC2038;
 	}
 
 	return validationResponse;
@@ -63,7 +63,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			if (queriedEmployee == null) {
 				return Bluebird.reject(<CommandResponse<Employee>>{
 					status: 404,
-					message: ErrorCodeLookup.EC1001
+					message: ErrorCodeLookup.EC1004
 				});
 			}
 
@@ -103,7 +103,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 
 			return Bluebird.reject(<CommandResponse<Employee>>{
 				status: (error.status || 500),
-				message: (error.messsage || ErrorCodeLookup.EC1002)
+				message: (error.messsage || ErrorCodeLookup.EC1005)
 			});
 		});
 };
