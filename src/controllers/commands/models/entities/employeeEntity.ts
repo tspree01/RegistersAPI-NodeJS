@@ -36,31 +36,32 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
 			id: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.ID,
 				type: Sequelize.INTEGER,
-				autoIncrement: true,
+				autoIncrement: false,
+				allowNull: true,
 				primaryKey: true
 			},
 			firstName: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.FirstName,
 				type: Sequelize.STRING,
-				allowNull: false,
+				allowNull: true,
 				defaultValue: ""
 			},
 			lastName: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.LastName,
 				type: Sequelize.STRING,
-				allowNull: false,
+				allowNull: true,
 				defaultValue: ""
             },
             employeeId: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.EmployeeID,
                 type:Sequelize.UUID,
-                allowNull: false,
+                allowNull: true,
                 defaultValue: ""
             },
             active: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.Active,
                 type:Sequelize.BOOLEAN,
-                allowNull: false,
+                allowNull: true,
                 defaultValue: false
             },
             role: <Sequelize.DefineAttributeColumnOptions>{
@@ -71,13 +72,13 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
             manager: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.Manager,
                 type:Sequelize.UUID,
-                allowNull: false,
+                allowNull: true,
                 defaultValue: ""
             },
             password: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.Password,
                 type:Sequelize.STRING,
-                allowNull: false,
+                allowNull: true,
                 defaultValue: ""
             },
 			createdOn: <Sequelize.DefineAttributeColumnOptions>{
