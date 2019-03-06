@@ -60,7 +60,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		active: saveEmployeeRequest.active,
 		role: saveEmployeeRequest.role,
 		manager: saveEmployeeRequest.manager,
-		password: saveEmployeeRequest.password
+		password: saveEmployeeRequest.password,
+		// createdOn: saveEmployeeRequest.createdOn
 	};
 
 	let createEmployee: Sequelize.Transaction;

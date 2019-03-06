@@ -13,6 +13,7 @@ export interface EmployeeSaveRequest {
     role: string;
     manager: number;
 	password: string;
+	createdOn: string;
 }
 // End request object definitions
 
