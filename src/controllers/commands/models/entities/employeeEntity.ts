@@ -53,7 +53,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
             },
             employeeId: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.EmployeeID,
-                type:Sequelize.INTEGER,
+                type:Sequelize.UUID,
                 allowNull: false,
                 defaultValue: ""
             },
@@ -70,7 +70,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
             },
             manager: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.Manager,
-                type:Sequelize.INTEGER,
+                type:Sequelize.UUID,
                 allowNull: false,
                 defaultValue: ""
             },
