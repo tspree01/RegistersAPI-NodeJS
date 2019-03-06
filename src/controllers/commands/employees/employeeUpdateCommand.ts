@@ -15,31 +15,31 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2031;
 	} else if (saveEmployeeRequest.id < 0) {
-		validationResponse.status = 422;
+		validationResponse.status = 423;
 		validationResponse.message = ErrorCodeLookup.EC2033;
 	} else if (saveEmployeeRequest.firstName == null) {
-		validationResponse.status = 422;
+		validationResponse.status = 424;
 		validationResponse.message = ErrorCodeLookup.EC2035;
 	} else if (saveEmployeeRequest.lastName == null) {
-		validationResponse.status = 422;
+		validationResponse.status = 425;
 		validationResponse.message = ErrorCodeLookup.EC2036;
 	} else if ((saveEmployeeRequest.employeeId == null) || isNaN(saveEmployeeRequest.employeeId)) {
-		validationResponse.status = 422;
+		validationResponse.status = 426;
 		validationResponse.message = ErrorCodeLookup.EC2031;
 	} else if (saveEmployeeRequest.employeeId < 0) {
-		validationResponse.status = 422;
+		validationResponse.status = 427;
 		validationResponse.message = ErrorCodeLookup.EC2033;
 	} else if (saveEmployeeRequest.active == null) {
-		validationResponse.status = 422;
+		validationResponse.status = 428;
 		validationResponse.message = ErrorCodeLookup.EC2032;
 	} else if ((saveEmployeeRequest.manager == null ) || isNaN(saveEmployeeRequest.employeeId)) {
-		validationResponse.status = 422;
+		validationResponse.status = 429;
 		validationResponse.message = ErrorCodeLookup.EC2034;
 	} else if (saveEmployeeRequest.manager < 0) {
-		validationResponse.status = 422;
+		validationResponse.status = 430;
 		validationResponse.message = ErrorCodeLookup.EC2035;
 	} else if ((saveEmployeeRequest.password == null) || (saveEmployeeRequest.password.trim() === "")) {
-		validationResponse.status = 422;
+		validationResponse.status = 431;
 		validationResponse.message = ErrorCodeLookup.EC2038;
 	}
 
