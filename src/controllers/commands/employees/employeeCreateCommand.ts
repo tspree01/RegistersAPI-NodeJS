@@ -10,7 +10,7 @@ import { EmployeeInstance, EmployeeAttributes } from "../models/entities/employe
 const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandResponse<Employee> => {
 	const validationResponse: CommandResponse<Employee> =
 		<CommandResponse<Employee>>{ status: 200 };
-	console.log("validation Response = " + validationResponse);
+	console.log("validation Response = " + validationResponse.status);
 
 /*	if ((saveEmployeeRequest.id == null) || isNaN(saveEmployeeRequest.id)) {
 		validationResponse.status = 421;
