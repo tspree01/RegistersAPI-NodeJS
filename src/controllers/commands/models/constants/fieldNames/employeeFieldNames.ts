@@ -2,7 +2,7 @@ export enum EmployeeFieldName {
     ID = "record_id",
     FirstName = "First Name",
     LastName = "Last Name",
-    EmployeeID = "employee_id",
+    EmployeeID = "employeeId",
     Active = "active",
     Role = "role",
     Manager = "manager",
