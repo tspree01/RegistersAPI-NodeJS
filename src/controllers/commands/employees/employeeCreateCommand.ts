@@ -75,7 +75,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				saveEmployeeRequest.id,
 				createEmployee);
 		}).then((existingEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
-			console.log("existingEmployee = " + existingEmployee != null);
+			console.log("existingEmployee = " + existingEmployee == null);
 			if (existingEmployee != null) {
 				return Bluebird.reject(<CommandResponse<Employee>>{
 
