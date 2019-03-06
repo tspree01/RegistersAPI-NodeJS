@@ -12,7 +12,7 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 		<CommandResponse<Employee>>{ status: 200 };
 
 	if ((saveEmployeeRequest.id == null)) {
-		validationResponse.status = 422;
+		validationResponse.status = 421;
 		validationResponse.message = ErrorCodeLookup.EC2031;
 	} else if (saveEmployeeRequest.id < 0) {
 		validationResponse.status = 423;
