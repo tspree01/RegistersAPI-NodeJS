@@ -76,11 +76,14 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		}).then((existingEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
 			if (existingEmployee != null) {
 				return Bluebird.reject(<CommandResponse<Employee>>{
+
 					status: 409,
 					message: ErrorCodeLookup.EC2039
-				});
-			}
 
+				});
+
+			}
+			console.log(existingEmployee);
 			return EmployeeRepository.create(employeeToCreate, createEmployee);
 		}).then((createdEmployee: EmployeeInstance): Bluebird<CommandResponse<Employee>> => {
 			createEmployee.commit();
@@ -101,6 +104,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {
 			if (createEmployee != null) {
+				console.log(createEmployee);
 				createEmployee.rollback();
 			}
 
