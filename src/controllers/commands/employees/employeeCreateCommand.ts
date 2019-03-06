@@ -75,6 +75,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				saveEmployeeRequest.id,
 				createEmployee);
 		}).then((existingEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
+			console.log("existingEmployee = " + existingEmployee != null);
 			if (existingEmployee != null) {
 				return Bluebird.reject(<CommandResponse<Employee>>{
 
@@ -84,7 +85,6 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				});
 
 			}
-			console.log("existingEmployee = " + existingEmployee);
 			return EmployeeRepository.create(employeeToCreate, createEmployee);
 		}).then((createdEmployee: EmployeeInstance): Bluebird<CommandResponse<Employee>> => {
 			createEmployee.commit();
@@ -105,7 +105,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {
 			if (createEmployee != null) {
-				console.log("createEmployee = " + createEmployee);
+				console.log("createEmployee = " + createEmployee != null);
 				createEmployee.rollback();
 			}
 
