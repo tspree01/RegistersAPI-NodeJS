@@ -10,7 +10,6 @@ import { EmployeeInstance, EmployeeAttributes } from "../models/entities/employe
 const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandResponse<Employee> => {
 	const validationResponse: CommandResponse<Employee> =
 		<CommandResponse<Employee>>{ status: 200 };
-	console.log("validation Response = " + validationResponse.status);
 
 /*	if ((saveEmployeeRequest.id == null) || isNaN(saveEmployeeRequest.id)) {
 		validationResponse.status = 421;
@@ -49,6 +48,7 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 
 export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<CommandResponse<Employee>> => {
 	const validationResponse: CommandResponse<Employee> = validateSaveRequest(saveEmployeeRequest);
+	console.log("validation Response = " + validationResponse.status);
 	if (validationResponse.status !== 200) {
 		return Bluebird.reject(validationResponse);
 	}
