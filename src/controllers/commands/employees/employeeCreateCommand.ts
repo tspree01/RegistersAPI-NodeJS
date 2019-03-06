@@ -10,6 +10,7 @@ import { EmployeeInstance, EmployeeAttributes } from "../models/entities/employe
 const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandResponse<Employee> => {
 	const validationResponse: CommandResponse<Employee> =
 		<CommandResponse<Employee>>{ status: 200 };
+	console.log("validation Response = " + validationResponse);
 
 /*	if ((saveEmployeeRequest.id == null) || isNaN(saveEmployeeRequest.id)) {
 		validationResponse.status = 421;
@@ -83,7 +84,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				});
 
 			}
-			console.log(existingEmployee);
+			console.log("existingEmployee = " + existingEmployee);
 			return EmployeeRepository.create(employeeToCreate, createEmployee);
 		}).then((createdEmployee: EmployeeInstance): Bluebird<CommandResponse<Employee>> => {
 			createEmployee.commit();
@@ -104,7 +105,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {
 			if (createEmployee != null) {
-				console.log(createEmployee);
+				console.log("createEmployee = " + createEmployee);
 				createEmployee.rollback();
 			}
 
