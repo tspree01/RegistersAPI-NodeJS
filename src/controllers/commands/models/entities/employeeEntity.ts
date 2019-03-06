@@ -21,7 +21,7 @@ export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes>
     id: number;
     firstName: string;
     lastName: string;
-    employeeId: number;
+    employeeId: string;
     active: boolean;
     role: string;
     manager: number;
@@ -35,7 +35,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
 		<Sequelize.DefineModelAttributes<EmployeeAttributes>>{
 			id: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.ID,
-				type: Sequelize.NUMBER,
+				type: Sequelize.INTEGER,
 				autoIncrement: true,
 				primaryKey: true
 			},
@@ -53,7 +53,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
             },
             employeeId: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.EmployeeID,
-                type:Sequelize.NUMBER,
+                type:Sequelize.UUID,
                 allowNull: false,
                 defaultValue: ""
             },
@@ -70,7 +70,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
             },
             manager: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.Manager,
-                type:Sequelize.NUMBER,
+                type:Sequelize.INTEGER,
                 allowNull: false,
                 defaultValue: ""
             },
