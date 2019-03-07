@@ -20,6 +20,7 @@ export let queryEmployees = (req: restify.Request, res: restify.Response, next: 
 			res.send(
 				(error.status || 500),
 				(error.message || ErrorCodeLookup.EC2001));
+			console.log("response code = " + "500");
 
 			return next();
 		});
@@ -37,6 +38,7 @@ export let queryEmployeeById = (req: restify.Request, res: restify.Response, nex
 			res.send(
 				(error.status || 500),
 				(error.message || ErrorCodeLookup.EC2002));
+			console.log("response code = " + "500");
 
 			return next();
 		});
@@ -60,7 +62,7 @@ const saveEmployee = (
 			res.send(
 				(error.status || 500),
 				(error.message || ErrorCodeLookup.EC1002));
-			console.log("response code = " + error.status);
+			console.log("response code = " + "500");
 
 			return next();
 		});
