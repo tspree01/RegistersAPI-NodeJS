@@ -7,8 +7,8 @@ const modelName: string = "Employee";
 
 export interface EmployeeAttributes {
     record_id: number;
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     employeeId: string;
     active: boolean;
     role: string;
@@ -40,12 +40,12 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
 				allowNull: true,
 				primaryKey: true
 			},
-			firstName: <Sequelize.DefineAttributeColumnOptions>{
+			first_name: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.FirstName,
 				type: Sequelize.STRING,
 				allowNull: true
 			},
-			lastName: <Sequelize.DefineAttributeColumnOptions>{
+			last_name: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.LastName,
 				type: Sequelize.STRING,
 				allowNull: true,

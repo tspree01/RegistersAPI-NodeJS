@@ -13,14 +13,14 @@ export let queryById = (id: number, queryTransaction?: Sequelize.Transaction): B
 export let queryByFirstName = (firstName: string, queryTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 	return EmployeeEntity.findOne(<Sequelize.FindOptions<EmployeeAttributes>>{
 		transaction: queryTransaction,
-		where: <Sequelize.WhereOptions<EmployeeAttributes>>{ firstName: firstName }
+		where: <Sequelize.WhereOptions<EmployeeAttributes>>{ first_name: firstName }
 	});
 };
 
 export let queryByLastName = (lastName: string, queryTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 	return EmployeeEntity.findOne(<Sequelize.FindOptions<EmployeeAttributes>>{
 		transaction: queryTransaction,
-		where: <Sequelize.WhereOptions<EmployeeAttributes>>{ lastName: lastName }
+		where: <Sequelize.WhereOptions<EmployeeAttributes>>{ last_name: lastName }
 	});
 };
 

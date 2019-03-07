@@ -32,7 +32,7 @@ export let queryById = (recordId?: number): Bluebird<CommandResponse<Employee>> 
 			if (!existingEmployee) {
 				return Bluebird.reject(<CommandResponse<Employee>>{
 					status: 404,
-					message: ErrorCodeLookup.EC1001
+					message: ErrorCodeLookup.EC1004
 				});
 			}
 
@@ -56,7 +56,7 @@ export let queryByFirstName = (employeeFirstName?: string): Bluebird<CommandResp
 			if (!existingEmployee) {
 				return Bluebird.reject(<CommandResponse<Employee>>{
 					status: 404,
-					message: ErrorCodeLookup.EC1001
+					message: ErrorCodeLookup.EC1004
 				});
 			}
 
@@ -80,7 +80,7 @@ export let queryByLastName = (queryByLastName?: string): Bluebird<CommandRespons
 			if (!existingEmployee) {
 				return Bluebird.reject(<CommandResponse<Employee>>{
 					status: 404,
-					message: ErrorCodeLookup.EC1001
+					message: ErrorCodeLookup.EC1004
 				});
 			}
 
