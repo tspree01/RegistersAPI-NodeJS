@@ -60,6 +60,7 @@ const saveEmployee = (
 			res.send(
 				(error.status || 500),
 				(error.message || ErrorCodeLookup.EC1002));
+			console.log("response code = " + error.status);
 
 			return next();
 		});
