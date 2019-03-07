@@ -6,7 +6,7 @@ import { EmployeeFieldName } from "../constants/fieldNames/employeeFieldNames";
 const modelName: string = "Employee";
 
 export interface EmployeeAttributes {
-    record_id: number;
+    // record_id: number;
     first_name: string;
     last_name: string;
     employee_id: string;
@@ -18,7 +18,7 @@ export interface EmployeeAttributes {
 }
 
 export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes> {
-    record_id: number;
+    // record_id: number;
     first_name: string;
     last_name: string;
     employee_id: string;
@@ -26,20 +26,20 @@ export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes>
     role: string;
     manager: string;
 	// password: string;
-	createdOn: Date;
+	// createdOn: Date;
 }
 
 export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes> =
 	DatabaseConnection.define<EmployeeInstance, EmployeeAttributes>(
 		modelName,
 		<Sequelize.DefineModelAttributes<EmployeeAttributes>>{
-			record_id: <Sequelize.DefineAttributeColumnOptions>{
+/*			record_id: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.ID,
 				type: Sequelize.INTEGER,
 				autoIncrement: true,
 				allowNull: true,
 				primaryKey: true
-			},
+			},*/
 			first_name: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.FirstName,
 				type: Sequelize.STRING,
@@ -80,12 +80,12 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
                 type:Sequelize.STRING,
                 allowNull: true,
                 defaultValue: ""
-            },*/
+            },
 			createdOn: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.CreatedOn,
 				type: Sequelize.DATE,
 				allowNull: true
-			}
+			}*/
 		},
 		<Sequelize.DefineOptions<EmployeeInstance>>{
 			timestamps: false,

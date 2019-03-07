@@ -5,7 +5,7 @@ export interface ProductSaveRequest {
 	lookupCode: string;
 }
 export interface EmployeeSaveRequest {
-    record_id: number;
+	// record_id: number;
     first_Name: string;
     last_Name: string;
     employee_id: string;
@@ -13,7 +13,7 @@ export interface EmployeeSaveRequest {
     role: string;
     manager: string;
 	password: string;
-	createdOn: string;
+	// createdOn: string;
 }
 // End request object definitions
 
@@ -26,7 +26,7 @@ export interface Product {
 	lookupCode: string;
 }
 export interface Employee {
-    record_id: number;
+    // record_id: number;
     first_Name: string;
     last_Name: string;
     employee_id: string;
@@ -34,7 +34,7 @@ export interface Employee {
     role: string;
     manager: string;
 	password: string;
-	createdOn: string;
+	// createdOn: string;
 }
 // End response data object definitions
 
