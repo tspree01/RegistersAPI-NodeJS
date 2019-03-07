@@ -11,10 +11,10 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	const validationResponse: CommandResponse<Employee> =
 		<CommandResponse<Employee>>{ status: 200 };
 
-	if ((saveEmployeeRequest.record_id == null)) {
+/*	if ((saveEmployeeRequest.record_id == null)) {
 		validationResponse.status = 421;
 		validationResponse.message = ErrorCodeLookup.EC2031;
-	} /*else if (saveEmployeeRequest.record_id < 0) {
+	}*/ /*else if (saveEmployeeRequest.record_id < 0) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2033;
 	} else if (saveEmployeeRequest.first_Name == null) {
@@ -23,7 +23,7 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	} else if (saveEmployeeRequest.last_Name == null) {
 		validationResponse.status = 424;
 		validationResponse.message = ErrorCodeLookup.EC2036;
-	}*/ else if ((saveEmployeeRequest.employee_id == null) || (saveEmployeeRequest.employee_id.trim() === "")) {
+	}*/ if ((saveEmployeeRequest.employee_id == null) || (saveEmployeeRequest.employee_id.trim() === "")) {
 		validationResponse.status = 425;
 		validationResponse.message = ErrorCodeLookup.EC2031;
 	} /*else if (saveEmployeeRequest.employee_id < 0) {
@@ -93,7 +93,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					role: updatedEmployee.role,
 					manager: updatedEmployee.manager,
 					// password: updatedEmployee.password,
-					createdOn: Helper.formatDate(updatedEmployee.createdOn)
+					// createdOn: Helper.formatDate(updatedEmployee.createdOn)
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {
