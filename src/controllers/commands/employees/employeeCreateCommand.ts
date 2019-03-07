@@ -56,7 +56,7 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 
 export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<CommandResponse<Employee>> => {
 	const validationResponse: CommandResponse<Employee> = validateSaveRequest(saveEmployeeRequest);
-	console.log("validation Response = " + validationResponse.status);
+	// console.log("validation Response = " + validationResponse.status);
 	if (validationResponse.status !== 200) {
 		return Bluebird.reject(validationResponse);
 	}
@@ -76,7 +76,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 
 	return DatabaseConnection.startTransaction()
 		.then((createdTransaction: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
-			console.log("createdTransactions = " + createdTransaction);
+			// console.log("createdTransactions = " + createdTransaction);
 			createEmployee = createdTransaction;
 			console.log("createdTransactions starting");
 			return EmployeeRepository.queryByEmployeeId(
@@ -108,7 +108,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					role: createdEmployee.role,
 					manager: createdEmployee.manager,
 					// password: createdEmployee.password,
-					createdOn: Helper.formatDate(createdEmployee.createdOn)
+					// createdOn: Helper.formatDate(createdEmployee.createdOn)
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {

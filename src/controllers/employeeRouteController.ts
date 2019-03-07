@@ -68,7 +68,6 @@ const saveEmployee = (
 			res.send(
 				(errors.status || 500),
 				(errors.message || ErrorCodeLookup.EC1005));
-			console.log("response code = " + "500");
 
 			return next();
 		});
