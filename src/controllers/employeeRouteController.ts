@@ -51,6 +51,7 @@ const saveEmployee = (
 	console.log("req.url = " + req.getUrl().query);
 	console.log(req.getQuery());
 	console.log("req.get route = " + req.getRoute().path);
+	console.log("req content type = " + req.getContentType());
 
 
 	performSave(req.body)
