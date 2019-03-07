@@ -16,6 +16,8 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	console.log("employee ID: " + saveEmployeeRequest.employee_id);
 	console.log("role: " + saveEmployeeRequest.role);
 	console.log("manager: " + saveEmployeeRequest.manager);
+	console.log("created_ON: " + saveEmployeeRequest.createdOn);
+
 
 /*	if ((saveEmployeeRequest.id == null)) {
 		validationResponse.status = 421;
@@ -67,7 +69,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		active: saveEmployeeRequest.active,
 		role: saveEmployeeRequest.role,
 		manager: saveEmployeeRequest.manager,
-		password: saveEmployeeRequest.password,
+		// password: saveEmployeeRequest.password,
 		// createdOn: saveEmployeeRequest.createdOn
 	};
 
@@ -105,7 +107,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					active: createdEmployee.active,
 					role: createdEmployee.role,
 					manager: createdEmployee.manager,
-					password: createdEmployee.password,
+					// password: createdEmployee.password,
 					createdOn: Helper.formatDate(createdEmployee.createdOn)
 				}
 			});

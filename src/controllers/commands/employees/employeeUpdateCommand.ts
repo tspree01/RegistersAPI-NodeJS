@@ -35,13 +35,13 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	} else if ((saveEmployeeRequest.manager == null ) || (saveEmployeeRequest.manager.trim() === "")) {
 		validationResponse.status = 428;
 		validationResponse.message = ErrorCodeLookup.EC2034;
-	} /*else if (saveEmployeeRequest.manager < 0) {
+	}/* else if (saveEmployeeRequest.manager < 0) {
 		validationResponse.status = 429;
 		validationResponse.message = ErrorCodeLookup.EC2035;
-	}*/ else if ((saveEmployeeRequest.password == null) || (saveEmployeeRequest.password.trim() === "")) {
+	} else if ((saveEmployeeRequest.password == null) || (saveEmployeeRequest.password.trim() === "")) {
 		validationResponse.status = 430;
 		validationResponse.message = ErrorCodeLookup.EC2038;
-	}
+	}*/
 
 	return validationResponse;
 };
@@ -76,7 +76,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					active: saveEmployeeRequest.active,
 					role: saveEmployeeRequest.role,
 					manager: saveEmployeeRequest.manager,
-					password: saveEmployeeRequest.password
+					// password: saveEmployeeRequest.password
 				},
 				<Sequelize.InstanceUpdateOptions>{ update: updateEmployee });
 		}).then((updatedEmployee: EmployeeInstance): Bluebird<CommandResponse<Employee>> => {
@@ -92,7 +92,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					active: updatedEmployee.active,
 					role: updatedEmployee.role,
 					manager: updatedEmployee.manager,
-					password: updatedEmployee.password,
+					// password: updatedEmployee.password,
 					createdOn: Helper.formatDate(updatedEmployee.createdOn)
 				}
 			});

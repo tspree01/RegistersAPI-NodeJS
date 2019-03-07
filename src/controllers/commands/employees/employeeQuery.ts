@@ -14,7 +14,7 @@ const mapEmployeeData = (queriedEmployee: EmployeeInstance): Employee => {
 		active: queriedEmployee.active,
 		role: queriedEmployee.role,
 		manager: queriedEmployee.manager,
-		password: queriedEmployee.password,
+		// password: queriedEmployee.password,
 		createdOn: Helper.formatDate(queriedEmployee.createdOn)
 	};
 };
