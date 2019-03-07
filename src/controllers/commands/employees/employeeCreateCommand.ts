@@ -11,8 +11,8 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	const validationResponse: CommandResponse<Employee> =
 		<CommandResponse<Employee>>{ status: 200 };
 	// console.log("record ID: " + saveEmployeeRequest.record_id);
-	console.log("first_name: " + saveEmployeeRequest.first_Name);
-	console.log("last_name: " + saveEmployeeRequest.last_Name);
+	console.log("first_name: " + saveEmployeeRequest.first_name);
+	console.log("last_name: " + saveEmployeeRequest.last_name);
 	console.log("employee ID: " + saveEmployeeRequest.employee_id);
 	console.log("role: " + saveEmployeeRequest.role);
 	console.log("manager: " + saveEmployeeRequest.manager);
@@ -64,8 +64,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 
 	const employeeToCreate: EmployeeAttributes = <EmployeeAttributes>{
 		// record_id: saveEmployeeRequest.record_id,
-		first_name: saveEmployeeRequest.first_Name,
-		last_name: saveEmployeeRequest.last_Name,
+		first_name: saveEmployeeRequest.first_name,
+		last_name: saveEmployeeRequest.last_name,
 		employee_id: saveEmployeeRequest.employee_id,
 		active: saveEmployeeRequest.active,
 		role: saveEmployeeRequest.role,
@@ -102,8 +102,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				status: 201,
 				data: <Employee>{
 					// record_id: createdEmployee.record_id,
-					first_Name: createdEmployee.first_name,
-					last_Name: createdEmployee.last_name,
+					first_name: createdEmployee.first_name,
+					last_name: createdEmployee.last_name,
 					employee_id: createdEmployee.employee_id,
 					active: createdEmployee.active,
 					role: createdEmployee.role,

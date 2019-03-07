@@ -6,8 +6,8 @@ export interface ProductSaveRequest {
 }
 export interface EmployeeSaveRequest {
 	// record_id: number;
-    first_Name: string;
-    last_Name: string;
+    first_name: string;
+    last_name: string;
     employee_id: string;
     active: boolean;
     role: string;
@@ -27,8 +27,8 @@ export interface Product {
 }
 export interface Employee {
     // record_id: number;
-    first_Name: string;
-    last_Name: string;
+    first_name: string;
+    last_name: string;
     employee_id: string;
     active: boolean;
     role: string;

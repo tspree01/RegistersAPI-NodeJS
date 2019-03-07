@@ -70,8 +70,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			return queriedEmployee.update(
 				<Object>{
 					// id: saveEmployeeRequest.record_id,
-					firstName: saveEmployeeRequest.first_Name,
-					lastName: saveEmployeeRequest.last_Name,
+					firstName: saveEmployeeRequest.first_name,
+					lastName: saveEmployeeRequest.last_name,
 					employeeId: saveEmployeeRequest.employee_id,
 					active: saveEmployeeRequest.active,
 					role: saveEmployeeRequest.role,
@@ -86,8 +86,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				status: 200,
 				data: <Employee>{
 					// record_id: updatedEmployee.record_id,
-					first_Name: updatedEmployee.first_name,
-					last_Name: updatedEmployee.last_name,
+					first_name: updatedEmployee.first_name,
+					last_name: updatedEmployee.last_name,
 					employee_id: updatedEmployee.employee_id,
 					active: updatedEmployee.active,
 					role: updatedEmployee.role,
