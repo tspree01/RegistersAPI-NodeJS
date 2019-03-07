@@ -50,6 +50,7 @@ const saveEmployee = (
 	performSave: (employeeSaveRequest: EmployeeSaveRequest) => Bluebird<CommandResponse<Employee>>): void => {
 	console.log("req.files = " + req.files);
 	console.log(req.getPath());
+	console.log("req = " + req.toString());
 
 
 	performSave(req.body)
