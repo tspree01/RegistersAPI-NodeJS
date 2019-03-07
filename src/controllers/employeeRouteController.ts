@@ -19,8 +19,8 @@ export let queryEmployees = (req: restify.Request, res: restify.Response, next: 
 		}, (error: any) => {
 			res.send(
 				(error.status || 500),
-				(error.message || ErrorCodeLookup.EC2001));
-			console.log("response code = " + "500");
+				(error.message || ErrorCodeLookup.EC2003));
+			console.log("response codess = " + "500");
 
 			return next();
 		});
@@ -37,7 +37,7 @@ export let queryEmployeeById = (req: restify.Request, res: restify.Response, nex
 		}, (error: any) => {
 			res.send(
 				(error.status || 500)
-				 (error.message || ErrorCodeLookup.EC2002));
+				 (error.message || ErrorCodeLookup.EC2004));
 			console.log("response codes = " + "500");
 			return next();
 		});
@@ -84,7 +84,7 @@ export let deleteEmployee = (req: restify.Request, res: restify.Response, next: 
 	}, (error: any) => {
 		res.send(
 			(error.status || 500),
-			(error.message || ErrorCodeLookup.EC1003));
+			(error.message || ErrorCodeLookup.EC1006));
 
 		return next();
 	});	
@@ -97,7 +97,7 @@ export let deleteEmployee = (req: restify.Request, res: restify.Response, next: 
 		}, (error: any) => {
 			res.send(
 				(error.status || 500),
-				(error.message || ErrorCodeLookup.EC1003));
+				(error.message || ErrorCodeLookup.EC1006));
 
 			return next();
 		});
