@@ -17,10 +17,10 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	} else if (saveEmployeeRequest.record_id < 0) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2033;
-	} else if (saveEmployeeRequest.firstName == null) {
+	} else if (saveEmployeeRequest.first_Name == null) {
 		validationResponse.status = 423;
 		validationResponse.message = ErrorCodeLookup.EC2035;
-	} else if (saveEmployeeRequest.lastName == null) {
+	} else if (saveEmployeeRequest.last_Name == null) {
 		validationResponse.status = 424;
 		validationResponse.message = ErrorCodeLookup.EC2036;
 	} else if ((saveEmployeeRequest.employee_id == null) || (saveEmployeeRequest.employee_id.trim() === "")) {
@@ -70,8 +70,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			return queriedEmployee.update(
 				<Object>{
 					id: saveEmployeeRequest.record_id,
-					firstName: saveEmployeeRequest.firstName,
-					lastName: saveEmployeeRequest.lastName,
+					firstName: saveEmployeeRequest.first_Name,
+					lastName: saveEmployeeRequest.last_Name,
 					employeeId: saveEmployeeRequest.employee_id,
 					active: saveEmployeeRequest.active,
 					role: saveEmployeeRequest.role,
@@ -86,8 +86,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				status: 200,
 				data: <Employee>{
 					record_id: updatedEmployee.record_id,
-					firstName: updatedEmployee.first_name,
-					lastName: updatedEmployee.last_name,
+					first_Name: updatedEmployee.first_name,
+					last_Name: updatedEmployee.last_name,
 					employee_id: updatedEmployee.employeeId,
 					active: updatedEmployee.active,
 					role: updatedEmployee.role,
