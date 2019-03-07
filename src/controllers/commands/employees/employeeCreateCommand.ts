@@ -19,19 +19,19 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	console.log("created_ON: " + saveEmployeeRequest.createdOn);
 
 
-/*	if ((saveEmployeeRequest.id == null)) {
+	if ((saveEmployeeRequest.record_id == null)) {
 		validationResponse.status = 421;
 		validationResponse.message = ErrorCodeLookup.EC2031;
-	} else if (saveEmployeeRequest.id < 0) {
+	} /*else if (saveEmployeeRequest.id < 0) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2033;
-	} else if (saveEmployeeRequest.firstName == null || (saveEmployeeRequest.employee_id.trim() === "")) {
+	}*/ else if (saveEmployeeRequest.firstName == null || (saveEmployeeRequest.employee_id.trim() === "")) {
 		validationResponse.status = 423;
 		validationResponse.message = ErrorCodeLookup.EC2035;
 	} else if (saveEmployeeRequest.lastName == null) {
 		validationResponse.status = 424;
 		validationResponse.message = ErrorCodeLookup.EC2036;
-	}*/  if ((saveEmployeeRequest.employee_id == null) || (saveEmployeeRequest.employee_id.trim() === "")) {
+	}  if ((saveEmployeeRequest.employee_id == null) || (saveEmployeeRequest.employee_id.trim() === "")) {
 		validationResponse.status = 425;
 		validationResponse.message = ErrorCodeLookup.EC2031;
 	} /*else if (saveEmployeeRequest.employee_id < 0) {
