@@ -23,7 +23,7 @@ export let queryById = (recordId?: number): Bluebird<CommandResponse<Employee>> 
 	if (!recordId) {
 		return Bluebird.reject(<CommandResponse<Employee>>{
 			status: 422,
-			message: ErrorCodeLookup.EC2025
+			message: ErrorCodeLookup.EC2030
 		});
 	}
 
@@ -71,7 +71,7 @@ export let queryByLastName = (queryByLastName?: string): Bluebird<CommandRespons
 	if (!queryByLastName || (queryByLastName.trim() === "")) {
 		return Bluebird.reject(<CommandResponse<Employee>>{
 			status: 422,
-			message: ErrorCodeLookup.EC2026
+			message: ErrorCodeLookup.EC2037
 		});
 	}
 

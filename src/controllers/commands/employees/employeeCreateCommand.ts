@@ -22,16 +22,16 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	if ((saveEmployeeRequest.record_id == null)) {
 		validationResponse.status = 421;
 		validationResponse.message = ErrorCodeLookup.EC2031;
-	} /*else if (saveEmployeeRequest.id < 0) {
+	} /*else if (saveEmployeeRequest.record_id < 0) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2033;
-	}*/ else if (saveEmployeeRequest.firstName == null || (saveEmployeeRequest.employee_id.trim() === "")) {
+	} else if (saveEmployeeRequest.firstName == null || (saveEmployeeRequest.employee_id.trim() === "")) {
 		validationResponse.status = 423;
 		validationResponse.message = ErrorCodeLookup.EC2035;
 	} else if (saveEmployeeRequest.lastName == null) {
 		validationResponse.status = 424;
 		validationResponse.message = ErrorCodeLookup.EC2036;
-	}  if ((saveEmployeeRequest.employee_id == null) || (saveEmployeeRequest.employee_id.trim() === "")) {
+	}*/ else if ((saveEmployeeRequest.employee_id == null) || (saveEmployeeRequest.employee_id.trim() === "")) {
 		validationResponse.status = 425;
 		validationResponse.message = ErrorCodeLookup.EC2031;
 	} /*else if (saveEmployeeRequest.employee_id < 0) {
@@ -112,9 +112,9 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {
-			if (createEmployee != null) {
+/*			if (createEmployee != null) {
 				createEmployee.rollback();
-			}
+			}*/
 			console.log("createEmployee = "+ createEmployee);
 
 			return Bluebird.reject(<CommandResponse<Employee>>{
