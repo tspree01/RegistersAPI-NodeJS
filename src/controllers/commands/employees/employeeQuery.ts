@@ -7,7 +7,7 @@ import * as EmployeeRepository from "../models/repositories/employeeRepository";
 
 const mapEmployeeData = (queriedEmployee: EmployeeInstance): Employee => {
 	return <Employee>{
-		id: queriedEmployee.id,
+		record_id: queriedEmployee.record_id,
 		firstName: queriedEmployee.firstName,
 		lastName: queriedEmployee.lastName,
 		employee_id: queriedEmployee.employeeId,

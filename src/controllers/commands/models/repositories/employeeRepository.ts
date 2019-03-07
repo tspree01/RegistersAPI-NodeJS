@@ -6,7 +6,7 @@ import { EmployeeAttributes, EmployeeEntity, EmployeeInstance } from "../entitie
 export let queryById = (id: number, queryTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 	return EmployeeEntity.findOne(<Sequelize.FindOptions<EmployeeAttributes>>{
 		transaction: queryTransaction,
-		where: <Sequelize.WhereOptions<EmployeeAttributes>>{ id: id }
+		where: <Sequelize.WhereOptions<EmployeeAttributes>>{ record_id: id }
 	});
 };
 

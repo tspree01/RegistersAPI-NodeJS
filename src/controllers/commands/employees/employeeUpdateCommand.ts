@@ -11,10 +11,10 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	const validationResponse: CommandResponse<Employee> =
 		<CommandResponse<Employee>>{ status: 200 };
 
-	if ((saveEmployeeRequest.id == null)) {
+	if ((saveEmployeeRequest.record_id == null)) {
 		validationResponse.status = 421;
 		validationResponse.message = ErrorCodeLookup.EC2031;
-	} else if (saveEmployeeRequest.id < 0) {
+	} else if (saveEmployeeRequest.record_id < 0) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2033;
 	} else if (saveEmployeeRequest.firstName == null) {
@@ -58,7 +58,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		.then((startedUpdate: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 			updateEmployee = startedUpdate;
 
-			return EmployeeRepository.queryById(saveEmployeeRequest.id, updateEmployee);
+			return EmployeeRepository.queryById(saveEmployeeRequest.record_id, updateEmployee);
 		}).then((queriedEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
 			if (queriedEmployee == null) {
 				return Bluebird.reject(<CommandResponse<Employee>>{
@@ -69,7 +69,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 
 			return queriedEmployee.update(
 				<Object>{
-					id: saveEmployeeRequest.id,
+					id: saveEmployeeRequest.record_id,
 					firstName: saveEmployeeRequest.firstName,
 					lastName: saveEmployeeRequest.lastName,
 					employeeId: saveEmployeeRequest.employee_id,
@@ -85,7 +85,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			return Bluebird.resolve(<CommandResponse<Employee>>{
 				status: 200,
 				data: <Employee>{
-					id: updatedEmployee.id,
+					record_id: updatedEmployee.record_id,
 					firstName: updatedEmployee.firstName,
 					lastName: updatedEmployee.lastName,
 					employee_id: updatedEmployee.employeeId,

@@ -6,7 +6,7 @@ import { EmployeeFieldName } from "../constants/fieldNames/employeeFieldNames";
 const modelName: string = "Employee";
 
 export interface EmployeeAttributes {
-    id: number;
+    record_id: number;
     firstName: string;
     lastName: string;
     employeeId: string;
@@ -18,7 +18,7 @@ export interface EmployeeAttributes {
 }
 
 export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes> {
-    id: number;
+    record_id: number;
     firstName: string;
     lastName: string;
     employeeId: string;
@@ -33,7 +33,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
 	DatabaseConnection.define<EmployeeInstance, EmployeeAttributes>(
 		modelName,
 		<Sequelize.DefineModelAttributes<EmployeeAttributes>>{
-			id: <Sequelize.DefineAttributeColumnOptions>{
+			record_id: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.ID,
 				type: Sequelize.INTEGER,
 				autoIncrement: true,

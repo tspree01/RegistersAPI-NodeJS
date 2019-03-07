@@ -10,7 +10,7 @@ import { EmployeeInstance, EmployeeAttributes } from "../models/entities/employe
 const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandResponse<Employee> => {
 	const validationResponse: CommandResponse<Employee> =
 		<CommandResponse<Employee>>{ status: 200 };
-	console.log("record ID: " + saveEmployeeRequest.id);
+	console.log("record ID: " + saveEmployeeRequest.record_id);
 	console.log("first_name: " + saveEmployeeRequest.firstName);
 	console.log("last_name: " + saveEmployeeRequest.lastName);
 	console.log("employee ID: " + saveEmployeeRequest.employee_id);
@@ -62,7 +62,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 	}
 
 	const employeeToCreate: EmployeeAttributes = <EmployeeAttributes>{
-		id: saveEmployeeRequest.id,
+		record_id: saveEmployeeRequest.record_id,
 		firstName: saveEmployeeRequest.firstName,
 		lastName: saveEmployeeRequest.lastName,
 		employeeId: saveEmployeeRequest.employee_id,
@@ -80,10 +80,10 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			createEmployee = createdTransaction;
 
 			return EmployeeRepository.queryById(
-				saveEmployeeRequest.id,
+				saveEmployeeRequest.record_id,
 				createEmployee);
 		}).then((existingEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
-			console.log("existingEmployee = " + existingEmployee == null);
+			console.log("existingEmployee = " + existingEmployee != null);
 			if (existingEmployee != null) {
 				return Bluebird.reject(<CommandResponse<Employee>>{
 
@@ -100,7 +100,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			return Bluebird.resolve(<CommandResponse<Employee>>{
 				status: 201,
 				data: <Employee>{
-					id: createdEmployee.id,
+					record_id: createdEmployee.record_id,
 					firstName: createdEmployee.firstName,
 					lastName: createdEmployee.lastName,
 					employee_id: createdEmployee.employeeId,
@@ -112,7 +112,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {
-			console.log("createEmployee = " + createEmployee != null);
+			console.log("createEmployee = " + createEmployee);
 			if (createEmployee != null) {
 				createEmployee.rollback();
 			}

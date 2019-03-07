@@ -5,7 +5,7 @@ export interface ProductSaveRequest {
 	lookupCode: string;
 }
 export interface EmployeeSaveRequest {
-    id: number;
+    record_id: number;
     firstName: string;
     lastName: string;
     employee_id: string;
@@ -26,7 +26,7 @@ export interface Product {
 	lookupCode: string;
 }
 export interface Employee {
-    id: number;
+    record_id: number;
     firstName: string;
     lastName: string;
     employee_id: string;

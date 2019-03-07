@@ -11,7 +11,7 @@ export let query = (): Bluebird<CommandResponse<Employee[]>> => {
 				status: 200,
 				data: existingEmployees.map<Employee>((existingEmployee: EmployeeInstance) => {
 					return <Employee>{
-						id: existingEmployee.id,
+						record_id: existingEmployee.record_id,
 						firstName: existingEmployee.firstName,
 						lastName: existingEmployee.lastName,
 						employee_id: existingEmployee.employeeId,
