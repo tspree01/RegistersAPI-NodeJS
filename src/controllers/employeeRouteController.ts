@@ -63,6 +63,8 @@ const saveEmployee = (
 
 			return next();
 		}, (error: any) => {
+			console.log("error = " + error.status);
+			console.log("error = " + error.message);
 			res.send(
 				(error.status || 500),
 				(error.message || ErrorCodeLookup.EC1005));
