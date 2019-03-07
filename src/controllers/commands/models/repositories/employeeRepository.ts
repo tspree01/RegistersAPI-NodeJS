@@ -3,30 +3,30 @@ import Sequelize from "sequelize";
 import { EmployeeFieldName } from "../constants/fieldNames/employeeFieldNames";
 import { EmployeeAttributes, EmployeeEntity, EmployeeInstance } from "../entities/employeeEntity";
 
-export let queryById = (id: number, queryTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
+export let queryById = (id: number, queryEmployeeTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 	return EmployeeEntity.findOne(<Sequelize.FindOptions<EmployeeAttributes>>{
-		transaction: queryTransaction,
+		transaction: queryEmployeeTransaction,
 		where: <Sequelize.WhereOptions<EmployeeAttributes>>{ record_id: id }
 	});
 };
 
-export let queryByFirstName = (firstName: string, queryTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
+export let queryByFirstName = (firstName: string, queryEmployeeTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 	return EmployeeEntity.findOne(<Sequelize.FindOptions<EmployeeAttributes>>{
-		transaction: queryTransaction,
+		transaction: queryEmployeeTransaction,
 		where: <Sequelize.WhereOptions<EmployeeAttributes>>{ first_name: firstName }
 	});
 };
 
-export let queryByLastName = (lastName: string, queryTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
+export let queryByLastName = (lastName: string, queryEmployeeTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 	return EmployeeEntity.findOne(<Sequelize.FindOptions<EmployeeAttributes>>{
-		transaction: queryTransaction,
+		transaction: queryEmployeeTransaction,
 		where: <Sequelize.WhereOptions<EmployeeAttributes>>{ last_name: lastName }
 	});
 };
 
-export let queryByEmployeeId = (employeeId: number, queryTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
+export let queryByEmployeeId = (employeeId: number, queryEmployeeTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 	return EmployeeEntity.findOne(<Sequelize.FindOptions<EmployeeAttributes>>{
-		transaction: queryTransaction,
+		transaction: queryEmployeeTransaction,
 		where: <Sequelize.WhereOptions<EmployeeAttributes>>{ employeeId: employeeId }
 	});
 };
@@ -41,13 +41,13 @@ export let create = (newEmployee: EmployeeAttributes, createEmployee?: Sequelize
 	return EmployeeEntity.create(
 		newEmployee,
 		<Sequelize.CreateOptions>{
-			employee: createEmployee
+			transaction: createEmployee
 		});
 };
 
 export let destroy = (employeeListEntry: EmployeeInstance, destroyEmployee?: Sequelize.Transaction): Bluebird<void> => {
 	return employeeListEntry.destroy(
 		<Sequelize.InstanceDestroyOptions>{
-			employee: destroyEmployee
+			transaction: destroyEmployee
 		});
 };
