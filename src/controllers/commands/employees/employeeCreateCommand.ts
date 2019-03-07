@@ -112,9 +112,9 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {
-/*			if (createEmployee != null) {
+			if (createEmployee != null) {
 				createEmployee.rollback();
-			}*/
+			}
 			console.log("createEmployee = "+ createEmployee);
 
 			return Bluebird.reject(<CommandResponse<Employee>>{
