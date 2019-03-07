@@ -38,7 +38,7 @@ export let queryEmployeeById = (req: restify.Request, res: restify.Response, nex
 			res.send(
 				(error.status || 500)
 				 (error.message || ErrorCodeLookup.EC2002));
-			console.log("response code = " + "500");
+			console.log("response codes = " + "500");
 			return next();
 		});
 };
