@@ -34,7 +34,7 @@ export let executeDeleteId = (id?: number): Bluebird<CommandResponse<void>> => {
 			}
 
 			return Bluebird.reject(<CommandResponse<void>>{
-				status: (error.status || 500),
+				status: (error.status || 508),
 				message: (error.message || ErrorCodeLookup.EC1006)
 			});
 		});
@@ -68,7 +68,7 @@ export let executeDeleteEmployeeId = (employeeId?: number): Bluebird<CommandResp
 			}
 
 			return Bluebird.reject(<CommandResponse<void>>{
-				status: (error.status || 500),
+				status: (error.status || 509),
 				message: (error.message || ErrorCodeLookup.EC1006)
 			});
 		});

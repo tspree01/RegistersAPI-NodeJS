@@ -102,7 +102,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			}
 
 			return Bluebird.reject(<CommandResponse<Employee>>{
-				status: (error.status || 500),
+				status: (error.status || 510),
 				message: (error.messsage || ErrorCodeLookup.EC1005)
 			});
 		});
