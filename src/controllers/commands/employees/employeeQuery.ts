@@ -19,7 +19,7 @@ const mapEmployeeData = (queriedEmployee: EmployeeInstance): Employee => {
 	};
 };
 
-export let queryByEmployeeId = (employeeID?: string): Bluebird<CommandResponse<Employee>> => {
+export let queryByEmployee_Id = (employeeID?: string): Bluebird<CommandResponse<Employee>> => {
 	if (!employeeID) {
 		return Bluebird.reject(<CommandResponse<Employee>>{
 			status: 422,
