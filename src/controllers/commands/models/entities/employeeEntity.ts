@@ -9,7 +9,7 @@ export interface EmployeeAttributes {
     record_id: number;
     first_name: string;
     last_name: string;
-    employeeId: string;
+    employee_id: string;
     active: boolean;
     role: string;
     manager: string;
@@ -21,7 +21,7 @@ export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes>
     record_id: number;
     first_name: string;
     last_name: string;
-    employeeId: string;
+    employee_id: string;
     active: boolean;
     role: string;
     manager: string;
@@ -52,7 +52,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
 				allowNull: true,
 				defaultValue: "spreen"
             },
-            employeeId: <Sequelize.DefineAttributeColumnOptions>{
+            employee_id: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.EmployeeID,
                 type:Sequelize.UUID,
                 allowNull: true,

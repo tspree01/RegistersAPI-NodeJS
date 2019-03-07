@@ -88,7 +88,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					record_id: updatedEmployee.record_id,
 					first_Name: updatedEmployee.first_name,
 					last_Name: updatedEmployee.last_name,
-					employee_id: updatedEmployee.employeeId,
+					employee_id: updatedEmployee.employee_id,
 					active: updatedEmployee.active,
 					role: updatedEmployee.role,
 					manager: updatedEmployee.manager,
