@@ -23,16 +23,16 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	} else if (saveEmployeeRequest.lastName == null) {
 		validationResponse.status = 425;
 		validationResponse.message = ErrorCodeLookup.EC2036;
-	} else if ((saveEmployeeRequest.employeeId == null) || isNaN(saveEmployeeRequest.employeeId)) {
+	} else if ((saveEmployeeRequest.employee_id == null) || isNaN(saveEmployeeRequest.employee_id)) {
 		validationResponse.status = 426;
 		validationResponse.message = ErrorCodeLookup.EC2031;
-	} else if (saveEmployeeRequest.employeeId < 0) {
+	} else if (saveEmployeeRequest.employee_id < 0) {
 		validationResponse.status = 427;
 		validationResponse.message = ErrorCodeLookup.EC2033;
 	} else if (saveEmployeeRequest.active == null) {
 		validationResponse.status = 428;
 		validationResponse.message = ErrorCodeLookup.EC2032;
-	} else if ((saveEmployeeRequest.manager == null ) || isNaN(saveEmployeeRequest.employeeId)) {
+	} else if ((saveEmployeeRequest.manager == null ) || isNaN(saveEmployeeRequest.employee_id)) {
 		validationResponse.status = 429;
 		validationResponse.message = ErrorCodeLookup.EC2034;
 	} else if (saveEmployeeRequest.manager < 0) {
@@ -72,7 +72,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					id: saveEmployeeRequest.id,
 					firstName: saveEmployeeRequest.firstName,
 					lastName: saveEmployeeRequest.lastName,
-					employeeId: saveEmployeeRequest.employeeId,
+					employeeId: saveEmployeeRequest.employee_id,
 					active: saveEmployeeRequest.active,
 					role: saveEmployeeRequest.role,
 					manager: saveEmployeeRequest.manager,
@@ -88,7 +88,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					id: updatedEmployee.id,
 					firstName: updatedEmployee.firstName,
 					lastName: updatedEmployee.lastName,
-					employeeId: updatedEmployee.employeeId,
+					employee_id: updatedEmployee.employeeId,
 					active: updatedEmployee.active,
 					role: updatedEmployee.role,
 					manager: updatedEmployee.manager,

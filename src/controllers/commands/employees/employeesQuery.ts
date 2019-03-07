@@ -14,7 +14,7 @@ export let query = (): Bluebird<CommandResponse<Employee[]>> => {
 						id: existingEmployee.id,
 						firstName: existingEmployee.firstName,
 						lastName: existingEmployee.lastName,
-						employeeId: existingEmployee.employeeId,
+						employee_id: existingEmployee.employeeId,
 						active: existingEmployee.active,
 						role: existingEmployee.role,
 						manager: existingEmployee.manager,

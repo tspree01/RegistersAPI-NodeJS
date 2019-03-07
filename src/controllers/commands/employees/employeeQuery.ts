@@ -10,7 +10,7 @@ const mapEmployeeData = (queriedEmployee: EmployeeInstance): Employee => {
 		id: queriedEmployee.id,
 		firstName: queriedEmployee.firstName,
 		lastName: queriedEmployee.lastName,
-		employeeId: queriedEmployee.employeeId,
+		employee_id: queriedEmployee.employeeId,
 		active: queriedEmployee.active,
 		role: queriedEmployee.role,
 		manager: queriedEmployee.manager,
