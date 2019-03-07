@@ -33,13 +33,13 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
 	DatabaseConnection.define<EmployeeInstance, EmployeeAttributes>(
 		modelName,
 		<Sequelize.DefineModelAttributes<EmployeeAttributes>>{
-			record_id: <Sequelize.DefineAttributeColumnOptions>{
+/*			record_id: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.ID,
 				type: Sequelize.INTEGER,
 				autoIncrement: true,
 				allowNull: true,
 				primaryKey: true
-			},
+			},*/
 			first_name: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.FirstName,
 				type: Sequelize.STRING,

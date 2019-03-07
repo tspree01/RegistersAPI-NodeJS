@@ -24,7 +24,7 @@ export let queryByLastName = (lastName: string, queryEmployeeTransaction?: Seque
 	});
 };
 
-export let queryByEmployeeId = (employeeId: number, queryEmployeeTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
+export let queryByEmployeeId = (employeeId: string, queryEmployeeTransaction?: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 	return EmployeeEntity.findOne(<Sequelize.FindOptions<EmployeeAttributes>>{
 		transaction: queryEmployeeTransaction,
 		where: <Sequelize.WhereOptions<EmployeeAttributes>>{ employee_id: employeeId }

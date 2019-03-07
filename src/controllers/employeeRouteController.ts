@@ -62,12 +62,12 @@ const saveEmployee = (
 				employeeSaveCommandResponse.data);
 
 			return next();
-		}, (error: any) => {
-			console.log("saveEmployee error = " + error.status);
-			console.log("saveEmployee error = " + error.message);
+		}, (errors: any) => {
+			console.log("saveEmployee error = " + errors.status);
+			console.log("saveEmployee error = " + errors.message);
 			res.send(
-				(error.status || 500),
-				(error.message || ErrorCodeLookup.EC1005));
+				(errors.status || 500),
+				(errors.message || ErrorCodeLookup.EC1005));
 			console.log("response code = " + "500");
 
 			return next();

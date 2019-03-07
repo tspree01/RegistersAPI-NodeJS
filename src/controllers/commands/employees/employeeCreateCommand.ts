@@ -70,7 +70,6 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		role: saveEmployeeRequest.role,
 		manager: saveEmployeeRequest.manager,
 		// password: saveEmployeeRequest.password,
-		// createdOn: saveEmployeeRequest.createdOn
 	};
 
 	let createEmployee: Sequelize.Transaction;
@@ -80,11 +79,10 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			console.log("createdTransactions = " + createdTransaction);
 			createEmployee = createdTransaction;
 
-			return EmployeeRepository.queryById(
-				saveEmployeeRequest.record_id,
+			return EmployeeRepository.queryByEmployeeId(
+				saveEmployeeRequest.employee_id,
 				createEmployee);
 		}).then((existingEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
-			console.log("existingEmployee = " + existingEmployee != null);
 			if (existingEmployee != null) {
 				return Bluebird.reject(<CommandResponse<Employee>>{
 
