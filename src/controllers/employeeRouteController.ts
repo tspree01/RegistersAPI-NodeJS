@@ -48,7 +48,9 @@ const saveEmployee = (
 	res: restify.Response,
 	next: restify.Next,
 	performSave: (employeeSaveRequest: EmployeeSaveRequest) => Bluebird<CommandResponse<Employee>>): void => {
-	console.log("req = "+ req.body);
+	console.log("req.files = " + req.files);
+	console.log(req.getPath());
+
 
 	performSave(req.body)
 		.then((employeeSaveCommandResponse: CommandResponse<Employee>) => {
@@ -68,6 +70,7 @@ const saveEmployee = (
 };
 
 export let createEmployee = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+
 	saveEmployee(req, res, next, EmployeeCreateCommand.execute);
 };
 
