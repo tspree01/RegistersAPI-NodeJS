@@ -101,8 +101,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				status: 201,
 				data: <Employee>{
 					record_id: createdEmployee.record_id,
-					firstName: createdEmployee.firstName,
-					lastName: createdEmployee.lastName,
+					firstName: createdEmployee.first_name,
+					lastName: createdEmployee.last_name,
 					employee_id: createdEmployee.employeeId,
 					active: createdEmployee.active,
 					role: createdEmployee.role,

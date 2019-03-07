@@ -19,8 +19,8 @@ export interface EmployeeAttributes {
 
 export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes> {
     record_id: number;
-    firstName: string;
-    lastName: string;
+    first_name: string;
+    last_name: string;
     employeeId: string;
     active: boolean;
     role: string;
