@@ -8,10 +8,10 @@ export interface EmployeeSaveRequest {
     id: number;
     firstName: string;
     lastName: string;
-    employee_id: number;
+    employee_id: string;
     active: boolean;
     role: string;
-    manager: number;
+    manager: string;
 	password: string;
 	createdOn: string;
 }
@@ -29,10 +29,10 @@ export interface Employee {
     id: number;
     firstName: string;
     lastName: string;
-    employee_id: number;
+    employee_id: string;
     active: boolean;
     role: string;
-    manager: number;
+    manager: string;
 	password: string;
 	createdOn: string;
 }

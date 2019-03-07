@@ -11,37 +11,37 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	const validationResponse: CommandResponse<Employee> =
 		<CommandResponse<Employee>>{ status: 200 };
 
-/*	if ((saveEmployeeRequest.id == null)) {
+	if ((saveEmployeeRequest.id == null)) {
 		validationResponse.status = 421;
 		validationResponse.message = ErrorCodeLookup.EC2031;
 	} else if (saveEmployeeRequest.id < 0) {
-		validationResponse.status = 423;
+		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2033;
 	} else if (saveEmployeeRequest.firstName == null) {
-		validationResponse.status = 424;
+		validationResponse.status = 423;
 		validationResponse.message = ErrorCodeLookup.EC2035;
 	} else if (saveEmployeeRequest.lastName == null) {
-		validationResponse.status = 425;
+		validationResponse.status = 424;
 		validationResponse.message = ErrorCodeLookup.EC2036;
-	} else if ((saveEmployeeRequest.employee_id == null) || isNaN(saveEmployeeRequest.employee_id)) {
-		validationResponse.status = 426;
+	} else if ((saveEmployeeRequest.employee_id == null) || (saveEmployeeRequest.employee_id.trim() === "")) {
+		validationResponse.status = 425;
 		validationResponse.message = ErrorCodeLookup.EC2031;
-	} else if (saveEmployeeRequest.employee_id < 0) {
-		validationResponse.status = 427;
+	} /*else if (saveEmployeeRequest.employee_id < 0) {
+		validationResponse.status = 426;
 		validationResponse.message = ErrorCodeLookup.EC2033;
-	} else if (saveEmployeeRequest.active == null) {
-		validationResponse.status = 428;
+	}*/ else if (saveEmployeeRequest.active == null) {
+		validationResponse.status = 427;
 		validationResponse.message = ErrorCodeLookup.EC2032;
-	} else if ((saveEmployeeRequest.manager == null ) || isNaN(saveEmployeeRequest.employee_id)) {
-		validationResponse.status = 429;
+	} else if ((saveEmployeeRequest.manager == null ) || (saveEmployeeRequest.manager.trim() === "")) {
+		validationResponse.status = 428;
 		validationResponse.message = ErrorCodeLookup.EC2034;
-	} else if (saveEmployeeRequest.manager < 0) {
-		validationResponse.status = 430;
+	} /*else if (saveEmployeeRequest.manager < 0) {
+		validationResponse.status = 429;
 		validationResponse.message = ErrorCodeLookup.EC2035;
-	} else if ((saveEmployeeRequest.password == null) || (saveEmployeeRequest.password.trim() === "")) {
-		validationResponse.status = 431;
+	}*/ else if ((saveEmployeeRequest.password == null) || (saveEmployeeRequest.password.trim() === "")) {
+		validationResponse.status = 430;
 		validationResponse.message = ErrorCodeLookup.EC2038;
-	}*/
+	}
 
 	return validationResponse;
 };

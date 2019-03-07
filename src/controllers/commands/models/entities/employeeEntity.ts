@@ -9,10 +9,10 @@ export interface EmployeeAttributes {
     id: number;
     firstName: string;
     lastName: string;
-    employeeId: number;
+    employeeId: string;
     active: boolean;
     role: string;
-    manager: number;
+    manager: string;
 	password: string;
 	createdOn: Date;
 }
@@ -21,10 +21,10 @@ export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes>
     id: number;
     firstName: string;
     lastName: string;
-    employeeId: number;
+    employeeId: string;
     active: boolean;
     role: string;
-    manager: number;
+    manager: string;
 	password: string;
 	createdOn: Date;
 }
