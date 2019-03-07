@@ -78,12 +78,13 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		.then((createdTransaction: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 			console.log("createdTransactions = " + createdTransaction);
 			createEmployee = createdTransaction;
-
+			console.log("createdTransactions starting");
 			return EmployeeRepository.queryByEmployeeId(
 				saveEmployeeRequest.employee_id,
 				createEmployee);
 		}).then((existingEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
 			if (existingEmployee != null) {
+				console.log("existing Employing is not ");
 				return Bluebird.reject(<CommandResponse<Employee>>{
 
 					status: 409,
