@@ -48,9 +48,9 @@ const saveEmployee = (
 	res: restify.Response,
 	next: restify.Next,
 	performSave: (employeeSaveRequest: EmployeeSaveRequest) => Bluebird<CommandResponse<Employee>>): void => {
-	console.log("req.url = " + req.getUrl());
-	console.log(req.getPath());
-	console.log("req.get route = " + req.getRoute());
+	console.log("req.url = " + req.getUrl().query);
+	console.log(req.getQuery());
+	console.log("req.get route = " + req.getRoute().path);
 
 
 	performSave(req.body)
