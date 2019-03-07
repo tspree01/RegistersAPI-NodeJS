@@ -80,7 +80,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			createEmployee = createdTransaction;
 
 			return EmployeeRepository.queryById(
-				saveEmployeeRequest.record_id,
+				saveEmployeeRequest.record_id = 1,
 				createEmployee);
 		}).then((existingEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
 			console.log("existingEmployee = " + existingEmployee != null);
@@ -112,10 +112,10 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {
-			console.log("createEmployee = " + createEmployee);
 			if (createEmployee != null) {
 				createEmployee.rollback();
 			}
+			console.log("createEmployee = "+ createEmployee);
 
 			return Bluebird.reject(<CommandResponse<Employee>>{
 				status: (error.status || 500),
