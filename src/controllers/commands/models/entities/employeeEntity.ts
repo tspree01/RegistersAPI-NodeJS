@@ -44,13 +44,13 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
 				field: EmployeeFieldName.FirstName,
 				type: Sequelize.STRING,
 				allowNull: true,
-				defaultValue: "tyler"
+				defaultValue: ""
 			},
 			last_name: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.LastName,
 				type: Sequelize.STRING,
 				allowNull: true,
-				defaultValue: "spreen"
+				defaultValue: ""
             },
             employee_id: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.EmployeeID,
