@@ -17,7 +17,7 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	console.log("role: " + saveEmployeeRequest.role);
 	console.log("manager: " + saveEmployeeRequest.manager);
 
-	if ((saveEmployeeRequest.id == null)) {
+/*	if ((saveEmployeeRequest.id == null)) {
 		validationResponse.status = 421;
 		validationResponse.message = ErrorCodeLookup.EC2031;
 	} else if (saveEmployeeRequest.id < 0) {
@@ -29,7 +29,7 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	} else if (saveEmployeeRequest.lastName == null) {
 		validationResponse.status = 424;
 		validationResponse.message = ErrorCodeLookup.EC2036;
-	} else if ((saveEmployeeRequest.employee_id == null) || (saveEmployeeRequest.employee_id.trim() === "")) {
+	}*/  if ((saveEmployeeRequest.employee_id == null) || (saveEmployeeRequest.employee_id.trim() === "")) {
 		validationResponse.status = 425;
 		validationResponse.message = ErrorCodeLookup.EC2031;
 	} /*else if (saveEmployeeRequest.employee_id < 0) {

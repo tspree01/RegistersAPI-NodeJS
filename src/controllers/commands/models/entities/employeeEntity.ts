@@ -36,7 +36,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
 			id: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.ID,
 				type: Sequelize.INTEGER,
-				autoIncrement: false,
+				autoIncrement: true,
 				allowNull: true,
 				primaryKey: true
 			},
