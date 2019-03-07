@@ -56,13 +56,14 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 
 export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<CommandResponse<Employee>> => {
 	const validationResponse: CommandResponse<Employee> = validateSaveRequest(saveEmployeeRequest);
-	// console.log("validation Response = " + validationResponse.status);
+	 console.log("validation Response = " + validationResponse.status);
 	if (validationResponse.status !== 200) {
+		console.log("validation rejected = " + validationResponse.status);
 		return Bluebird.reject(validationResponse);
 	}
 
 	const employeeToCreate: EmployeeAttributes = <EmployeeAttributes>{
-		record_id: saveEmployeeRequest.record_id,
+		// record_id: saveEmployeeRequest.record_id,
 		first_name: saveEmployeeRequest.first_Name,
 		last_name: saveEmployeeRequest.last_Name,
 		employee_id: saveEmployeeRequest.employee_id,
@@ -100,7 +101,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			return Bluebird.resolve(<CommandResponse<Employee>>{
 				status: 201,
 				data: <Employee>{
-					record_id: createdEmployee.record_id,
+					// record_id: createdEmployee.record_id,
 					first_Name: createdEmployee.first_name,
 					last_Name: createdEmployee.last_name,
 					employee_id: createdEmployee.employee_id,

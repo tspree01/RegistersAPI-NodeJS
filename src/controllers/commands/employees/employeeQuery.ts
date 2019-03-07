@@ -7,7 +7,7 @@ import * as EmployeeRepository from "../models/repositories/employeeRepository";
 
 const mapEmployeeData = (queriedEmployee: EmployeeInstance): Employee => {
 	return <Employee>{
-		record_id: queriedEmployee.record_id,
+		// record_id: queriedEmployee.record_id,
 		first_Name: queriedEmployee.first_name,
 		last_Name: queriedEmployee.last_name,
 		employee_id: queriedEmployee.employee_id,
@@ -15,19 +15,19 @@ const mapEmployeeData = (queriedEmployee: EmployeeInstance): Employee => {
 		role: queriedEmployee.role,
 		manager: queriedEmployee.manager,
 		// password: queriedEmployee.password,
-		createdOn: Helper.formatDate(queriedEmployee.createdOn)
+		// createdOn: Helper.formatDate(queriedEmployee.createdOn)
 	};
 };
 
-export let queryById = (recordId?: number): Bluebird<CommandResponse<Employee>> => {
-	if (!recordId) {
+export let queryByEmployeeId = (employeeID?: string): Bluebird<CommandResponse<Employee>> => {
+	if (!employeeID) {
 		return Bluebird.reject(<CommandResponse<Employee>>{
 			status: 422,
 			message: ErrorCodeLookup.EC2030
 		});
 	}
 
-	return EmployeeRepository.queryById(recordId)
+	return EmployeeRepository.queryByEmployeeId(employeeID)
 		.then((existingEmployee: (EmployeeInstance | null)): Bluebird<CommandResponse<Employee>> => {
 			if (!existingEmployee) {
 				return Bluebird.reject(<CommandResponse<Employee>>{

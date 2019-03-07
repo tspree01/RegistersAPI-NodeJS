@@ -27,7 +27,7 @@ export let queryEmployees = (req: restify.Request, res: restify.Response, next: 
 };
 
 export let queryEmployeeById = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	EmployeeQuery.queryById(req.params[ParameterLookup.EmployeeId])
+	EmployeeQuery.queryByEmployeeId(req.params[ParameterLookup.EmployeeId])
 		.then((employeeQueryCommandResponse: CommandResponse<Employee>) => {
 			res.send(
 				employeeQueryCommandResponse.status,
@@ -35,6 +35,8 @@ export let queryEmployeeById = (req: restify.Request, res: restify.Response, nex
 
 			return next();
 		}, (error: any) => {
+			console.log("queryEmployeeId error = " + error.status);
+			console.log("queryEmployeeId error = " + error.message);
 			res.send(
 				(error.status || 500)
 				 (error.message || ErrorCodeLookup.EC2004));
@@ -49,11 +51,6 @@ const saveEmployee = (
 	next: restify.Next,
 	performSave: (employeeSaveRequest: EmployeeSaveRequest) => Bluebird<CommandResponse<Employee>>): void => {
 	console.log("req.body = " + req.body.toString());
-	console.log(req.getQuery());
-	console.log("req.get route = " + req.getRoute().path);
-	console.log("req content type = " + req.getContentType());
-
-
 
 	performSave(req.body)
 		.then((employeeSaveCommandResponse: CommandResponse<Employee>) => {
