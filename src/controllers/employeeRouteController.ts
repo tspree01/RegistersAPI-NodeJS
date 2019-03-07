@@ -90,7 +90,7 @@ export let deleteEmployee = (req: restify.Request, res: restify.Response, next: 
 	}, (error: any) => {
 		res.send(
 			(error.status || 500),
-			(error.message || ErrorCodeLookup.EC1006));
+			(error.message || ErrorCodeLookup.EC1003));
 
 		return next();
 	});	
