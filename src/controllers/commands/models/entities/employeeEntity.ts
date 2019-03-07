@@ -43,8 +43,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
 			firstName: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.FirstName,
 				type: Sequelize.STRING,
-				allowNull: true,
-				defaultValue: ""
+				allowNull: true
 			},
 			lastName: <Sequelize.DefineAttributeColumnOptions>{
 				field: EmployeeFieldName.LastName,
