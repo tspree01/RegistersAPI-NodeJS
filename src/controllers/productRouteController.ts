@@ -65,6 +65,8 @@ const saveProduct = (
 	next: restify.Next,
 	performSave: (productSaveRequest: ProductSaveRequest) => Bluebird<CommandResponse<Product>>): void => {
 
+	console.log("REQUEST BODY: " + req.body);
+
 	performSave(req.body)
 		.then((productSaveCommandResponse: CommandResponse<Product>) => {
 			res.send(

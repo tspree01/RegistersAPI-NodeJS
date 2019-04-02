@@ -33,19 +33,20 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 
 	const productToCreate: ProductAttributes = <ProductAttributes>{
 		count: saveProductRequest.count,
-		lookupCode: saveProductRequest.lookupCode
+		lookupCode: saveProductRequest.lookupCode,
+		price: saveProductRequest.price
 	};
 
 	let createTransaction: Sequelize.Transaction;
 
-	return DatabaseConnection.startTransaction()
-		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
+	return DatabaseConnection.startTransaction() //1
+		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => { //1
 			createTransaction = createdTransaction;
 
-			return ProductRepository.queryByLookupCode(
+			return ProductRepository.queryByLookupCode( //2
 				saveProductRequest.lookupCode,
 				createTransaction);
-		}).then((existingProduct: (ProductInstance | null)): Bluebird<ProductInstance> => {
+		}).then((existingProduct: (ProductInstance | null)): Bluebird<ProductInstance> => { //2
 			if (existingProduct != null) {
 				return Bluebird.reject(<CommandResponse<Product>>{
 					status: 409,
@@ -53,8 +54,8 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 				});
 			}
 
-			return ProductRepository.create(productToCreate, createTransaction);
-		}).then((createdProduct: ProductInstance): Bluebird<CommandResponse<Product>> => {
+			return ProductRepository.create(productToCreate, createTransaction); //3
+		}).then((createdProduct: ProductInstance): Bluebird<CommandResponse<Product>> => { //3
 			createTransaction.commit();
 
 			return Bluebird.resolve(<CommandResponse<Product>>{
@@ -63,7 +64,8 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 					id: createdProduct.id,
 					count: createdProduct.count,
 					lookupCode: createdProduct.lookupCode,
-					createdOn: Helper.formatDate(createdProduct.createdOn)
+					createdOn: Helper.formatDate(createdProduct.createdOn),
+					price: createdProduct.price
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Product>> => {
