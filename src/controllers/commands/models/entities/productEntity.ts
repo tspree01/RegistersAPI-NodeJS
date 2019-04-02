@@ -48,7 +48,7 @@ export let ProductEntity: Sequelize.Model<ProductInstance, ProductAttributes> =
 				type: Sequelize.DATE,
 				allowNull: true
 			},
-			product: <Sequelize.DefineAttributeColumnOptions>{
+			price: <Sequelize.DefineAttributeColumnOptions>{
 				field: ProductFieldName.Price,
 				type: Sequelize.INTEGER,
 				allowNull: true,

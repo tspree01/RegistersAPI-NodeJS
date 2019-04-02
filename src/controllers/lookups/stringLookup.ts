@@ -65,7 +65,10 @@ export enum ErrorCodeLookup {
 	EC2036 = "The provided first name is not valid.",
 	EC2037 = "The provided last name is not valid.",
 	EC2038 = "The provided password is not valid",
-	EC2039 = "Conflict of parameter: ID"
+	EC2039 = "Conflict of parameter: ID",
+	EC2040 = "Please provide a valid product price",
+	EC2041 = "Price may not be negative"
+
 	// End genenral - employee
 	// End general
 }

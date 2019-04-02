@@ -15,11 +15,19 @@ const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandRes
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2026;
 	} else if ((saveProductRequest.count == null) || isNaN(saveProductRequest.count)) {
-		validationResponse.status = 422;
+		validationResponse.status = 423;
 		validationResponse.message = ErrorCodeLookup.EC2027;
 	} else if (saveProductRequest.count < 0) {
-		validationResponse.status = 422;
+		validationResponse.status = 424;
 		validationResponse.message = ErrorCodeLookup.EC2028;
+	}
+	else if(saveProductRequest.price == null || isNaN(saveProductRequest.price)) {
+		validationResponse.status = 425;
+		validationResponse.message = ErrorCodeLookup.EC2040;
+	}
+	else if (saveProductRequest.price < 0) {
+		validationResponse.status = 426;
+		validationResponse.message = ErrorCodeLookup.EC2041;
 	}
 
 	return validationResponse;
@@ -39,14 +47,14 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 
 	let createTransaction: Sequelize.Transaction;
 
-	return DatabaseConnection.startTransaction() //1
-		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => { //1
+	return DatabaseConnection.startTransaction() // 1
+		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => { // 1
 			createTransaction = createdTransaction;
 
-			return ProductRepository.queryByLookupCode( //2
+			return ProductRepository.queryByLookupCode( // 2
 				saveProductRequest.lookupCode,
 				createTransaction);
-		}).then((existingProduct: (ProductInstance | null)): Bluebird<ProductInstance> => { //2
+		}).then((existingProduct: (ProductInstance | null)): Bluebird<ProductInstance> => { // 2
 			if (existingProduct != null) {
 				return Bluebird.reject(<CommandResponse<Product>>{
 					status: 409,
@@ -54,8 +62,8 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 				});
 			}
 
-			return ProductRepository.create(productToCreate, createTransaction); //3
-		}).then((createdProduct: ProductInstance): Bluebird<CommandResponse<Product>> => { //3
+			return ProductRepository.create(productToCreate, createTransaction); // 3
+		}).then((createdProduct: ProductInstance): Bluebird<CommandResponse<Product>> => { // 3
 			createTransaction.commit();
 
 			return Bluebird.resolve(<CommandResponse<Product>>{
