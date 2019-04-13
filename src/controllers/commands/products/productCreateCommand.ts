@@ -39,7 +39,7 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 
 	let createTransaction: Sequelize.Transaction;
 
-	return DatabaseConnection.startTransaction() /
+	return DatabaseConnection.startTransaction()
 		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => { 
 			createTransaction = createdTransaction;
 
