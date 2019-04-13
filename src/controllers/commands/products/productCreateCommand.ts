@@ -39,14 +39,14 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 
 	let createTransaction: Sequelize.Transaction;
 
-	return DatabaseConnection.startTransaction() //1
-		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => { //1
+	return DatabaseConnection.startTransaction() /
+		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => { 
 			createTransaction = createdTransaction;
 
-			return ProductRepository.queryByLookupCode( //2
+			return ProductRepository.queryByLookupCode( 
 				saveProductRequest.lookupCode,
 				createTransaction);
-		}).then((existingProduct: (ProductInstance | null)): Bluebird<ProductInstance> => { //2
+		}).then((existingProduct: (ProductInstance | null)): Bluebird<ProductInstance> => { 
 			if (existingProduct != null) {
 				return Bluebird.reject(<CommandResponse<Product>>{
 					status: 409,
@@ -54,8 +54,8 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 				});
 			}
 
-			return ProductRepository.create(productToCreate, createTransaction); //3
-		}).then((createdProduct: ProductInstance): Bluebird<CommandResponse<Product>> => { //3
+			return ProductRepository.create(productToCreate, createTransaction); 
+		}).then((createdProduct: ProductInstance): Bluebird<CommandResponse<Product>> => { 
 			createTransaction.commit();
 
 			return Bluebird.resolve(<CommandResponse<Product>>{
