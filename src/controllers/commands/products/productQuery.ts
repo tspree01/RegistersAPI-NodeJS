@@ -10,7 +10,8 @@ const mapProductData = (queriedProduct: ProductInstance): Product => {
 		id: queriedProduct.id,
 		count: queriedProduct.count,
 		lookupCode: queriedProduct.lookupCode,
-		createdOn: Helper.formatDate(queriedProduct.createdOn)
+		createdOn: Helper.formatDate(queriedProduct.createdOn),
+		price: queriedProduct.price
 	};
 };
 

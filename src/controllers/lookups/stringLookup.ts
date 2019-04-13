@@ -1,6 +1,8 @@
 export enum ParameterLookup {
 	ProductId = "productId",
 	ProductLookupCode = "productLookupCode",
+	CartId = "cartId",
+	CartLookupCode = "cartLookupCode",
 	EmployeeId = "employeeId",
 	Id = "id"
 }
@@ -17,10 +19,15 @@ export enum RouteLookup {
 	// Employee
 	Employee = "/employee",
 
+	// Cart
+	Cart = "/cart",
+
 	// Parameters
 	ProductIdParameter = "/:productId",
 	ProductLookupCodeParameter = "/:productLookupCode",
-	EmployeeIdParameter = "/:employeeId"
+	CartIdParameter = "/:cartId",
+	CartLookupCodeParameter = "/:cartLookupCode",
+	EmployeeIdParameter = "/:employeeId",
 	// End parameters
 	// End product
 	// End API routing

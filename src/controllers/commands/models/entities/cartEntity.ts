@@ -1,11 +1,11 @@
 import Sequelize from "sequelize";
 import { DatabaseConnection } from "../databaseConnection";
 import { DatabaseTableName } from "../constants/databaseTableNames";
-import { ProductFieldName } from "../constants/fieldNames/productFieldNames";
+import { CartFieldName } from "../constants/fieldNames/cartFieldNames";
 
-const modelName: string = "Product";
+const modelName: string = "Cart";
 
-export interface ProductAttributes {
+export interface CartAttributes {
 	id: string;
 	count: number;
 	createdOn: Date;
@@ -13,7 +13,7 @@ export interface ProductAttributes {
 	price: number;
 }
 
-export interface ProductInstance extends Sequelize.Instance<ProductAttributes> {
+export interface CartInstance extends Sequelize.Instance<CartAttributes> {
 	id: string;
 	count: number;
 	createdOn: Date;
@@ -21,42 +21,42 @@ export interface ProductInstance extends Sequelize.Instance<ProductAttributes> {
 	price: number;
 }
 
-export let ProductEntity: Sequelize.Model<ProductInstance, ProductAttributes> =
-	DatabaseConnection.define<ProductInstance, ProductAttributes>(
+export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
+	DatabaseConnection.define<CartInstance, CartAttributes>(
 		modelName,
-		<Sequelize.DefineModelAttributes<ProductAttributes>>{
+		<Sequelize.DefineModelAttributes<CartAttributes>>{
 			id: <Sequelize.DefineAttributeColumnOptions>{
-				field: ProductFieldName.ID,
+				field: CartFieldName.ID,
 				type: Sequelize.UUID,
 				autoIncrement: true,
 				primaryKey: true
 			},
 			lookupCode: <Sequelize.DefineAttributeColumnOptions>{
-				field: ProductFieldName.LookupCode,
+				field: CartFieldName.LookupCode,
 				type: Sequelize.STRING,
 				allowNull: false,
 				defaultValue: ""
 			},
 			count: <Sequelize.DefineAttributeColumnOptions>{
-				field: ProductFieldName.Count,
+				field: CartFieldName.Count,
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				defaultValue: 0
 			},
 			createdOn: <Sequelize.DefineAttributeColumnOptions>{
-				field: ProductFieldName.CreatedOn,
+				field: CartFieldName.CreatedOn,
 				type: Sequelize.DATE,
 				allowNull: true
 			},
 			price: <Sequelize.DefineAttributeColumnOptions>{
-				field: ProductFieldName.Price,
+				field: CartFieldName.Price,
 				type: Sequelize.INTEGER,
 				allowNull: true,
 				defaultValue: 0
 			}
 		},
-		<Sequelize.DefineOptions<ProductInstance>>{
+		<Sequelize.DefineOptions<CartInstance>>{
 			timestamps: false,
 			freezeTableName: true,
-			tableName: DatabaseTableName.PRODUCT
+			tableName: DatabaseTableName.CART
 		});

@@ -13,7 +13,6 @@ export interface EmployeeAttributes {
     active: boolean;
     role: string;
     manager: string;
-	// password: string;
 	createdOn: Date;
 }
 
@@ -25,7 +24,6 @@ export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes>
     active: boolean;
     role: string;
     manager: string;
-	// password: string;
 	createdOn: Date;
 }
 
@@ -75,17 +73,6 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
                 allowNull: true,
                 defaultValue: ""
             },
-/*            password: <Sequelize.DefineAttributeColumnOptions>{
-                filed: EmployeeFieldName.Password,
-                type:Sequelize.STRING,
-                allowNull: true,
-                defaultValue: ""
-            },
-			createdOn: <Sequelize.DefineAttributeColumnOptions>{
-				field: EmployeeFieldName.CreatedOn,
-				type: Sequelize.DATE,
-				allowNull: true
-			}*/
 		},
 		<Sequelize.DefineOptions<EmployeeInstance>>{
 			timestamps: false,

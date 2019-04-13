@@ -14,7 +14,8 @@ export let query = (): Bluebird<CommandResponse<Product[]>> => {
 						id: existingProduct.id,
 						count: existingProduct.count,
 						lookupCode: existingProduct.lookupCode,
-						createdOn: Helper.formatDate(existingProduct.createdOn)
+						createdOn: Helper.formatDate(existingProduct.createdOn),
+						price: existingProduct.price
 					};
 				})
 			});
