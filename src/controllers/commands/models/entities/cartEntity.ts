@@ -3,7 +3,7 @@ import { DatabaseConnection } from "../databaseConnection";
 import { DatabaseTableName } from "../constants/databaseTableNames";
 import { ProductFieldName } from "../constants/fieldNames/productFieldNames";
 
-const modelName: string = "product";
+const modelName: string = "Cart";
 
 export interface ProductAttributes {
 	id: string;
