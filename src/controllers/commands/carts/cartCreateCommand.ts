@@ -3,9 +3,9 @@ import Sequelize from "sequelize";
 import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import * as DatabaseConnection from "../models/databaseConnection";
-import * as ProductRepository from "../models/repositories/productRepository";
+import * as CartRepository from "../models/repositories/cartRepository";
 import { CommandResponse, Product, ProductSaveRequest } from "../../typeDefinitions";
-import { ProductInstance, ProductAttributes } from "../models/entities/productEntity";
+import { ProductInstance, ProductAttributes } from "../models/entities/cartEntity";
 
 const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandResponse<Product> => {
 	const validationResponse: CommandResponse<Product> =
@@ -43,21 +43,10 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 	let createTransaction: Sequelize.Transaction;
 
 	return DatabaseConnection.startTransaction() 
-		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => { 
+		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance> => { 
 			createTransaction = createdTransaction;
 
-			return ProductRepository.queryByLookupCode( 
-				saveProductRequest.lookupCode,
-				createTransaction);
-		}).then((existingProduct: (ProductInstance | null)): Bluebird<ProductInstance> => { 
-			if (existingProduct != null) {
-				return Bluebird.reject(<CommandResponse<Product>>{
-					status: 409,
-					message: ErrorCodeLookup.EC2029
-				});
-			}
-
-			return ProductRepository.create(productToCreate, createTransaction); 
+			return CartRepository.create(productToCreate, createTransaction); 
 		}).then((createdProduct: ProductInstance): Bluebird<CommandResponse<Product>> => { 
 			createTransaction.commit();
 

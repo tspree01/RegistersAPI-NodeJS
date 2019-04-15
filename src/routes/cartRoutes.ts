@@ -1,19 +1,15 @@
 import * as restify from "restify";
 import { RouteLookup } from "../controllers/lookups/stringLookup";
-import * as CartRouteController from "../controllers/productRouteController";
+import * as CartRouteController from "../controllers/cartRouteController";
 
 function cartRoute(server: restify.Server) {
 	server.get({ path: (RouteLookup.API + RouteLookup.Cart), version: "0.0.1" }, CartRouteController.queryProducts);
+	
+	server.post({ path: (RouteLookup.API + RouteLookup.Cart), version: "0.0.1" }, CartRouteController.createCart);
 
-	server.get({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.CartIdParameter), version: "0.0.1" }, CartRouteController.queryProductById);
+	server.put({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.ProductIdParameter), version: "0.0.1" }, CartRouteController.updateCart);
 
-	server.get({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.ByLookupCode + RouteLookup.CartLookupCodeParameter), version: "0.0.1" }, CartRouteController.queryProductByLookupCode);
-
-	server.post({ path: (RouteLookup.API + RouteLookup.Cart), version: "0.0.1" }, CartRouteController.createProduct);
-
-	server.put({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.ProductIdParameter), version: "0.0.1" }, CartRouteController.updateProduct);
-
-	server.del({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.ProductIdParameter), version: "0.0.1" }, CartRouteController.deleteProduct);
+	server.del({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.ProductIdParameter), version: "0.0.1" }, CartRouteController.deleteCart);
 
 	server.get({ path: (RouteLookup.API + RouteLookup.Test + RouteLookup.Cart), version: "0.0.1" }, (req: restify.Request, res: restify.Response, next: restify.Next) => {
 		res.send(200, "Successful test. (Cart routing).");

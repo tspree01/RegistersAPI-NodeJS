@@ -2,9 +2,9 @@ import Bluebird from "bluebird";
 import Sequelize from "sequelize";
 import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
-import { ProductInstance } from "../models/entities/productEntity";
+import { ProductInstance } from "../models/entities/cartEntity";
 import * as DatabaseConnection from "../models/databaseConnection";
-import * as ProductRepository from "../models/repositories/productRepository";
+import * as CartRepository from "../models/repositories/cartRepository";
 import { CommandResponse, Product, ProductSaveRequest } from "../../typeDefinitions";
 
 const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandResponse<Product> => {
@@ -40,7 +40,7 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 		.then((startedTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
 			updateTransaction = startedTransaction;
 
-			return ProductRepository.queryById(<string>saveProductRequest.id, updateTransaction);
+			return CartRepository.queryById(<string>saveProductRequest.id, updateTransaction);
 		}).then((queriedProduct: (ProductInstance | null)): Bluebird<ProductInstance> => {
 			if (queriedProduct == null) {
 				return Bluebird.reject(<CommandResponse<Product>>{
@@ -52,9 +52,7 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 			return queriedProduct.update(
 				<Object>{
 					count: saveProductRequest.count,
-					lookupCode: saveProductRequest.lookupCode,
-					price: saveProductRequest.price
-
+					lookupCode: saveProductRequest.lookupCode
 				},
 				<Sequelize.InstanceUpdateOptions>{ transaction: updateTransaction });
 		}).then((updatedProduct: ProductInstance): Bluebird<CommandResponse<Product>> => {

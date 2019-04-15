@@ -40,6 +40,7 @@ export enum ErrorCodeLookup {
 	EC1001 = "Product was not found.",
 	EC1002 = "Unable to save product.",
 	EC1003 = "Unable to delete product.",
+	EC1003B = "Unable to delete cart.",
 	// End database - product
 
 	// Database - employee
@@ -58,6 +59,7 @@ export enum ErrorCodeLookup {
 	EC2027 = "Please provide a valid product count.",
 	EC2028 = "Product count may not be negative.",
 	EC2029 = "Conflict on parameter: lookupcode.",
+	EC2028B = "Product price cannot be negative",
 	// End general - product
 
 	// General - employee
