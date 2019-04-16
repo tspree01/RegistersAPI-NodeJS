@@ -50,7 +50,7 @@ export let ProductEntity: Sequelize.Model<ProductInstance, ProductAttributes> =
 			},
 			price: <Sequelize.DefineAttributeColumnOptions>{
 				field: ProductFieldName.Price,
-				type: Sequelize.INTEGER,
+				type: Sequelize.DECIMAL,
 				allowNull: true,
 				defaultValue: 0
 			}

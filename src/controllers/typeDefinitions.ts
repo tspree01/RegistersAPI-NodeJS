@@ -5,6 +5,7 @@ export interface ProductSaveRequest {
 	lookupCode: string;
 	price: number;
 }
+
 export interface EmployeeSaveRequest {
     first_name: string;
     last_name: string;
@@ -25,6 +26,7 @@ export interface Product {
 	lookupCode: string;
 	price: number;
 }
+
 export interface Employee {
     first_name: string;
     last_name: string;
@@ -44,6 +46,7 @@ export interface ApiResponse {
 export interface ProductSaveResponse extends ApiResponse {
 	product: Product;
 }
+
 export interface EmployeeSaveResponse extends ApiResponse {
 	employee: Employee;
 }
