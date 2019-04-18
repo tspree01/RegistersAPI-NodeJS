@@ -26,8 +26,8 @@ export let queryEmployees = (req: restify.Request, res: restify.Response, next: 
 		});
 };
 
-export let queryEmployeeByEmployee_Id = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	EmployeeQuery.queryByEmployee_Id(req.params[ParameterLookup.EmployeeId])
+export let queryEmployeeByEmployeeId = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+	EmployeeQuery.queryByEmployeeId(req.params[ParameterLookup.EmployeeId])
 		.then((employeeQueryCommandResponse: CommandResponse<Employee>) => {
 			res.send(
 				employeeQueryCommandResponse.status,
@@ -61,7 +61,7 @@ const saveEmployee = (
 			return next();
 		}, (errors: any) => {
 			console.log("saveEmployee error = " + errors.status);
-			console.log("saveEmployee error = " + errors.message);
+			console.log("saveEmployee error message = " + errors.message);
 			res.send(
 				(errors.status || 504),
 				(errors.message || ErrorCodeLookup.EC1005));
@@ -71,7 +71,6 @@ const saveEmployee = (
 };
 
 export let createEmployee = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-
 	saveEmployee(req, res, next, EmployeeCreateCommand.execute);
 };
 
@@ -80,20 +79,7 @@ export let updateEmployee = (req: restify.Request, res: restify.Response, next: 
 };
 
 export let deleteEmployee = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	EmployeeDeleteCommand.executeDeleteId(req.params[ParameterLookup.Id])
-	.then((employeeDeleteCommandResponse: CommandResponse<void>) => {
-		res.send(employeeDeleteCommandResponse.status);
-
-		return next();
-	}, (error: any) => {
-		res.send(
-			(error.status || 501),
-			(error.message || ErrorCodeLookup.EC1003));
-
-		return next();
-	});	
-
-	EmployeeDeleteCommand.executeDeleteEmployeeId(req.params[ParameterLookup.EmployeeId])
+	EmployeeDeleteCommand.execute(req.params[ParameterLookup.EmployeeId])
 		.then((employeeDeleteCommandResponse: CommandResponse<void>) => {
 			res.send(employeeDeleteCommandResponse.status);
 

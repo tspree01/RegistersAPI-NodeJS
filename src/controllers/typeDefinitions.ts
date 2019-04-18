@@ -4,6 +4,7 @@ export interface ProductSaveRequest {
 	count: number;
 	lookupCode: string;
 	price: number;
+	total_sold: number;
 }
 export interface EmployeeSaveRequest {
     first_name: string;
@@ -13,6 +14,7 @@ export interface EmployeeSaveRequest {
     role: string;
     manager: string;
 	password: string;
+	total_gain: number;
 }
 // End request object definitions
 
@@ -24,6 +26,7 @@ export interface Product {
 	createdOn: string;
 	lookupCode: string;
 	price: number;
+	total_sold: number;
 }
 export interface Employee {
     first_name: string;
@@ -33,6 +36,7 @@ export interface Employee {
     role: string;
     manager: string;
 	password: string;
+	total_gain: number;
 }
 // End response data object definitions
 

@@ -5,7 +5,7 @@ import * as EmployeeRouteController from "../controllers/employeeRouteController
 function employeeRoute(server: restify.Server) {
 	server.get({ path: (RouteLookup.API + RouteLookup.Employee), version: "0.0.1" }, EmployeeRouteController.queryEmployees);
 
-	server.get({ path: (RouteLookup.API + RouteLookup.Employee + RouteLookup.EmployeeIdParameter), version: "0.0.1" }, EmployeeRouteController.queryEmployeeByEmployee_Id);
+	server.get({ path: (RouteLookup.API + RouteLookup.Employee + RouteLookup.EmployeeIdParameter), version: "0.0.1" }, EmployeeRouteController.queryEmployeeByEmployeeId);
 
 	server.post({ path: (RouteLookup.API + RouteLookup.Employee), version: "0.0.1" }, EmployeeRouteController.createEmployee);
 

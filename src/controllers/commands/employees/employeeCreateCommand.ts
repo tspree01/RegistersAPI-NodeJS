@@ -6,6 +6,7 @@ import * as DatabaseConnection from "../models/databaseConnection";
 import * as EmployeeRepository from "../models/repositories/employeeRepository";
 import { CommandResponse, Employee, EmployeeSaveRequest } from "../../typeDefinitions";
 import { EmployeeInstance, EmployeeAttributes } from "../models/entities/employeeEntity";
+import { create } from "../models/repositories/cartRepository";
 
 const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandResponse<Employee> => {
 	const validationResponse: CommandResponse<Employee> =
@@ -56,9 +57,9 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 
 export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<CommandResponse<Employee>> => {
 	const validationResponse: CommandResponse<Employee> = validateSaveRequest(saveEmployeeRequest);
-	 console.log("validation Response = " + validationResponse.status);
+	// console.log("validation Response = " + validationResponse.status);
 	if (validationResponse.status !== 200) {
-		console.log("validation rejected = " + validationResponse.status);
+		// console.log("validation rejected = " + validationResponse.status);
 		return Bluebird.reject(validationResponse);
 	}
 
@@ -70,6 +71,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		active: saveEmployeeRequest.active,
 		role: saveEmployeeRequest.role,
 		manager: saveEmployeeRequest.manager,
+		total_gain: saveEmployeeRequest.total_gain
 		// password: saveEmployeeRequest.password,
 	};
 
@@ -79,20 +81,16 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		.then((createdTransaction: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 			// console.log("createdTransactions = " + createdTransaction);
 			createEmployee = createdTransaction;
-			console.log("createdTransactions starting");
+			// console.log("createdTransactions starting");
 			return EmployeeRepository.queryByEmployeeId(
 				saveEmployeeRequest.employee_id,
 				createEmployee);
 		}).then((existingEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
 			if (existingEmployee != null) {
-				console.log("existing Employing is not ");
 				return Bluebird.reject(<CommandResponse<Employee>>{
-
 					status: 409,
 					message: ErrorCodeLookup.EC2039
-
 				});
-
 			}
 			return EmployeeRepository.create(employeeToCreate, createEmployee);
 		}).then((createdEmployee: EmployeeInstance): Bluebird<CommandResponse<Employee>> => {
@@ -108,6 +106,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					active: createdEmployee.active,
 					role: createdEmployee.role,
 					manager: createdEmployee.manager,
+					total_gain: createdEmployee.total_gain
 					// password: createdEmployee.password,
 					// createdOn: Helper.formatDate(createdEmployee.createdOn)
 				}

@@ -66,7 +66,8 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 					id: updatedProduct.id,
 					count: updatedProduct.count,
 					lookupCode: updatedProduct.lookupCode,
-					createdOn: Helper.formatDate(updatedProduct.createdOn)
+					createdOn: Helper.formatDate(updatedProduct.createdOn),
+					total_sold: updatedProduct.total_sold
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Product>> => {

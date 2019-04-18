@@ -13,18 +13,20 @@ export interface EmployeeAttributes {
     active: boolean;
     role: string;
     manager: string;
-	createdOn: Date;
+    createdOn: Date;
+    total_gain: number;
 }
 
 export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes> {
-     record_id: number;
+    record_id: number;
     first_name: string;
     last_name: string;
     employee_id: string;
     active: boolean;
     role: string;
     manager: string;
-	createdOn: Date;
+    createdOn: Date;
+    total_gain: number;
 }
 
 export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes> =
@@ -73,6 +75,12 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
                 allowNull: true,
                 defaultValue: ""
             },
+            total_gain: <Sequelize.DefineAttributeColumnOptions>{
+                filed: EmployeeFieldName.Gain,
+                type:Sequelize.DECIMAL,
+                allowNull: true,
+                defaultValue: 0.0
+            }
 		},
 		<Sequelize.DefineOptions<EmployeeInstance>>{
 			timestamps: false,

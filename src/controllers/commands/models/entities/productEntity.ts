@@ -11,6 +11,7 @@ export interface ProductAttributes {
 	createdOn: Date;
 	lookupCode: string;
 	price: number;
+	total_sold: number;
 }
 
 export interface ProductInstance extends Sequelize.Instance<ProductAttributes> {
@@ -19,6 +20,7 @@ export interface ProductInstance extends Sequelize.Instance<ProductAttributes> {
 	createdOn: Date;
 	lookupCode: string;
 	price: number;
+	total_sold: number;
 }
 
 export let ProductEntity: Sequelize.Model<ProductInstance, ProductAttributes> =
@@ -50,6 +52,12 @@ export let ProductEntity: Sequelize.Model<ProductInstance, ProductAttributes> =
 			},
 			price: <Sequelize.DefineAttributeColumnOptions>{
 				field: ProductFieldName.Price,
+				type: Sequelize.DECIMAL,
+				allowNull: true,
+				defaultValue: 0
+			},
+			total_sold: <Sequelize.DefineAttributeColumnOptions>{
+				field: ProductFieldName.Sold,
 				type: Sequelize.INTEGER,
 				allowNull: true,
 				defaultValue: 0

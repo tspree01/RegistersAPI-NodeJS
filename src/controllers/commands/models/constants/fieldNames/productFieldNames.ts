@@ -3,5 +3,6 @@ export enum ProductFieldName {
 	Count = "count",
 	CreatedOn = "createdon",
 	LookupCode = "lookupcode",
-	Price = "price"
+	Price = "price",
+	Sold = "total_sold"
 }

@@ -7,5 +7,6 @@ export enum EmployeeFieldName {
     Role = "role",
     Manager = "manager",
     Password = "password",
-    CreatedOn = "created_on"
+    CreatedOn = "created_on",
+    Gain = "total_gain"
 }

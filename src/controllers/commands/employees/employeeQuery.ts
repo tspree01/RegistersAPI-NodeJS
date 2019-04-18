@@ -14,12 +14,13 @@ const mapEmployeeData = (queriedEmployee: EmployeeInstance): Employee => {
 		active: queriedEmployee.active,
 		role: queriedEmployee.role,
 		manager: queriedEmployee.manager,
+		total_gain: queriedEmployee.total_gain
 		// password: queriedEmployee.password,
 		// createdOn: Helper.formatDate(queriedEmployee.createdOn)
 	};
 };
 
-export let queryByEmployee_Id = (employeeID?: string): Bluebird<CommandResponse<Employee>> => {
+export let queryByEmployeeId = (employeeID?: string): Bluebird<CommandResponse<Employee>> => {
 	if (!employeeID) {
 		return Bluebird.reject(<CommandResponse<Employee>>{
 			status: 422,
@@ -47,7 +48,7 @@ export let queryByFirstName = (employeeFirstName?: string): Bluebird<CommandResp
 	if (!employeeFirstName || (employeeFirstName.trim() === "")) {
 		return Bluebird.reject(<CommandResponse<Employee>>{
 			status: 422,
-			message: ErrorCodeLookup.EC2026
+			message: ErrorCodeLookup.EC2036
 		});
 	}
 

@@ -76,6 +76,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					active: saveEmployeeRequest.active,
 					role: saveEmployeeRequest.role,
 					manager: saveEmployeeRequest.manager,
+					total_gain: saveEmployeeRequest.total_gain
 					// password: saveEmployeeRequest.password
 				},
 				<Sequelize.InstanceUpdateOptions>{ update: updateEmployee });
@@ -92,6 +93,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					active: updatedEmployee.active,
 					role: updatedEmployee.role,
 					manager: updatedEmployee.manager,
+					total_gain: updatedEmployee.total_gain
 					// password: updatedEmployee.password,
 					// createdOn: Helper.formatDate(updatedEmployee.createdOn)
 				}
