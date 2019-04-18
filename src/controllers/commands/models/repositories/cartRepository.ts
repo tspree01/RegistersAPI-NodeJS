@@ -24,7 +24,14 @@ export let create = (newCart: ProductAttributes, createTransaction?: Sequelize.T
 		});
 };
 
-export let destroy = (productListEntry: ProductInstance[], destroyTransaction?: Sequelize.Transaction): void => {
+export let destroy = (productListEntry: ProductInstance, destroyTransaction?: Sequelize.Transaction): Bluebird<void> => {
+
+		return productListEntry.destroy(<Sequelize.InstanceDestroyOptions>{
+			transaction: destroyTransaction
+		});
+};
+
+export let destroyAll = (productListEntry: ProductInstance[], destroyTransaction?: Sequelize.Transaction): void => {
 	for (const productToDestroy of productListEntry) {
 		productToDestroy.destroy(<Sequelize.InstanceDestroyOptions>{
 			transaction: destroyTransaction

@@ -14,11 +14,14 @@ export let execute = (productId?: string): Bluebird<CommandResponse<void>> => {
 	let deleteTransaction: Sequelize.Transaction;
 
 	return DatabaseConnection.startTransaction()
-		.then((startedTransaction: Sequelize.Transaction): Bluebird<ProductInstance[]> => {
+		.then((startedTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
 			deleteTransaction = startedTransaction;
 
-			return CartRepository.queryAll();
-		}).then((queriedProduct: (ProductInstance[])): void => {
+			return CartRepository.queryById(productId, deleteTransaction);
+		}).then((queriedProduct: (ProductInstance | null)): Bluebird<void> => {
+			if (queriedProduct == null) {
+				return Bluebird.resolve();
+			}
 
 			return CartRepository.destroy(queriedProduct, deleteTransaction);
 		}).then((): Bluebird<CommandResponse<void>> => {

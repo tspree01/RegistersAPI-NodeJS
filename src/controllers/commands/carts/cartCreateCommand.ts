@@ -35,6 +35,7 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 	}
 
 	const productToCreate: ProductAttributes = <ProductAttributes>{
+		id: saveProductRequest.id,
 		count: saveProductRequest.count,
 		lookupCode: saveProductRequest.lookupCode,
 		price: saveProductRequest.price
