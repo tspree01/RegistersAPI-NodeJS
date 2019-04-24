@@ -1,5 +1,4 @@
 import Bluebird from "bluebird";
-import * as Helper from "../helpers/helper";
 import { CommandResponse, Employee } from "../../typeDefinitions";
 import { EmployeeInstance } from "../models/entities/employeeEntity";
 import * as EmployeeRepository from "../models/repositories/employeeRepository";
@@ -18,7 +17,7 @@ export let query = (): Bluebird<CommandResponse<Employee[]>> => {
 						active: existingEmployee.active,
 						role: existingEmployee.role,
 						manager: existingEmployee.manager,
-						total_gain: existingEmployee.total_gain
+						amount_of_money_made: existingEmployee.amount_of_money_made
 						// password: existingEmployee.password,
 						// createdOn: Helper.formatDate(existingEmployee.createdOn)
 					};

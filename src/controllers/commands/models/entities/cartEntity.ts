@@ -49,9 +49,9 @@ export let CartEntity: Sequelize.Model<ProductInstance, ProductAttributes> =
 			},
 			price: <Sequelize.DefineAttributeColumnOptions>{
 				field: ProductFieldName.Price,
-				type: Sequelize.INTEGER,
+				type: Sequelize.DECIMAL,
 				allowNull: true,
-				defaultValue: 0
+				defaultValue: 0.0
 			}
 		},
 		<Sequelize.DefineOptions<ProductInstance>>{

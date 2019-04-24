@@ -1,12 +1,10 @@
 import Bluebird from "bluebird";
 import Sequelize from "sequelize";
-import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import * as DatabaseConnection from "../models/databaseConnection";
 import * as EmployeeRepository from "../models/repositories/employeeRepository";
 import { CommandResponse, Employee, EmployeeSaveRequest } from "../../typeDefinitions";
-import { EmployeeInstance, EmployeeAttributes } from "../models/entities/employeeEntity";
-import { create } from "../models/repositories/cartRepository";
+import { EmployeeAttributes, EmployeeInstance } from "../models/entities/employeeEntity";
 
 const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandResponse<Employee> => {
 	const validationResponse: CommandResponse<Employee> =
@@ -71,7 +69,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		active: saveEmployeeRequest.active,
 		role: saveEmployeeRequest.role,
 		manager: saveEmployeeRequest.manager,
-		total_gain: saveEmployeeRequest.total_gain
+		amount_of_money_made: saveEmployeeRequest.amount_of_money_made
 		// password: saveEmployeeRequest.password,
 	};
 

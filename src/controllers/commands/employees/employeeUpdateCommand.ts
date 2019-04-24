@@ -1,6 +1,5 @@
 import Bluebird from "bluebird";
 import Sequelize from "sequelize";
-import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import { EmployeeInstance } from "../models/entities/employeeEntity";
 import * as DatabaseConnection from "../models/databaseConnection";
@@ -67,10 +66,10 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				});
 			}
 
-			if (saveEmployeeRequest.total_gain > 0)
+			if (saveEmployeeRequest.amount_of_money_made > 0)
 				return queriedEmployee.update(
 				<Object>{
-					total_gain: queriedEmployee.total_gain + saveEmployeeRequest.total_gain
+					total_gain: queriedEmployee.amount_of_money_made + saveEmployeeRequest.amount_of_money_made
 				},
 				<Sequelize.InstanceUpdateOptions>{ update: updateEmployee });
 			else 
@@ -97,7 +96,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					active: updatedEmployee.active,
 					role: updatedEmployee.role,
 					manager: updatedEmployee.manager,
-					total_gain: updatedEmployee.total_gain
+					amount_of_money_made: updatedEmployee.amount_of_money_made
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {

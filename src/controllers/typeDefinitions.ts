@@ -14,7 +14,7 @@ export interface EmployeeSaveRequest {
     role: string;
     manager: string;
 	password: string;
-	total_gain: number;
+	amount_of_money_made: number;
 }
 // End request object definitions
 
@@ -36,7 +36,7 @@ export interface Employee {
     role: string;
     manager: string;
 	password: string;
-	total_gain: number;
+	amount_of_money_made: number;
 }
 // End response data object definitions
 
