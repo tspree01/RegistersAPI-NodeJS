@@ -105,8 +105,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					employee_id: createdEmployee.employee_id,
 					active: createdEmployee.active,
 					role: createdEmployee.role,
-					manager: createdEmployee.manager,
-					total_gain: createdEmployee.total_gain
+					manager: createdEmployee.manager
 					// password: createdEmployee.password,
 					// createdOn: Helper.formatDate(createdEmployee.createdOn)
 				}

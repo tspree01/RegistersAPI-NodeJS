@@ -55,7 +55,7 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 				status: 201,
 				data: <Product>{
 					id: createdProduct.id,
-					count: createdProduct.count,
+					count: createdProduct.count, // this count is the quantity of product about to be sold so use it to pass into product update
 					lookupCode: createdProduct.lookupCode,
 					createdOn: Helper.formatDate(createdProduct.createdOn),
 					price: createdProduct.price

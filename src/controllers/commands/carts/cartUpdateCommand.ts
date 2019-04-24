@@ -51,7 +51,7 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 
 			return queriedProduct.update(
 				<Object>{
-					count: saveProductRequest.count + queriedProduct.count
+					count: saveProductRequest.count + queriedProduct.count // same thing as create
 				},
 				<Sequelize.InstanceUpdateOptions>{ transaction: updateTransaction });
 		}).then((updatedProduct: ProductInstance): Bluebird<CommandResponse<Product>> => {

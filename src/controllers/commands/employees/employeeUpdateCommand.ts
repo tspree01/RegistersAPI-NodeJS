@@ -67,7 +67,14 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				});
 			}
 
-			return queriedEmployee.update(
+			if (saveEmployeeRequest.total_gain > 0)
+				return queriedEmployee.update(
+				<Object>{
+					total_gain: queriedEmployee.total_gain + saveEmployeeRequest.total_gain
+				},
+				<Sequelize.InstanceUpdateOptions>{ update: updateEmployee });
+			else 
+				return queriedEmployee.update(
 				<Object>{
 					// id: saveEmployeeRequest.record_id,
 					firstName: saveEmployeeRequest.first_name,
@@ -75,9 +82,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					employeeId: saveEmployeeRequest.employee_id,
 					active: saveEmployeeRequest.active,
 					role: saveEmployeeRequest.role,
-					manager: saveEmployeeRequest.manager,
-					total_gain: saveEmployeeRequest.total_gain
-					// password: saveEmployeeRequest.password
+					manager: saveEmployeeRequest.manager
 				},
 				<Sequelize.InstanceUpdateOptions>{ update: updateEmployee });
 		}).then((updatedEmployee: EmployeeInstance): Bluebird<CommandResponse<Employee>> => {
@@ -86,7 +91,6 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			return Bluebird.resolve(<CommandResponse<Employee>>{
 				status: 200,
 				data: <Employee>{
-					// record_id: updatedEmployee.record_id,
 					first_name: updatedEmployee.first_name,
 					last_name: updatedEmployee.last_name,
 					employee_id: updatedEmployee.employee_id,
@@ -94,8 +98,6 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					role: updatedEmployee.role,
 					manager: updatedEmployee.manager,
 					total_gain: updatedEmployee.total_gain
-					// password: updatedEmployee.password,
-					// createdOn: Helper.formatDate(updatedEmployee.createdOn)
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {
