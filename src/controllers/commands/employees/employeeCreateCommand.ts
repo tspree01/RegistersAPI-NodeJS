@@ -6,7 +6,6 @@ import * as DatabaseConnection from "../models/databaseConnection";
 import * as EmployeeRepository from "../models/repositories/employeeRepository";
 import { CommandResponse, Employee, EmployeeSaveRequest } from "../../typeDefinitions";
 import { EmployeeInstance, EmployeeAttributes } from "../models/entities/employeeEntity";
-import { create } from "../models/repositories/cartRepository";
 
 const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandResponse<Employee> => {
 	const validationResponse: CommandResponse<Employee> =
@@ -64,7 +63,6 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 	}
 
 	const employeeToCreate: EmployeeAttributes = <EmployeeAttributes>{
-		// record_id: saveEmployeeRequest.record_id,
 		first_name: saveEmployeeRequest.first_name,
 		last_name: saveEmployeeRequest.last_name,
 		employee_id: saveEmployeeRequest.employee_id,
@@ -72,7 +70,6 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		role: saveEmployeeRequest.role,
 		manager: saveEmployeeRequest.manager,
 		total_gain: saveEmployeeRequest.total_gain
-		// password: saveEmployeeRequest.password,
 	};
 
 	let createEmployee: Sequelize.Transaction;

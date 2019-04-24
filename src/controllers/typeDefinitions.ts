@@ -4,6 +4,7 @@ export interface ProductSaveRequest {
 	count: number;
 	lookupCode: string;
 	price: number;
+	cartid: string;
 	total_sold: number;
 }
 export interface EmployeeSaveRequest {
@@ -26,6 +27,7 @@ export interface Product {
 	createdOn: string;
 	lookupCode: string;
 	price: number;
+	cartid: string;
 	total_sold: number;
 }
 export interface Employee {

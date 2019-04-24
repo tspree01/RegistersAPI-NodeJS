@@ -1,7 +1,7 @@
 import Sequelize from "sequelize";
 import { DatabaseConnection } from "../databaseConnection";
 import { DatabaseTableName } from "../constants/databaseTableNames";
-import { ProductFieldName } from "../constants/fieldNames/productFieldNames";
+import { CartFieldName } from "../constants/fieldNames/cartFieldNames";
 
 const modelName: string = "Cart";
 
@@ -10,6 +10,7 @@ export interface ProductAttributes {
 	count: number;
 	createdOn: Date;
 	lookupCode: string;
+	cartid: string;
 	price: number;
 }
 
@@ -18,6 +19,7 @@ export interface ProductInstance extends Sequelize.Instance<ProductAttributes> {
 	count: number;
 	createdOn: Date;
 	lookupCode: string;
+	cartid: string;
 	price: number;
 }
 
@@ -26,33 +28,38 @@ export let CartEntity: Sequelize.Model<ProductInstance, ProductAttributes> =
 		modelName,
 		<Sequelize.DefineModelAttributes<ProductAttributes>>{
 			id: <Sequelize.DefineAttributeColumnOptions>{
-				field: ProductFieldName.ID,
+				field: CartFieldName.ID,
 				type: Sequelize.UUID,
 				primaryKey: true
 			},
 			lookupCode: <Sequelize.DefineAttributeColumnOptions>{
-				field: ProductFieldName.LookupCode,
+				field: CartFieldName.LookupCode,
 				type: Sequelize.STRING,
 				allowNull: false,
 				defaultValue: ""
 			},
 			count: <Sequelize.DefineAttributeColumnOptions>{
-				field: ProductFieldName.Count,
+				field: CartFieldName.Count,
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				defaultValue: 0
 			},
 			createdOn: <Sequelize.DefineAttributeColumnOptions>{
-				field: ProductFieldName.CreatedOn,
+				field: CartFieldName.CreatedOn,
 				type: Sequelize.DATE,
 				allowNull: true
 			},
 			price: <Sequelize.DefineAttributeColumnOptions>{
-				field: ProductFieldName.Price,
+				field: CartFieldName.Price,
 				type: Sequelize.INTEGER,
 				allowNull: true,
 				defaultValue: 0
-			}
+			},
+			cartid: <Sequelize.DefineAttributeColumnOptions>{
+				field: CartFieldName.CartId,
+				type: Sequelize.INTEGER,
+				allowNull: true
+			},
 		},
 		<Sequelize.DefineOptions<ProductInstance>>{
 			timestamps: false,
