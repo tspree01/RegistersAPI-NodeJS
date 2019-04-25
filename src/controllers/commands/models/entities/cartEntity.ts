@@ -6,8 +6,8 @@ import { CartFieldName } from "../constants/fieldNames/cartFieldNames";
 const modelName: string = "Cart";
 
 export interface CartAttributes {
-	product_id: string;
-	quantity: number;
+	id: string;
+	count: number;
 	createdOn: Date;
 	lookupCode: string;
 	cartid: string;
@@ -27,7 +27,7 @@ export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
 	DatabaseConnection.define<CartInstance, CartAttributes>(
 		modelName,
 		<Sequelize.DefineModelAttributes<CartAttributes>>{
-			product_id: <Sequelize.DefineAttributeColumnOptions>{
+			id: <Sequelize.DefineAttributeColumnOptions>{
 				field: CartFieldName.ID,
 				type: Sequelize.UUID,
 				primaryKey: true,
@@ -39,7 +39,7 @@ export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
 				allowNull: false,
 				defaultValue: ""
 			},
-			quantity: <Sequelize.DefineAttributeColumnOptions>{
+			count: <Sequelize.DefineAttributeColumnOptions>{
 				field: CartFieldName.Quantity,
 				type: Sequelize.INTEGER,
 				allowNull: false,

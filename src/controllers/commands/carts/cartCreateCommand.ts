@@ -35,8 +35,8 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 	}
 
 	const cartToCreate: CartAttributes = <CartAttributes>{
-		product_id: saveCartRequest.product_id,
-		quantity: saveCartRequest.quantity,
+		id: saveCartRequest.product_id,
+		count: saveCartRequest.quantity,
 		lookupCode: saveCartRequest.lookupCode,
 		price: saveCartRequest.price,
 		cartid: saveCartRequest.cartid
