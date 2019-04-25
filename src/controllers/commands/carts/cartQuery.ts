@@ -11,7 +11,8 @@ const mapCartData = (queriedCart: CartInstance): Cart => {
 		count: queriedCart.count,
 		lookupCode: queriedCart.lookupCode,
 		createdOn: Helper.formatDate(queriedCart.createdOn),
-		price: queriedCart.price
+		price: queriedCart.price,
+		cartid: queriedCart.cartid
 	};
 };
 
