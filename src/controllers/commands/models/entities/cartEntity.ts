@@ -30,7 +30,6 @@ export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
 			id: <Sequelize.DefineAttributeColumnOptions>{
 				field: CartFieldName.ID,
 				type: Sequelize.UUID,
-				primaryKey: true,
 				foreignKey: true
 			},
 			lookupCode: <Sequelize.DefineAttributeColumnOptions>{
