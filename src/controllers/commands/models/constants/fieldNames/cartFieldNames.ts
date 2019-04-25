@@ -1,6 +1,6 @@
 export enum CartFieldName {
 	ID = "id",
-	Quantity = "count",
+	Count = "count",
 	CreatedOn = "createdon",
 	LookupCode = "lookupcode",
 	Price = "price",

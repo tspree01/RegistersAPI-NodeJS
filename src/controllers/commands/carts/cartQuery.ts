@@ -7,8 +7,8 @@ import * as CartRepository from "../models/repositories/cartRepository";
 
 const mapCartData = (queriedCart: CartInstance): Cart => {
 	return <Cart>{
-		id: queriedCart.product_id,
-		count: queriedCart.quantity,
+		id: queriedCart.id,
+		count: queriedCart.count,
 		lookupCode: queriedCart.lookupCode,
 		createdOn: Helper.formatDate(queriedCart.createdOn),
 		price: queriedCart.price

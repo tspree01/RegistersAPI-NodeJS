@@ -51,7 +51,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 
 			return queriedCart.update(
 				<Object>{
-					count: saveCartRequest.quantity + queriedCart.quantity // same thing as create
+					count: saveCartRequest.quantity + queriedCart.count // same thing as create
 				},
 				<Sequelize.InstanceUpdateOptions>{ transaction: updateTransaction });
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
@@ -60,8 +60,8 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 			return Bluebird.resolve(<CommandResponse<Cart>>{
 				status: 200,
 				data: <Cart>{
-					id: updatedCart.product_id,
-					count: updatedCart.quantity,
+					id: updatedCart.id,
+					count: updatedCart.count,
 					lookupCode: updatedCart.lookupCode,
 					price: updatedCart.price,
 					createdOn: Helper.formatDate(updatedCart.createdOn)

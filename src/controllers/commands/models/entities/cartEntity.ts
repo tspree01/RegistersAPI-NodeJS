@@ -15,8 +15,8 @@ export interface CartAttributes {
 }
 
 export interface CartInstance extends Sequelize.Instance<CartAttributes> {
-	product_id: string;
-	quantity: number;
+	id: string;
+	count: number;
 	createdOn: Date;
 	lookupCode: string;
 	cartid: string;
@@ -40,7 +40,7 @@ export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
 				defaultValue: ""
 			},
 			count: <Sequelize.DefineAttributeColumnOptions>{
-				field: CartFieldName.Quantity,
+				field: CartFieldName.Count,
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				defaultValue: 0
