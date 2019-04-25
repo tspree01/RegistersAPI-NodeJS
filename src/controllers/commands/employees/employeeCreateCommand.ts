@@ -4,7 +4,11 @@ import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import * as DatabaseConnection from "../models/databaseConnection";
 import * as EmployeeRepository from "../models/repositories/employeeRepository";
 import { CommandResponse, Employee, EmployeeSaveRequest } from "../../typeDefinitions";
+<<<<<<< HEAD
 import { EmployeeInstance, EmployeeAttributes } from "../models/entities/employeeEntity";
+=======
+import { EmployeeAttributes, EmployeeInstance } from "../models/entities/employeeEntity";
+>>>>>>> 8c550fd2cca6349985526a282f9e65ec35775281
 
 const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandResponse<Employee> => {
 	const validationResponse: CommandResponse<Employee> =
@@ -67,7 +71,12 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		employee_id: saveEmployeeRequest.employee_id,
 		active: saveEmployeeRequest.active,
 		role: saveEmployeeRequest.role,
+<<<<<<< HEAD
 		manager: saveEmployeeRequest.manager
+=======
+		manager: saveEmployeeRequest.manager,
+		amount_of_money_made: saveEmployeeRequest.amount_of_money_made
+>>>>>>> 8c550fd2cca6349985526a282f9e65ec35775281
 		// password: saveEmployeeRequest.password,
 	};
 

@@ -1,6 +1,5 @@
 import Bluebird from "bluebird";
 import Sequelize from "sequelize";
-import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import { EmployeeInstance } from "../models/entities/employeeEntity";
 import * as DatabaseConnection from "../models/databaseConnection";
@@ -29,13 +28,13 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	} /*else if (saveEmployeeRequest.employee_id < 0) {
 		validationResponse.status = 426;
 		validationResponse.message = ErrorCodeLookup.EC2033;
-	}*/ else if (saveEmployeeRequest.active == null) {
+	}*/ /*else if (saveEmployeeRequest.active == null) {
 		validationResponse.status = 427;
 		validationResponse.message = ErrorCodeLookup.EC2032;
 	} else if ((saveEmployeeRequest.manager == null ) || (saveEmployeeRequest.manager.trim() === "")) {
 		validationResponse.status = 428;
 		validationResponse.message = ErrorCodeLookup.EC2034;
-	}/* else if (saveEmployeeRequest.manager < 0) {
+	}*//* else if (saveEmployeeRequest.manager < 0) {
 		validationResponse.status = 429;
 		validationResponse.message = ErrorCodeLookup.EC2035;
 	} else if ((saveEmployeeRequest.password == null) || (saveEmployeeRequest.password.trim() === "")) {
@@ -70,7 +69,11 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			if (saveEmployeeRequest.amount_of_money_made > 0)
 				return queriedEmployee.update(
 				<Object>{
+<<<<<<< HEAD
 					amount_of_money_made: queriedEmployee.amount_of_money_made + saveEmployeeRequest.amount_of_money_made
+=======
+					total_gain: queriedEmployee.amount_of_money_made + saveEmployeeRequest.amount_of_money_made
+>>>>>>> 8c550fd2cca6349985526a282f9e65ec35775281
 				},
 				<Sequelize.InstanceUpdateOptions>{ update: updateEmployee });
 			else 

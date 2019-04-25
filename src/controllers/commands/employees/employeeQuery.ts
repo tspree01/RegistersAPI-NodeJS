@@ -1,5 +1,4 @@
 import Bluebird from "bluebird";
-import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import { CommandResponse, Employee } from "../../typeDefinitions";
 import { EmployeeInstance } from "../models/entities/employeeEntity";
@@ -14,6 +13,11 @@ const mapEmployeeData = (queriedEmployee: EmployeeInstance): Employee => {
 		role: queriedEmployee.role,
 		manager: queriedEmployee.manager,
 		amount_of_money_made: queriedEmployee.amount_of_money_made
+<<<<<<< HEAD
+=======
+		// password: queriedEmployee.password,
+		// createdOn: Helper.formatDate(queriedEmployee.createdOn)
+>>>>>>> 8c550fd2cca6349985526a282f9e65ec35775281
 	};
 };
 

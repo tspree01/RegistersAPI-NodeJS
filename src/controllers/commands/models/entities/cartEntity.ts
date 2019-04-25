@@ -50,6 +50,7 @@ export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
 				allowNull: true
 			},
 			price: <Sequelize.DefineAttributeColumnOptions>{
+<<<<<<< HEAD
 				field: CartFieldName.Price,
 				type: Sequelize.INTEGER,
 				allowNull: true,
@@ -60,6 +61,13 @@ export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
 				type: Sequelize.INTEGER,
 				allowNull: true
 			},
+=======
+				field: ProductFieldName.Price,
+				type: Sequelize.DECIMAL,
+				allowNull: true,
+				defaultValue: 0.0
+			}
+>>>>>>> 8c550fd2cca6349985526a282f9e65ec35775281
 		},
 		<Sequelize.DefineOptions<CartInstance>>{
 			timestamps: false,
