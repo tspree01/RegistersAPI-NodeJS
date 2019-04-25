@@ -52,14 +52,14 @@ export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
 			},
 			price: <Sequelize.DefineAttributeColumnOptions>{
 				field: CartFieldName.Price,
-				type: Sequelize.INTEGER,
+				type: Sequelize.DECIMAL,
 				allowNull: true,
 				defaultValue: 0
 			},
 			cartid: <Sequelize.DefineAttributeColumnOptions>{
 				field: CartFieldName.CartId,
 				type: Sequelize.UUID,
-				allowNull: true
+				allowNull: false
 			},
 		},
 		<Sequelize.DefineOptions<CartInstance>>{
