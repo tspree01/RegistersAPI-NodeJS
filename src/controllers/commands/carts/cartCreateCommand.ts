@@ -14,10 +14,10 @@ const validateSaveRequest = (saveCartRequest: CartSaveRequest): CommandResponse<
 	if ((saveCartRequest.lookupCode == null) || (saveCartRequest.lookupCode.trim() === "")) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2026;
-	} else if ((saveCartRequest.quantity == null) || isNaN(saveCartRequest.quantity)) {
+	} else if ((saveCartRequest.count == null) || isNaN(saveCartRequest.count)) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2027;
-	} else if (saveCartRequest.quantity < 0) {
+	} else if (saveCartRequest.count < 0) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2028;
 	} else if (saveCartRequest.price < 0) {
@@ -35,8 +35,8 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 	}
 
 	const cartToCreate: CartAttributes = <CartAttributes>{
-		id: saveCartRequest.product_id,
-		count: saveCartRequest.quantity,
+		id: saveCartRequest.id,
+		count: saveCartRequest.count,
 		lookupCode: saveCartRequest.lookupCode,
 		price: saveCartRequest.price,
 		cartid: saveCartRequest.cartid

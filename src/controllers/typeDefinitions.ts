@@ -8,8 +8,8 @@ export interface ProductSaveRequest {
 }
 
 export interface CartSaveRequest {
-	product_id?: string;
-	quantity: number;
+	id?: string;
+	count: number;
 	lookupCode: string;
 	price: number;
 	cartid: string;
