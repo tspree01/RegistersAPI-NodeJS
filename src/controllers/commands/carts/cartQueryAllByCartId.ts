@@ -4,8 +4,8 @@ import { CommandResponse, Cart } from "../../typeDefinitions";
 import { CartInstance } from "../models/entities/cartEntity";
 import * as CartRepository from "../models/repositories/cartRepository";
 
-export let query = (): Bluebird<CommandResponse<Cart[]>> => {
-	return CartRepository.queryAll()
+export let queryAllByCartID = (cartid: string): Bluebird<CommandResponse<Cart[]>> => {
+	return CartRepository.queryByAllCartId(cartid)
 		.then((existingCarts: CartInstance[]): Bluebird<CommandResponse<Cart[]>> => {
 			return Bluebird.resolve(<CommandResponse<Cart[]>>{
 				status: 200,

@@ -16,6 +16,12 @@ export let queryAll = (): Bluebird<CartInstance[]> => {
 	});
 };
 
+export let queryByAllCartId = (cartid: string): Bluebird<CartInstance[]> => {
+	return CartEntity.findAll(<Sequelize.FindOptions<CartAttributes>>{
+		where: <Sequelize.WhereOptions<CartAttributes>>{ cartid: cartid}
+	});
+};
+
 export let create = (newCart: CartAttributes, createTransaction?: Sequelize.Transaction): Bluebird<CartInstance> => {
 	return CartEntity.create(
 		newCart,

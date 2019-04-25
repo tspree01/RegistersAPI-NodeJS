@@ -1,7 +1,7 @@
 import Bluebird from "bluebird";
 import * as restify from "restify";
 import * as CartsQuery from "./commands/carts/cartQueryAll";
-import * as CartQuery from "./commands/carts/cartQuery";
+import * as CartQueryAllByCartId from "./commands/carts/cartQueryAllByCartId";
 import { ParameterLookup, ErrorCodeLookup } from "./lookups/stringLookup";
 import * as CartCreateCommand from "./commands/carts/cartCreateCommand";
 import * as CartDeleteCommand from "./commands/carts/cartDeleteCommand";
@@ -26,8 +26,8 @@ export let queryCarts = (req: restify.Request, res: restify.Response, next: rest
 };
 
 export let queryCart = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	CartQuery.queryByCartId(req.params[ParameterLookup.CartId])
-		.then((cartsQueryCommandResponse: CommandResponse<Cart>) => {
+	CartQueryAllByCartId.queryAllByCartID(req.params[ParameterLookup.CartId])
+		.then((cartsQueryCommandResponse: CommandResponse<Cart[]>) => {
 			res.send(
 				cartsQueryCommandResponse.status,
 				cartsQueryCommandResponse.data);
