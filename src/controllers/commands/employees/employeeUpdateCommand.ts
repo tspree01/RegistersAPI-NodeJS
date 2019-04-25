@@ -69,11 +69,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			if (saveEmployeeRequest.amount_of_money_made > 0)
 				return queriedEmployee.update(
 				<Object>{
-<<<<<<< HEAD
 					amount_of_money_made: queriedEmployee.amount_of_money_made + saveEmployeeRequest.amount_of_money_made
-=======
-					total_gain: queriedEmployee.amount_of_money_made + saveEmployeeRequest.amount_of_money_made
->>>>>>> 8c550fd2cca6349985526a282f9e65ec35775281
 				},
 				<Sequelize.InstanceUpdateOptions>{ update: updateEmployee });
 			else 
