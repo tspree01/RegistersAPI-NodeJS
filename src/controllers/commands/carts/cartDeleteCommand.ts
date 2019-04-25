@@ -2,28 +2,28 @@ import Bluebird from "bluebird";
 import Sequelize from "sequelize";
 import { CommandResponse } from "../../typeDefinitions";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
-import { ProductInstance } from "../models/entities/cartEntity";
+import { CartInstance } from "../models/entities/cartEntity";
 import * as DatabaseConnection from "../models/databaseConnection";
 import * as CartRepository from "../models/repositories/cartRepository";
 
-export let execute = (productId?: string): Bluebird<CommandResponse<void>> => {
-	if ((productId == null) || (productId.trim() === "")) {
+export let execute = (cartId?: string): Bluebird<CommandResponse<void>> => {
+	if ((cartId == null) || (cartId.trim() === "")) {
 		return Bluebird.resolve(<CommandResponse<void>>{ status: 204 });
 	}
 
 	let deleteTransaction: Sequelize.Transaction;
 
 	return DatabaseConnection.startTransaction()
-		.then((startedTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
+		.then((startedTransaction: Sequelize.Transaction): Bluebird<CartInstance | null> => {
 			deleteTransaction = startedTransaction;
 
-			return CartRepository.queryById(productId, deleteTransaction);
-		}).then((queriedProduct: (ProductInstance | null)): Bluebird<void> => {
-			if (queriedProduct == null) {
+			return CartRepository.queryByCartId(cartId, deleteTransaction);
+		}).then((queriedCart: (CartInstance | null)): Bluebird<void> => {
+			if (queriedCart == null) {
 				return Bluebird.resolve();
 			}
 
-			return CartRepository.destroy(queriedProduct, deleteTransaction);
+			return CartRepository.destroy(queriedCart, deleteTransaction);
 		}).then((): Bluebird<CommandResponse<void>> => {
 			deleteTransaction.commit();
 

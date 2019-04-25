@@ -5,29 +5,29 @@ import { CartFieldName } from "../constants/fieldNames/cartFieldNames";
 
 const modelName: string = "Cart";
 
-export interface ProductAttributes {
-	id: string;
-	count: number;
+export interface CartAttributes {
+	product_id: string;
+	quantity: number;
 	createdOn: Date;
 	lookupCode: string;
 	cartid: string;
 	price: number;
 }
 
-export interface ProductInstance extends Sequelize.Instance<ProductAttributes> {
-	id: string;
-	count: number;
+export interface CartInstance extends Sequelize.Instance<CartAttributes> {
+	product_id: string;
+	quantity: number;
 	createdOn: Date;
 	lookupCode: string;
 	cartid: string;
 	price: number;
 }
 
-export let CartEntity: Sequelize.Model<ProductInstance, ProductAttributes> =
-	DatabaseConnection.define<ProductInstance, ProductAttributes>(
+export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
+	DatabaseConnection.define<CartInstance, CartAttributes>(
 		modelName,
-		<Sequelize.DefineModelAttributes<ProductAttributes>>{
-			id: <Sequelize.DefineAttributeColumnOptions>{
+		<Sequelize.DefineModelAttributes<CartAttributes>>{
+			product_id: <Sequelize.DefineAttributeColumnOptions>{
 				field: CartFieldName.ID,
 				type: Sequelize.UUID,
 				primaryKey: true
@@ -38,8 +38,8 @@ export let CartEntity: Sequelize.Model<ProductInstance, ProductAttributes> =
 				allowNull: false,
 				defaultValue: ""
 			},
-			count: <Sequelize.DefineAttributeColumnOptions>{
-				field: CartFieldName.Count,
+			quantity: <Sequelize.DefineAttributeColumnOptions>{
+				field: CartFieldName.Quantity,
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				defaultValue: 0
@@ -61,7 +61,7 @@ export let CartEntity: Sequelize.Model<ProductInstance, ProductAttributes> =
 				allowNull: true
 			},
 		},
-		<Sequelize.DefineOptions<ProductInstance>>{
+		<Sequelize.DefineOptions<CartInstance>>{
 			timestamps: false,
 			freezeTableName: true,
 			tableName: DatabaseTableName.CART

@@ -1,6 +1,5 @@
 import Bluebird from "bluebird";
 import Sequelize from "sequelize";
-import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import * as DatabaseConnection from "../models/databaseConnection";
 import * as EmployeeRepository from "../models/repositories/employeeRepository";
@@ -68,8 +67,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 		employee_id: saveEmployeeRequest.employee_id,
 		active: saveEmployeeRequest.active,
 		role: saveEmployeeRequest.role,
-		manager: saveEmployeeRequest.manager,
-		total_gain: saveEmployeeRequest.total_gain
+		manager: saveEmployeeRequest.manager
+		// password: saveEmployeeRequest.password,
 	};
 
 	let createEmployee: Sequelize.Transaction;
@@ -96,15 +95,12 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			return Bluebird.resolve(<CommandResponse<Employee>>{
 				status: 201,
 				data: <Employee>{
-					// record_id: createdEmployee.record_id,
 					first_name: createdEmployee.first_name,
 					last_name: createdEmployee.last_name,
 					employee_id: createdEmployee.employee_id,
 					active: createdEmployee.active,
 					role: createdEmployee.role,
 					manager: createdEmployee.manager
-					// password: createdEmployee.password,
-					// createdOn: Helper.formatDate(createdEmployee.createdOn)
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {

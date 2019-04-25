@@ -4,9 +4,17 @@ export interface ProductSaveRequest {
 	count: number;
 	lookupCode: string;
 	price: number;
-	cartid: string;
 	total_sold: number;
 }
+
+export interface CartSaveRequest {
+	product_id?: string;
+	quantity: number;
+	lookupCode: string;
+	price: number;
+	cartid: string;
+}
+
 export interface EmployeeSaveRequest {
     first_name: string;
     last_name: string;
@@ -15,7 +23,7 @@ export interface EmployeeSaveRequest {
     role: string;
     manager: string;
 	password: string;
-	total_gain: number;
+	amount_of_money_made: number;
 }
 // End request object definitions
 
@@ -27,9 +35,18 @@ export interface Product {
 	createdOn: string;
 	lookupCode: string;
 	price: number;
-	cartid: string;
 	total_sold: number;
 }
+
+export interface Cart {
+	product_id: string;
+	quantity: number;
+	createdOn: string;
+	lookupCode: string;
+	price: number;
+	cartid: string;
+}
+
 export interface Employee {
     first_name: string;
     last_name: string;
@@ -38,7 +55,7 @@ export interface Employee {
     role: string;
     manager: string;
 	password: string;
-	total_gain: number;
+	amount_of_money_made: number;
 }
 // End response data object definitions
 

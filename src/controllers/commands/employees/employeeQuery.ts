@@ -7,16 +7,13 @@ import * as EmployeeRepository from "../models/repositories/employeeRepository";
 
 const mapEmployeeData = (queriedEmployee: EmployeeInstance): Employee => {
 	return <Employee>{
-		// record_id: queriedEmployee.record_id,
 		first_name: queriedEmployee.first_name,
 		last_name: queriedEmployee.last_name,
 		employee_id: queriedEmployee.employee_id,
 		active: queriedEmployee.active,
 		role: queriedEmployee.role,
 		manager: queriedEmployee.manager,
-		total_gain: queriedEmployee.total_gain
-		// password: queriedEmployee.password,
-		// createdOn: Helper.formatDate(queriedEmployee.createdOn)
+		amount_of_money_made: queriedEmployee.amount_of_money_made
 	};
 };
 

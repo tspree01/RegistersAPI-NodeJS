@@ -14,7 +14,7 @@ export interface EmployeeAttributes {
     role: string;
     manager: string;
     createdOn: Date;
-    total_gain: number;
+    amount_of_money_made: number;
 }
 
 export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes> {
@@ -26,7 +26,7 @@ export interface EmployeeInstance extends Sequelize.Instance<EmployeeAttributes>
     role: string;
     manager: string;
     createdOn: Date;
-    total_gain: number;
+    amount_of_money_made: number;
 }
 
 export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes> =
@@ -75,7 +75,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
                 allowNull: true,
                 defaultValue: ""
             },
-            total_gain: <Sequelize.DefineAttributeColumnOptions>{
+            amount_of_money_made: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.Gain,
                 type:Sequelize.DECIMAL,
                 allowNull: true,
