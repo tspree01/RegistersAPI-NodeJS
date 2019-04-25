@@ -2,25 +2,25 @@ import Bluebird from "bluebird";
 import Sequelize from "sequelize";
 import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
-import { ProductInstance } from "../models/entities/cartEntity";
+import { CartInstance } from "../models/entities/cartEntity";
 import * as DatabaseConnection from "../models/databaseConnection";
 import * as CartRepository from "../models/repositories/cartRepository";
-import { CommandResponse, Product, ProductSaveRequest } from "../../typeDefinitions";
+import { CommandResponse, Cart, CartSaveRequest } from "../../typeDefinitions";
 
-const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandResponse<Product> => {
-	const validationResponse: CommandResponse<Product> =
-		<CommandResponse<Product>>{ status: 200 };
+const validateSaveRequest = (saveCartRequest: CartSaveRequest): CommandResponse<Cart> => {
+	const validationResponse: CommandResponse<Cart> =
+		<CommandResponse<Cart>>{ status: 200 };
 
-	if ((saveProductRequest.id == null) || (saveProductRequest.id.trim() === "")) {
+	if ((saveCartRequest.product_id == null) || (saveCartRequest.product_id.trim() === "")) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2025;
-	} else if ((saveProductRequest.lookupCode == null) || (saveProductRequest.lookupCode.trim() === "")) {
+	} else if ((saveCartRequest.lookupCode == null) || (saveCartRequest.lookupCode.trim() === "")) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2026;
-	} else if ((saveProductRequest.count == null) || isNaN(saveProductRequest.count)) {
+	} else if ((saveCartRequest.quantity == null) || isNaN(saveCartRequest.quantity)) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2027;
-	} else if (saveProductRequest.count < 0) {
+	} else if (saveCartRequest.quantity < 0) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2028;
 	}
@@ -28,8 +28,8 @@ const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandRes
 	return validationResponse;
 };
 
-export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandResponse<Product>> => {
-	const validationResponse: CommandResponse<Product> = validateSaveRequest(saveProductRequest);
+export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandResponse<Cart>> => {
+	const validationResponse: CommandResponse<Cart> = validateSaveRequest(saveCartRequest);
 	if (validationResponse.status !== 200) {
 		return Bluebird.reject(validationResponse);
 	}
@@ -37,43 +37,44 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 	let updateTransaction: Sequelize.Transaction;
 
 	return DatabaseConnection.startTransaction()
-		.then((startedTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
+		.then((startedTransaction: Sequelize.Transaction): Bluebird<CartInstance | null> => {
 			updateTransaction = startedTransaction;
 
-			return CartRepository.queryById(<string>saveProductRequest.id, updateTransaction);
-		}).then((queriedProduct: (ProductInstance | null)): Bluebird<ProductInstance> => {
-			if (queriedProduct == null) {
-				return Bluebird.reject(<CommandResponse<Product>>{
+			return CartRepository.queryByCartId(<string>saveCartRequest.cartid, updateTransaction);
+		}).then((queriedCart: (CartInstance | null)): Bluebird<CartInstance> => {
+			if (queriedCart == null) {
+				return Bluebird.reject(<CommandResponse<Cart>>{
 					status: 404,
-					message: ErrorCodeLookup.EC1001
+					message: ErrorCodeLookup.EC1001B
 				});
 			}
 
-			return queriedProduct.update(
+			return queriedCart.update(
 				<Object>{
-					count: saveProductRequest.count + queriedProduct.count // same thing as create
+					count: saveCartRequest.quantity + queriedCart.quantity // same thing as create
 				},
 				<Sequelize.InstanceUpdateOptions>{ transaction: updateTransaction });
-		}).then((updatedProduct: ProductInstance): Bluebird<CommandResponse<Product>> => {
+		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
 			updateTransaction.commit();
 
-			return Bluebird.resolve(<CommandResponse<Product>>{
+			return Bluebird.resolve(<CommandResponse<Cart>>{
 				status: 200,
-				data: <Product>{
-					id: updatedProduct.id,
-					count: updatedProduct.count,
-					lookupCode: updatedProduct.lookupCode,
-					createdOn: Helper.formatDate(updatedProduct.createdOn)
+				data: <Cart>{
+					product_id: updatedCart.product_id,
+					quantity: updatedCart.quantity,
+					lookupCode: updatedCart.lookupCode,
+					price: updatedCart.price,
+					createdOn: Helper.formatDate(updatedCart.createdOn)
 				}
 			});
-		}).catch((error: any): Bluebird<CommandResponse<Product>> => {
+		}).catch((error: any): Bluebird<CommandResponse<Cart>> => {
 			if (updateTransaction != null) {
 				updateTransaction.rollback();
 			}
 
-			return Bluebird.reject(<CommandResponse<Product>>{
+			return Bluebird.reject(<CommandResponse<Cart>>{
 				status: (error.status || 500),
-				message: (error.messsage || ErrorCodeLookup.EC1002)
+				message: (error.messsage || ErrorCodeLookup.EC1002B)
 			});
 		});
 };

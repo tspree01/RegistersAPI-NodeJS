@@ -2,7 +2,8 @@ export enum ParameterLookup {
 	ProductId = "productId",
 	ProductLookupCode = "productLookupCode",
 	EmployeeId = "employeeId",
-	Id = "id"
+	Id = "id",
+	CartId = "cartId"
 }
 
 export enum RouteLookup {
@@ -24,6 +25,7 @@ export enum RouteLookup {
 	ProductIdParameter = "/:productId",
 	ProductLookupCodeParameter = "/:productLookupCode",
 	EmployeeIdParameter = "/:employeeId",
+	CartIdParameter = "/:cartId",
 	// End parameters
 	// End product
 	// End API routing
@@ -34,7 +36,9 @@ export enum ErrorCodeLookup {
 	// Database
 	// Database - product
 	EC1001 = "Product was not found.",
+	EC1001B = "Cart was not found.",
 	EC1002 = "Unable to save product.",
+	EC1002B = "Unable to save cart.",
 	EC1003 = "Unable to delete product.",
 	EC1003B = "Unable to delete cart.",
 	// End database - product
@@ -49,6 +53,7 @@ export enum ErrorCodeLookup {
 	// General
 	// General - product
 	EC2001 = "Unable to retrieve product listing.",
+	EC2001B = "Unable to retrieve cart listing.",
 	EC2002 = "Unable to retrieve product details",
 	EC2025 = "The provided product record ID is not valid.",
 	EC2026 = "Please provide a valid product lookup code.",

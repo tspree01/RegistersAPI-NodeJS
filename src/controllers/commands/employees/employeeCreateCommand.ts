@@ -4,7 +4,7 @@ import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import * as DatabaseConnection from "../models/databaseConnection";
 import * as EmployeeRepository from "../models/repositories/employeeRepository";
 import { CommandResponse, Employee, EmployeeSaveRequest } from "../../typeDefinitions";
-import { EmployeeAttributes, EmployeeInstance } from "../models/entities/employeeEntity";
+import { EmployeeInstance, EmployeeAttributes } from "../models/entities/employeeEntity";
 
 const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandResponse<Employee> => {
 	const validationResponse: CommandResponse<Employee> =
@@ -62,14 +62,12 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 	}
 
 	const employeeToCreate: EmployeeAttributes = <EmployeeAttributes>{
-		// record_id: saveEmployeeRequest.record_id,
 		first_name: saveEmployeeRequest.first_name,
 		last_name: saveEmployeeRequest.last_name,
 		employee_id: saveEmployeeRequest.employee_id,
 		active: saveEmployeeRequest.active,
 		role: saveEmployeeRequest.role,
-		manager: saveEmployeeRequest.manager,
-		amount_of_money_made: saveEmployeeRequest.amount_of_money_made
+		manager: saveEmployeeRequest.manager
 		// password: saveEmployeeRequest.password,
 	};
 
@@ -97,15 +95,12 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			return Bluebird.resolve(<CommandResponse<Employee>>{
 				status: 201,
 				data: <Employee>{
-					// record_id: createdEmployee.record_id,
 					first_name: createdEmployee.first_name,
 					last_name: createdEmployee.last_name,
 					employee_id: createdEmployee.employee_id,
 					active: createdEmployee.active,
 					role: createdEmployee.role,
 					manager: createdEmployee.manager
-					// password: createdEmployee.password,
-					// createdOn: Helper.formatDate(createdEmployee.createdOn)
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Employee>> => {

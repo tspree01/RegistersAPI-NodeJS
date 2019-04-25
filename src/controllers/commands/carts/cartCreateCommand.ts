@@ -4,23 +4,23 @@ import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import * as DatabaseConnection from "../models/databaseConnection";
 import * as CartRepository from "../models/repositories/cartRepository";
-import { CommandResponse, Product, ProductSaveRequest } from "../../typeDefinitions";
-import { ProductInstance, ProductAttributes } from "../models/entities/cartEntity";
+import { CommandResponse, Cart, CartSaveRequest } from "../../typeDefinitions";
+import { CartInstance, CartAttributes } from "../models/entities/cartEntity";
 
-const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandResponse<Product> => {
-	const validationResponse: CommandResponse<Product> =
-		<CommandResponse<Product>>{ status: 200 };
+const validateSaveRequest = (saveCartRequest: CartSaveRequest): CommandResponse<Cart> => {
+	const validationResponse: CommandResponse<Cart> =
+		<CommandResponse<Cart>>{ status: 200 };
 
-	if ((saveProductRequest.lookupCode == null) || (saveProductRequest.lookupCode.trim() === "")) {
+	if ((saveCartRequest.lookupCode == null) || (saveCartRequest.lookupCode.trim() === "")) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2026;
-	} else if ((saveProductRequest.count == null) || isNaN(saveProductRequest.count)) {
+	} else if ((saveCartRequest.quantity == null) || isNaN(saveCartRequest.quantity)) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2027;
-	} else if (saveProductRequest.count < 0) {
+	} else if (saveCartRequest.quantity < 0) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2028;
-	} else if (saveProductRequest.price < 0) {
+	} else if (saveCartRequest.price < 0) {
         validationResponse.status = 422;
         validationResponse.message = ErrorCodeLookup.EC2028B;
     }
@@ -28,47 +28,49 @@ const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandRes
 	return validationResponse;
 };
 
-export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandResponse<Product>> => {
-	const validationResponse: CommandResponse<Product> = validateSaveRequest(saveProductRequest);
+export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandResponse<Cart>> => {
+	const validationResponse: CommandResponse<Cart> = validateSaveRequest(saveCartRequest);
 	if (validationResponse.status !== 200) {
 		return Bluebird.reject(validationResponse);
 	}
 
-	const productToCreate: ProductAttributes = <ProductAttributes>{
-		id: saveProductRequest.id,
-		count: saveProductRequest.count,
-		lookupCode: saveProductRequest.lookupCode,
-		price: saveProductRequest.price
+	const cartToCreate: CartAttributes = <CartAttributes>{
+		product_id: saveCartRequest.product_id,
+		quantity: saveCartRequest.quantity,
+		lookupCode: saveCartRequest.lookupCode,
+		price: saveCartRequest.price,
+		cartid: saveCartRequest.cartid
 	};
 
 	let createTransaction: Sequelize.Transaction;
 
 	return DatabaseConnection.startTransaction() 
-		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance> => { 
+		.then((createdTransaction: Sequelize.Transaction): Bluebird<CartInstance> => { 
 			createTransaction = createdTransaction;
 
-			return CartRepository.create(productToCreate, createTransaction); 
-		}).then((createdProduct: ProductInstance): Bluebird<CommandResponse<Product>> => { 
+			return CartRepository.create(cartToCreate, createTransaction); 
+		}).then((createdProduct: CartInstance): Bluebird<CommandResponse<Cart>> => { 
 			createTransaction.commit();
 
-			return Bluebird.resolve(<CommandResponse<Product>>{
+			return Bluebird.resolve(<CommandResponse<Cart>>{
 				status: 201,
-				data: <Product>{
-					id: createdProduct.id,
-					count: createdProduct.count, // this count is the quantity of product about to be sold so use it to pass into product update
+				data: <Cart>{
+					product_id: createdProduct.product_id,
+					quantity: createdProduct.quantity, // this count is the quantity of product about to be sold so use it to pass into product update
 					lookupCode: createdProduct.lookupCode,
 					createdOn: Helper.formatDate(createdProduct.createdOn),
-					price: createdProduct.price
+					price: createdProduct.price,
+					cartid: createdProduct.cartid
 				}
 			});
-		}).catch((error: any): Bluebird<CommandResponse<Product>> => {
+		}).catch((error: any): Bluebird<CommandResponse<Cart>> => {
 			if (createTransaction != null) {
 				createTransaction.rollback();
 			}
 
-			return Bluebird.reject(<CommandResponse<Product>>{
+			return Bluebird.reject(<CommandResponse<Cart>>{
 				status: (error.status || 500),
-				message: (error.message || ErrorCodeLookup.EC1002)
+				message: (error.message || ErrorCodeLookup.EC1002B)
 			});
 		});
 };

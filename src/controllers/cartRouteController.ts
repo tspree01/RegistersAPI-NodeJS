@@ -1,24 +1,42 @@
 import Bluebird from "bluebird";
 import * as restify from "restify";
 import * as CartsQuery from "./commands/carts/cartQueryAll";
+import * as CartQuery from "./commands/carts/cartQuery";
 import { ParameterLookup, ErrorCodeLookup } from "./lookups/stringLookup";
 import * as CartCreateCommand from "./commands/carts/cartCreateCommand";
 import * as CartDeleteCommand from "./commands/carts/cartDeleteCommand";
 import * as CartUpdateCommand from "./commands/carts/cartUpdateCommand";
-import { CommandResponse, Product, ProductSaveRequest } from "./typeDefinitions";
+import { CommandResponse, Cart, CartSaveRequest } from "./typeDefinitions";
 
-export let queryProducts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+export let queryCarts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	CartsQuery.query()
-		.then((productsQueryCommandResponse: CommandResponse<Product[]>) => {
+		.then((cartsQueryCommandResponse: CommandResponse<Cart[]>) => {
 			res.send(
-				productsQueryCommandResponse.status,
-				productsQueryCommandResponse.data);
+				cartsQueryCommandResponse.status,
+				cartsQueryCommandResponse.data);
 
 			return next();
 		}, (error: any) => {
 			res.send(
 				(error.status || 500),
-				(error.message || ErrorCodeLookup.EC2001));
+				(error.message || ErrorCodeLookup.EC2001B));
+
+			return next();
+		});
+};
+
+export let queryCart = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+	CartQuery.queryByCartId(req.params[ParameterLookup.CartId])
+		.then((cartsQueryCommandResponse: CommandResponse<Cart>) => {
+			res.send(
+				cartsQueryCommandResponse.status,
+				cartsQueryCommandResponse.data);
+
+			return next();
+		}, (error: any) => {
+			res.send(
+				(error.status || 500),
+				(error.message || ErrorCodeLookup.EC2001B));
 
 			return next();
 		});
@@ -28,21 +46,21 @@ const saveCart = (
 	req: restify.Request,
 	res: restify.Response,
 	next: restify.Next,
-	performSave: (productSaveRequest: ProductSaveRequest) => Bluebird<CommandResponse<Product>>): void => {
+	performSave: (cartSaveRequest: CartSaveRequest) => Bluebird<CommandResponse<Cart>>): void => {
 
 	console.log("REQUEST BODY: " + req.body);
 
 	performSave(req.body)
-		.then((productSaveCommandResponse: CommandResponse<Product>) => {
+		.then((cartSaveCommandResponse: CommandResponse<Cart>) => {
 			res.send(
-				productSaveCommandResponse.status,
-				productSaveCommandResponse.data);
+				cartSaveCommandResponse.status,
+				cartSaveCommandResponse.data);
 
 			return next();
 		}, (error: any) => {
 			res.send(
 				(error.status || 500),
-				(error.message || ErrorCodeLookup.EC1002));
+				(error.message || ErrorCodeLookup.EC1002B));
 
 			return next();
 		});
@@ -57,7 +75,7 @@ export let updateCart = (req: restify.Request, res: restify.Response, next: rest
 };
 
 export let deleteCart = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	CartDeleteCommand.execute(req.params[ParameterLookup.ProductId])
+	CartDeleteCommand.execute(req.params[ParameterLookup.CartId])
 		.then((productDeleteCommandResponse: CommandResponse<void>) => {
 			res.send(productDeleteCommandResponse.status);
 
@@ -65,7 +83,7 @@ export let deleteCart = (req: restify.Request, res: restify.Response, next: rest
 		}, (error: any) => {
 			res.send(
 				(error.status || 500),
-				(error.message || ErrorCodeLookup.EC1003));
+				(error.message || ErrorCodeLookup.EC1003B));
 
 			return next();
 		});
