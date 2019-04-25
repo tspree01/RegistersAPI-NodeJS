@@ -28,13 +28,13 @@ const validateSaveRequest = (saveEmployeeRequest: EmployeeSaveRequest): CommandR
 	} /*else if (saveEmployeeRequest.employee_id < 0) {
 		validationResponse.status = 426;
 		validationResponse.message = ErrorCodeLookup.EC2033;
-	}*/ else if (saveEmployeeRequest.active == null) {
+	}*/ /*else if (saveEmployeeRequest.active == null) {
 		validationResponse.status = 427;
 		validationResponse.message = ErrorCodeLookup.EC2032;
 	} else if ((saveEmployeeRequest.manager == null ) || (saveEmployeeRequest.manager.trim() === "")) {
 		validationResponse.status = 428;
 		validationResponse.message = ErrorCodeLookup.EC2034;
-	}/* else if (saveEmployeeRequest.manager < 0) {
+	}*//* else if (saveEmployeeRequest.manager < 0) {
 		validationResponse.status = 429;
 		validationResponse.message = ErrorCodeLookup.EC2035;
 	} else if ((saveEmployeeRequest.password == null) || (saveEmployeeRequest.password.trim() === "")) {
