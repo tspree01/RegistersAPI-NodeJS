@@ -59,7 +59,7 @@ export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
 			cartid: <Sequelize.DefineAttributeColumnOptions>{
 				field: CartFieldName.CartId,
 				type: Sequelize.UUID,
-				allowNull: false
+				allowNull: true
 			},
 		},
 		<Sequelize.DefineOptions<CartInstance>>{
