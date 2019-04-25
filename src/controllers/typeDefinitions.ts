@@ -39,8 +39,8 @@ export interface Product {
 }
 
 export interface Cart {
-	product_id: string;
-	quantity: number;
+	id: string;
+	count: number;
 	createdOn: string;
 	lookupCode: string;
 	price: number;

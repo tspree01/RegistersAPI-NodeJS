@@ -60,8 +60,8 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 			return Bluebird.resolve(<CommandResponse<Cart>>{
 				status: 200,
 				data: <Cart>{
-					product_id: updatedCart.product_id,
-					quantity: updatedCart.quantity,
+					id: updatedCart.product_id,
+					count: updatedCart.quantity,
 					lookupCode: updatedCart.lookupCode,
 					price: updatedCart.price,
 					createdOn: Helper.formatDate(updatedCart.createdOn)

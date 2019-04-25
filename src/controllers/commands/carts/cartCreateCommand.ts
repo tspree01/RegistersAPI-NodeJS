@@ -55,8 +55,8 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 			return Bluebird.resolve(<CommandResponse<Cart>>{
 				status: 201,
 				data: <Cart>{
-					product_id: createdProduct.product_id,
-					quantity: createdProduct.quantity, // this count is the quantity of product about to be sold so use it to pass into product update
+					id: createdProduct.product_id,
+					count: createdProduct.quantity, // this count is the quantity of product about to be sold so use it to pass into product update
 					lookupCode: createdProduct.lookupCode,
 					createdOn: Helper.formatDate(createdProduct.createdOn),
 					price: createdProduct.price,

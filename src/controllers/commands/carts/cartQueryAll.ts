@@ -11,8 +11,8 @@ export let query = (): Bluebird<CommandResponse<Cart[]>> => {
 				status: 200,
 				data: existingCarts.map<Cart>((existingCart: CartInstance) => {
 					return <Cart>{
-						product_id: existingCart.product_id,
-						quantity: existingCart.quantity,
+						id: existingCart.product_id,
+						count: existingCart.quantity,
 						lookupCode: existingCart.lookupCode,
 						createdOn: Helper.formatDate(existingCart.createdOn),
 						price: existingCart.price,
