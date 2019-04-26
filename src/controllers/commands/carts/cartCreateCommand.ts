@@ -14,10 +14,10 @@ const validateSaveRequest = (saveCartRequest: CartSaveRequest): CommandResponse<
 	if ((saveCartRequest.lookupCode == null) || (saveCartRequest.lookupCode.trim() === "")) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2026;
-	} else if ((saveCartRequest.count == null) || isNaN(saveCartRequest.count)) {
+	} else if ((saveCartRequest.quantity_sold == null) || isNaN(saveCartRequest.quantity_sold)) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2027;
-	} else if (saveCartRequest.count < 0) {
+	} else if (saveCartRequest.quantity_sold < 0) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2028;
 	} else if (saveCartRequest.price < 0) {
@@ -36,7 +36,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 
 	const cartToCreate: CartAttributes = <CartAttributes>{
 		id: saveCartRequest.id,
-		count: saveCartRequest.count,
+		quantity_sold: saveCartRequest.quantity_sold,
 		lookupCode: saveCartRequest.lookupCode,
 		price: saveCartRequest.price,
 		cartid: saveCartRequest.cartid
@@ -56,7 +56,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 				status: 201,
 				data: <Cart>{
 					id: createdProduct.id,
-					count: createdProduct.count, // this count is the quantity of product about to be sold so use it to pass into product update
+					quantity_sold: createdProduct.quantity_sold, // this quantity_sold is the quantity of product about to be sold so use it to pass into product update
 					lookupCode: createdProduct.lookupCode,
 					createdOn: Helper.formatDate(createdProduct.createdOn),
 					price: createdProduct.price,

@@ -12,7 +12,7 @@ export let queryAllByCartID = (cartid: string): Bluebird<CommandResponse<Cart[]>
 				data: existingCarts.map<Cart>((existingCart: CartInstance) => {
 					return <Cart>{
 						id: existingCart.id,
-						count: existingCart.count,
+						quantity_sold: existingCart.quantity_sold,
 						lookupCode: existingCart.lookupCode,
 						createdOn: Helper.formatDate(existingCart.createdOn),
 						price: existingCart.price,
