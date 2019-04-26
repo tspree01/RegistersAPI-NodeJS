@@ -22,3 +22,22 @@ export let query = (): Bluebird<CommandResponse<Product[]>> => {
 			});
 		});
 };
+
+export let queryByPatternMatching = (searchQueryFromClient?: string): Bluebird<CommandResponse<Product[]>> => {
+	return ProductRepository.queryAllByPatternMatching(searchQueryFromClient)
+		.then((existingProducts: ProductInstance[]): Bluebird<CommandResponse<Product[]>> => {
+			return Bluebird.resolve(<CommandResponse<Product[]>>{
+				status: 200,
+				data: existingProducts.map<Product>((existingProduct: ProductInstance) => {
+					return <Product>{
+						id: existingProduct.id,
+						count: existingProduct.count,
+						lookupCode: existingProduct.lookupCode,
+						createdOn: Helper.formatDate(existingProduct.createdOn),
+						price: existingProduct.price,
+						total_sold: existingProduct.total_sold
+					};
+				})
+			});
+		});
+};

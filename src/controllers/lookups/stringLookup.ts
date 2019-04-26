@@ -21,7 +21,11 @@ export enum RouteLookup {
 	// Cart
 	Cart = "/cart",
 
+	// Search
+	Search = "/search",
+
 	// Parameters
+	ProductSearchQuery = "/:search",
 	ProductIdParameter = "/:productId",
 	ProductLookupCodeParameter = "/:productLookupCode",
 	EmployeeIdParameter = "/:employeeId",

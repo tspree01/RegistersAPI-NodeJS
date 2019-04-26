@@ -23,6 +23,12 @@ export let queryAll = (): Bluebird<ProductInstance[]> => {
 	});
 };
 
+export let queryAllByPatternMatching = (searchQueryFromClient: string | undefined): Bluebird<ProductInstance[]> => {
+	return ProductEntity.findAll(<Sequelize.FindOptions<ProductAttributes>>{
+		where: <Sequelize.WhereOptions<ProductAttributes>>{ like: searchQueryFromClient + "%" }
+	});
+};
+
 export let create = (newProduct: ProductAttributes, createTransaction?: Sequelize.Transaction): Bluebird<ProductInstance> => {
 	return ProductEntity.create(
 		newProduct,

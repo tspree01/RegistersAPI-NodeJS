@@ -25,6 +25,24 @@ export let queryProducts = (req: restify.Request, res: restify.Response, next: r
 		});
 };
 
+export let queryProductsByPatternMatching = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+	ProductsQuery.queryByPatternMatching()
+		.then((productsQueryCommandResponse: CommandResponse<Product[]>) => {
+			res.send(
+				productsQueryCommandResponse.status,
+				productsQueryCommandResponse.data);
+
+			return next();
+		}, (error: any) => {
+			res.send(
+				(error.status || 500),
+				(error.message || ErrorCodeLookup.EC2001));
+
+			return next();
+		});
+};
+
+
 export let queryProductById = (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	ProductQuery.queryById(req.params[ParameterLookup.ProductId])
 		.then((productQueryCommandResponse: CommandResponse<Product>) => {

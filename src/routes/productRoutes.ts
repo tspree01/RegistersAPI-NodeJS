@@ -5,6 +5,8 @@ import * as ProductRouteController from "../controllers/productRouteController";
 function productRoute(server: restify.Server) {
 	server.get({ path: (RouteLookup.API + RouteLookup.Product), version: "0.0.1" }, ProductRouteController.queryProducts);
 
+	server.get({ path: (RouteLookup.API + RouteLookup.Product + RouteLookup.Search + RouteLookup.ProductSearchQuery ), version: "0.0.1" }, ProductRouteController.queryProductsByPatternMatching);
+
 	server.get({ path: (RouteLookup.API + RouteLookup.Product + RouteLookup.ProductIdParameter), version: "0.0.1" }, ProductRouteController.queryProductById);
 
 	server.get({ path: (RouteLookup.API + RouteLookup.Product + RouteLookup.ByLookupCode + RouteLookup.ProductLookupCodeParameter), version: "0.0.1" }, ProductRouteController.queryProductByLookupCode);
