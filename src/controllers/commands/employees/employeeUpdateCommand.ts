@@ -65,7 +65,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 				});
 			}
 			console.log("employee_id: " + saveEmployeeRequest.employee_id);
-			console.log("amount of money: " + queriedEmployee.amount_of_money_made + saveEmployeeRequest.amount_of_money_made);
+			console.log("amount of money: " + queriedEmployee.amount_of_money_made.toPrecision(2) + saveEmployeeRequest.amount_of_money_made);
 			console.log("queried employee_id: " + queriedEmployee.employee_id);
 
 			if (saveEmployeeRequest.amount_of_money_made > 0)
