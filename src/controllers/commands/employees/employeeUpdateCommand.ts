@@ -58,7 +58,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			updateEmployee = startedUpdate;
 			console.log("employee_id: " + saveEmployeeRequest.employee_id);
 			console.log("amount of money: " + saveEmployeeRequest.amount_of_money_made);
-			return EmployeeRepository.queryByEmployeeId(saveEmployeeRequest.employee_id, updateEmployee);
+			return EmployeeRepository.queryByEmployeeId(<string>saveEmployeeRequest.employee_id, updateEmployee);
 		}).then((queriedEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
 			if (queriedEmployee == null) {
 				return Bluebird.reject(<CommandResponse<Employee>>{
@@ -68,6 +68,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			}
 			console.log("employee_id: " + saveEmployeeRequest.employee_id);
 			console.log("amount of money: " + saveEmployeeRequest.amount_of_money_made);
+			console.log("queried employee_id: " + queriedEmployee.employee_id);
+
 			if (saveEmployeeRequest.amount_of_money_made > 0)
 				return queriedEmployee.update(
 				<Object>{
