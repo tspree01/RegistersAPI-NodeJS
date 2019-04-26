@@ -16,7 +16,7 @@ const validateSaveRequest = (saveCartRequest: CartSaveRequest): CommandResponse<
 		validationResponse.message = ErrorCodeLookup.EC2026;
 	} else if ((saveCartRequest.quantity_sold == null) || isNaN(saveCartRequest.quantity_sold)) {
 		validationResponse.status = 422;
-		validationResponse.message = ErrorCodeLookup.EC2027;
+		validationResponse.message = ErrorCodeLookup.EC2027B;
 	} else if (saveCartRequest.quantity_sold < 0) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2028;

@@ -48,7 +48,8 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 					message: ErrorCodeLookup.EC1001
 				});
 			}
-
+			console.log("quantity sold: " + saveProductRequest.quantity_sold);
+			console.log("count: " + saveProductRequest.count);
 			if (saveProductRequest.quantity_sold > 0)
 				return queriedProduct.update(
 				<Object>{

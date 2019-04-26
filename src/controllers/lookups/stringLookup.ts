@@ -58,6 +58,7 @@ export enum ErrorCodeLookup {
 	EC2025 = "The provided product record ID is not valid.",
 	EC2026 = "Please provide a valid product lookup code.",
 	EC2027 = "Please provide a valid product count.",
+	EC2027B = "Please provide a valid product quantity_sold.",
 	EC2028 = "Product count may not be negative.",
 	EC2029 = "Conflict on parameter: lookupcode.",
 	EC2028B = "Product price cannot be negative",
