@@ -56,8 +56,6 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 	return DatabaseConnection.startTransaction()
 		.then((startedUpdate: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 			updateEmployee = startedUpdate;
-			console.log("employee_id: " + saveEmployeeRequest.employee_id);
-			console.log("amount of money: " + saveEmployeeRequest.amount_of_money_made);
 			return EmployeeRepository.queryByEmployeeId(<string>saveEmployeeRequest.employee_id, updateEmployee);
 		}).then((queriedEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
 			if (queriedEmployee == null) {
@@ -70,10 +68,10 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			console.log("amount of money: " + saveEmployeeRequest.amount_of_money_made);
 			console.log("queried money: " + queriedEmployee.amount_of_money_made);
 
-			if (saveEmployeeRequest.amount_of_money_made > 0)
+			if (<number>saveEmployeeRequest.amount_of_money_made > 0)
 				return queriedEmployee.update(
 				<Object>{
-					amount_of_money_made: queriedEmployee.amount_of_money_made + saveEmployeeRequest.amount_of_money_made
+					amount_of_money_made: <number>queriedEmployee.amount_of_money_made + <number>saveEmployeeRequest.amount_of_money_made
 				},
 				<Sequelize.InstanceUpdateOptions>{ update: updateEmployee });
 			else 
