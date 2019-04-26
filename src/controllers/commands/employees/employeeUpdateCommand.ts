@@ -82,8 +82,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					employee_id: saveEmployeeRequest.employee_id,
 					active: saveEmployeeRequest.active,
 					role: saveEmployeeRequest.role,
-					manager: saveEmployeeRequest.manager,
-					amount_of_money_made: saveEmployeeRequest.amount_of_money_made
+					manager: saveEmployeeRequest.manager
 				},
 				<Sequelize.InstanceUpdateOptions>{ update: updateEmployee });
 		}).then((updatedEmployee: EmployeeInstance): Bluebird<CommandResponse<Employee>> => {
