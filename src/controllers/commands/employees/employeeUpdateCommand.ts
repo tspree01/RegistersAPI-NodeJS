@@ -56,7 +56,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 	return DatabaseConnection.startTransaction()
 		.then((startedUpdate: Sequelize.Transaction): Bluebird<EmployeeInstance | null> => {
 			updateEmployee = startedUpdate;
-
+			console.log("employee_id: " + saveEmployeeRequest.employee_id);
+			console.log("amount of money: " + saveEmployeeRequest.amount_of_money_made);
 			return EmployeeRepository.queryByEmployeeId(saveEmployeeRequest.employee_id, updateEmployee);
 		}).then((queriedEmployee: (EmployeeInstance | null)): Bluebird<EmployeeInstance> => {
 			if (queriedEmployee == null) {
@@ -65,7 +66,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					message: ErrorCodeLookup.EC1004
 				});
 			}
-
+			console.log("employee_id: " + saveEmployeeRequest.employee_id);
+			console.log("amount of money: " + saveEmployeeRequest.amount_of_money_made);
 			if (saveEmployeeRequest.amount_of_money_made > 0)
 				return queriedEmployee.update(
 				<Object>{
