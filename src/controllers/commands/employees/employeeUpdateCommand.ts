@@ -69,7 +69,7 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 			console.log("employee_id: " + saveEmployeeRequest.employee_id);
 			console.log("amount of money: " + saveEmployeeRequest.amount_of_money_made);
 			console.log("queried money: " + queriedEmployee.amount_of_money_made);
-			console.log("update id: " + updateEmployee);
+
 			if (saveEmployeeRequest.amount_of_money_made > 0)
 				return queriedEmployee.update(
 				<Object>{
@@ -84,7 +84,8 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					employee_id: saveEmployeeRequest.employee_id,
 					active: saveEmployeeRequest.active,
 					role: saveEmployeeRequest.role,
-					manager: saveEmployeeRequest.manager
+					manager: saveEmployeeRequest.manager,
+					amount_of_money_made: saveEmployeeRequest.amount_of_money_made
 				},
 				<Sequelize.InstanceUpdateOptions>{ update: updateEmployee });
 		}).then((updatedEmployee: EmployeeInstance): Bluebird<CommandResponse<Employee>> => {
