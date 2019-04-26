@@ -77,7 +77,7 @@ export let EmployeeEntity: Sequelize.Model<EmployeeInstance, EmployeeAttributes>
             },
             amount_of_money_made: <Sequelize.DefineAttributeColumnOptions>{
                 filed: EmployeeFieldName.AmountOfMoneyMade,
-                type:Sequelize.DOUBLE,
+                type:Sequelize.DECIMAL,
                 allowNull: true,
                 defaultValue: 0.0
             }
