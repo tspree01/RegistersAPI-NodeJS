@@ -17,10 +17,10 @@ const validateSaveRequest = (saveCartRequest: CartSaveRequest): CommandResponse<
 	} else if ((saveCartRequest.lookupCode == null) || (saveCartRequest.lookupCode.trim() === "")) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2026;
-	} else if ((saveCartRequest.count == null) || isNaN(saveCartRequest.count)) {
+	} else if ((saveCartRequest.quantity_sold == null) || isNaN(saveCartRequest.quantity_sold)) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2027;
-	} else if (saveCartRequest.count < 0) {
+	} else if (saveCartRequest.quantity_sold < 0) {
 		validationResponse.status = 422;
 		validationResponse.message = ErrorCodeLookup.EC2028;
 	}
@@ -51,7 +51,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 
 			return queriedCart.update(
 				<Object>{
-					count: saveCartRequest.count + queriedCart.count // same thing as create
+					quantity_sold: saveCartRequest.quantity_sold + queriedCart.quantity_sold // same thing as create
 				},
 				<Sequelize.InstanceUpdateOptions>{ transaction: updateTransaction });
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
@@ -61,7 +61,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 				status: 200,
 				data: <Cart>{
 					id: updatedCart.id,
-					count: updatedCart.count,
+					quantity_sold: updatedCart.quantity_sold,
 					lookupCode: updatedCart.lookupCode,
 					price: updatedCart.price,
 					createdOn: Helper.formatDate(updatedCart.createdOn)

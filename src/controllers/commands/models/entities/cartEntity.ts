@@ -7,7 +7,7 @@ const modelName: string = "Cart";
 
 export interface CartAttributes {
 	id: string;
-	count: number;
+	quantity_sold: number;
 	createdOn: Date;
 	lookupCode: string;
 	cartid: string;
@@ -16,7 +16,7 @@ export interface CartAttributes {
 
 export interface CartInstance extends Sequelize.Instance<CartAttributes> {
 	id: string;
-	count: number;
+	quantity_sold: number;
 	createdOn: Date;
 	lookupCode: string;
 	cartid: string;
@@ -38,8 +38,8 @@ export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
 				allowNull: false,
 				defaultValue: ""
 			},
-			count: <Sequelize.DefineAttributeColumnOptions>{
-				field: CartFieldName.Count,
+			quantity_sold: <Sequelize.DefineAttributeColumnOptions>{
+				field: CartFieldName.QuantitySold,
 				type: Sequelize.INTEGER,
 				allowNull: false,
 				defaultValue: 0

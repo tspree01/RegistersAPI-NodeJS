@@ -9,7 +9,7 @@ export interface ProductSaveRequest {
 
 export interface CartSaveRequest {
 	id?: string;
-	count: number;
+	quantity_sold: number;
 	lookupCode: string;
 	price: number;
 	cartid: string;
@@ -40,7 +40,7 @@ export interface Product {
 
 export interface Cart {
 	id: string;
-	count: number;
+	quantity_sold: number;
 	createdOn: string;
 	lookupCode: string;
 	price: number;
