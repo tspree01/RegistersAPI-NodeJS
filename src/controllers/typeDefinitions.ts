@@ -4,6 +4,7 @@ export interface ProductSaveRequest {
 	count: number;
 	lookupCode: string;
 	price: number;
+	quantity_sold: number;
 	total_sold: number;
 }
 

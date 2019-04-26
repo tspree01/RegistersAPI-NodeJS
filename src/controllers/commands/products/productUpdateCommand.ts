@@ -49,11 +49,11 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 				});
 			}
 
-			if (saveProductRequest.total_sold > 0)
+			if (saveProductRequest.quantity_sold > 0)
 				return queriedProduct.update(
 				<Object>{
-					count: queriedProduct.count - saveProductRequest.total_sold,
-					total_sold: queriedProduct.total_sold + saveProductRequest.total_sold // count here is quantity of product sold
+					count: queriedProduct.count - saveProductRequest.quantity_sold,
+					total_sold: queriedProduct.total_sold + saveProductRequest.quantity_sold // count here is quantity of product sold
 				},
 				<Sequelize.InstanceUpdateOptions>{ transaction: updateTransaction}); 
 			else 
