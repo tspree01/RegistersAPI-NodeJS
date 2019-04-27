@@ -14,7 +14,7 @@ const validation = (validationQuery: string): CommandResponse<Product> => {
 		validationResponse.message = ErrorCodeLookup.EC2026B;
 	}
 	return validationResponse;
-}
+};
 
 export let search = (query: string): Bluebird<CommandResponse<Product[]>> => {
 	const validationResponse = validation(query);
