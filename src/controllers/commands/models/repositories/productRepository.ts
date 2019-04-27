@@ -3,6 +3,8 @@ import Sequelize from "sequelize";
 import { ProductFieldName } from "../constants/fieldNames/productFieldNames";
 import { ProductAttributes, ProductEntity, ProductInstance } from "../entities/productEntity";
 
+const Op = Sequelize.Op;
+
 export let queryById = (id: string, queryTransaction?: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
 	return ProductEntity.findOne(<Sequelize.FindOptions<ProductAttributes>>{
 		transaction: queryTransaction,
@@ -24,11 +26,12 @@ export let queryAll = (): Bluebird<ProductInstance[]> => {
 };
 
 export let searchAll = (query: string): Bluebird<ProductInstance[]> => {
-	const Op = Sequelize.Op;
-	console.log("query going in: " + query);
+	console.log("query going in: " + query + "%");
 	return ProductEntity.findAll({
 		where: {
-			[Op.like]: query + "%"
+			lookupCode: {
+				[Op.like]: query + "%"
+			}
 		}
 	});
 };
