@@ -1,11 +1,13 @@
 import Bluebird from "bluebird";
 import * as Helper from "../helpers/helper";
+import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import { CommandResponse, Product } from "../../typeDefinitions";
 import { ProductInstance } from "../models/entities/productEntity";
 import * as ProductRepository from "../models/repositories/productRepository";
 
-export let query = (): Bluebird<CommandResponse<Product[]>> => {
-	return ProductRepository.queryAll()
+
+export let search = (query: string): Bluebird<CommandResponse<Product[]>> => {
+	return ProductRepository.searchAll(query)
 		.then((existingProducts: ProductInstance[]): Bluebird<CommandResponse<Product[]>> => {
 			return Bluebird.resolve(<CommandResponse<Product[]>>{
 				status: 200,
@@ -14,9 +16,7 @@ export let query = (): Bluebird<CommandResponse<Product[]>> => {
 						id: existingProduct.id,
 						count: existingProduct.count,
 						lookupCode: existingProduct.lookupCode,
-						createdOn: Helper.formatDate(existingProduct.createdOn),
-						price: existingProduct.price,
-						total_sold: existingProduct.total_sold
+						price: existingProduct.price
 					};
 				})
 			});

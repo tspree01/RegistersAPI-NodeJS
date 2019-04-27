@@ -6,6 +6,7 @@ import { ParameterLookup, ErrorCodeLookup } from "./lookups/stringLookup";
 import * as ProductCreateCommand from "./commands/products/productCreateCommand";
 import * as ProductDeleteCommand from "./commands/products/productDeleteCommand";
 import * as ProductUpdateCommand from "./commands/products/productUpdateCommand";
+import * as ProductSearchCommand from "./commands/products/productSearchCommand";
 import { CommandResponse, Product, ProductSaveRequest } from "./typeDefinitions";
 
 export let queryProducts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
@@ -25,8 +26,8 @@ export let queryProducts = (req: restify.Request, res: restify.Response, next: r
 		});
 };
 
-export let queryProductsByPatternMatching = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	ProductsQuery.queryByPatternMatching()
+export let searchProducts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+	ProductSearchCommand.search(req.params[ParameterLookup.ProductLookupCode])
 		.then((productsQueryCommandResponse: CommandResponse<Product[]>) => {
 			res.send(
 				productsQueryCommandResponse.status,
@@ -41,7 +42,6 @@ export let queryProductsByPatternMatching = (req: restify.Request, res: restify.
 			return next();
 		});
 };
-
 
 export let queryProductById = (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	ProductQuery.queryById(req.params[ParameterLookup.ProductId])
