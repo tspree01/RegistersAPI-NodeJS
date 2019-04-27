@@ -25,6 +25,7 @@ export let queryAll = (): Bluebird<ProductInstance[]> => {
 
 export let searchAll = (query: string): Bluebird<ProductInstance[]> => {
 	const Op = Sequelize.Op;
+	console.log("query going in: " + query);
 	return ProductEntity.findAll({
 		where: {
 			[Op.like]: query + "%"
