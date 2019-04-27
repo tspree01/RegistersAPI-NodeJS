@@ -27,7 +27,7 @@ export let searchAll = (query: string): Bluebird<ProductInstance[]> => {
 	const Op = Sequelize.Op;
 	return ProductEntity.findAll({
 		where: {
-			[Op.like]: query + '%'
+			[Op.like]: query + "%"
 		}
 	});
 };
