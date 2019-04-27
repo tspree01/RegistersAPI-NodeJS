@@ -26,6 +26,7 @@ export enum RouteLookup {
 	ProductLookupCodeParameter = "/:productLookupCode",
 	EmployeeIdParameter = "/:employeeId",
 	CartIdParameter = "/:cartId",
+	Search = "/search",
 	// End parameters
 	// End product
 	// End API routing

@@ -23,6 +23,15 @@ export let queryAll = (): Bluebird<ProductInstance[]> => {
 	});
 };
 
+export let searchAll = (query: string): Bluebird<ProductInstance[]> => {
+	const Op = Sequelize.Op;
+	return ProductEntity.findAll({
+		where: {
+			[Op.like]: query + '%'
+		}
+	});
+};
+
 export let create = (newProduct: ProductAttributes, createTransaction?: Sequelize.Transaction): Bluebird<ProductInstance> => {
 	return ProductEntity.create(
 		newProduct,

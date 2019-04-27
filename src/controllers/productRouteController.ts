@@ -6,10 +6,28 @@ import { ParameterLookup, ErrorCodeLookup } from "./lookups/stringLookup";
 import * as ProductCreateCommand from "./commands/products/productCreateCommand";
 import * as ProductDeleteCommand from "./commands/products/productDeleteCommand";
 import * as ProductUpdateCommand from "./commands/products/productUpdateCommand";
+import * as ProductSearchCommand from "./commands/products/productSearchCommand";
 import { CommandResponse, Product, ProductSaveRequest } from "./typeDefinitions";
 
 export let queryProducts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	ProductsQuery.query()
+		.then((productsQueryCommandResponse: CommandResponse<Product[]>) => {
+			res.send(
+				productsQueryCommandResponse.status,
+				productsQueryCommandResponse.data);
+
+			return next();
+		}, (error: any) => {
+			res.send(
+				(error.status || 500),
+				(error.message || ErrorCodeLookup.EC2001));
+
+			return next();
+		});
+};
+
+export let searchProducts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+	ProductSearchCommand.search(req.params[ParameterLookup.ProductLookupCode])
 		.then((productsQueryCommandResponse: CommandResponse<Product[]>) => {
 			res.send(
 				productsQueryCommandResponse.status,

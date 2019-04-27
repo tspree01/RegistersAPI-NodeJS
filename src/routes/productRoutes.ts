@@ -9,6 +9,8 @@ function productRoute(server: restify.Server) {
 
 	server.get({ path: (RouteLookup.API + RouteLookup.Product + RouteLookup.ByLookupCode + RouteLookup.ProductLookupCodeParameter), version: "0.0.1" }, ProductRouteController.queryProductByLookupCode);
 
+	server.get({ path: (RouteLookup.API + RouteLookup.Product + RouteLookup.Search + RouteLookup.ProductLookupCodeParameter), version: "0.0.1" }, ProductRouteController.searchProducts);
+
 	server.post({ path: (RouteLookup.API + RouteLookup.Product), version: "0.0.1" }, ProductRouteController.createProduct);
 
 	server.put({ path: (RouteLookup.API + RouteLookup.Product + RouteLookup.ProductIdParameter), version: "0.0.1" }, ProductRouteController.updateProduct);
