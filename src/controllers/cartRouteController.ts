@@ -49,6 +49,10 @@ export let queryTest = (req: restify.Request, res: restify.Response, next: resti
 		product_id: req.params[ParameterLookup.ProductId], 
 		cart_id: req.params[ParameterLookup.CartId] 
 	};
+	console.log("product id going in: " + req.params[ParameterLookup.ProductId]);
+	console.log("cart_id: " + req.params[ParameterLookup.CartId]);
+	console.log("product id: " + params.product_id);
+	console.log("cart_id: " + params.cart_id);
 	CartQueryAllByProductAndCartId.queryAllByProductAndCartID(params)
 		.then((cartsQueryCommandResponse: CommandResponse<Cart[]>) => {
 			res.send(
