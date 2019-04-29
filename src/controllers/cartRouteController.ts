@@ -2,6 +2,7 @@ import Bluebird from "bluebird";
 import * as restify from "restify";
 import * as CartsQuery from "./commands/carts/cartQueryAll";
 import * as CartQueryAllByCartId from "./commands/carts/cartQueryAllByCartId";
+import * as CartQueryAllByProductAndCartId from "./commands/carts/cartQueryAllByCartIdAndProductId";
 import { ParameterLookup, ErrorCodeLookup } from "./lookups/stringLookup";
 import * as CartCreateCommand from "./commands/carts/cartCreateCommand";
 import * as CartDeleteByCartIdCommand from "./commands/carts/cartDeleteByCartIdCommand";
@@ -27,7 +28,28 @@ export let queryCarts = (req: restify.Request, res: restify.Response, next: rest
 };
 
 export let queryCart = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	return CartQueryAllByCartId.queryAllByCartID(req.params[ParameterLookup.CartId])
+	CartQueryAllByCartId.queryAllByCartID(req.params[ParameterLookup.CartId])
+		.then((cartsQueryCommandResponse: CommandResponse<Cart[]>) => {
+			res.send(
+				cartsQueryCommandResponse.status,
+				cartsQueryCommandResponse.data);
+
+			return next();
+		}, (error: any) => {
+			res.send(
+				(error.status || 500),
+				(error.message || ErrorCodeLookup.EC2001B));
+
+			return next();
+		});
+};
+
+export let queryTest = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+	const params: Params = {
+		product_id: req.params[ParameterLookup.ProductId], 
+		cart_id: req.params[ParameterLookup.CartId] 
+	};
+	CartQueryAllByProductAndCartId.queryAllByProductAndCartID(params)
 		.then((cartsQueryCommandResponse: CommandResponse<Cart[]>) => {
 			res.send(
 				cartsQueryCommandResponse.status,
@@ -92,7 +114,7 @@ export let deleteByProductIdAndCartId = (req: restify.Request, res: restify.Resp
 		product_id: req.params[ParameterLookup.ProductId], 
 		cart_id: req.params[ParameterLookup.CartId] 
 	};
-	
+
 	CartDeleteByProductIdAndCartIdCommand.execute(params)
 		.then((productDeleteCommandResponse: CommandResponse<void>) => {
 			res.send(productDeleteCommandResponse.status);

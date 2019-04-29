@@ -21,6 +21,14 @@ export let queryByProductIdAndCartId = (params: Params, queryTransaction?: Seque
 	});
 };
 
+export let queryAllByProductIdAndCartId = (params: Params, queryTransaction?: Sequelize.Transaction): Bluebird<CartInstance[]> => {
+	return CartEntity.findAll(<Sequelize.FindOptions<CartAttributes>>{
+		transaction: queryTransaction,
+		where: <Sequelize.WhereOptions<CartAttributes>>
+		{ [Op.and]: [{id: params.product_id}, {id: params.cart_id}] }
+	});
+};
+
 export let queryAll = (): Bluebird<CartInstance[]> => {
 	return CartEntity.findAll(<Sequelize.FindOptions<CartAttributes>>{
 		order: [ [CartFieldName.CreatedOn, "ASC"] ]
