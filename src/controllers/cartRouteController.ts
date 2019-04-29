@@ -88,10 +88,11 @@ export let deleteByCartId = (req: restify.Request, res: restify.Response, next: 
 };
 
 export let deleteByProductIdAndCartId = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	let params: Params = {
+	const params: Params = {
 		product_id: req.params[ParameterLookup.ProductId], 
 		cart_id: req.params[ParameterLookup.CartId] 
-	}
+	};
+	
 	CartDeleteByProductIdAndCartIdCommand.execute(params)
 		.then((productDeleteCommandResponse: CommandResponse<void>) => {
 			res.send(productDeleteCommandResponse.status);

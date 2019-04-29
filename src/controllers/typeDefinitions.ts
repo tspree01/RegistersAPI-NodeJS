@@ -29,8 +29,8 @@ export interface EmployeeSaveRequest {
 // End request object definitions
 
 export interface Params {
-	product_id: string,
-	cart_id: string
+	product_id: string;
+	cart_id: string;
 }
 
 // Response object definitions
