@@ -5,9 +5,9 @@ import * as CartQueryAllByCartId from "./commands/carts/cartQueryAllByCartId";
 import { ParameterLookup, ErrorCodeLookup } from "./lookups/stringLookup";
 import * as CartCreateCommand from "./commands/carts/cartCreateCommand";
 import * as CartDeleteByCartIdCommand from "./commands/carts/cartDeleteByCartIdCommand";
-import * as CartDeleteByProductIdCommand from "./commands/carts/cartDeleteByProductIdCommand";
+import * as CartDeleteByProductIdAndCartIdCommand from "./commands/carts/cartDeleteByProductIdAndCartIdCommand";
 import * as CartUpdateCommand from "./commands/carts/cartUpdateCommand";
-import { CommandResponse, Cart, CartSaveRequest } from "./typeDefinitions";
+import { CommandResponse, Cart, CartSaveRequest, Params } from "./typeDefinitions";
 
 export let queryCarts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	CartsQuery.query()
@@ -48,9 +48,6 @@ const saveCart = (
 	res: restify.Response,
 	next: restify.Next,
 	performSave: (cartSaveRequest: CartSaveRequest) => Bluebird<CommandResponse<Cart>>): void => {
-
-	console.log("REQUEST BODY: " + req.body);
-
 	performSave(req.body)
 		.then((cartSaveCommandResponse: CommandResponse<Cart>) => {
 			res.send(
@@ -90,8 +87,12 @@ export let deleteByCartId = (req: restify.Request, res: restify.Response, next: 
 		});
 };
 
-export let deleteByProductId = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	CartDeleteByProductIdCommand.execute(req.params[ParameterLookup.ProductId])
+export let deleteByProductIdAndCartId = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+	let params: Params = {
+		product_id: req.params[ParameterLookup.ProductId], 
+		cart_id: req.params[ParameterLookup.CartId] 
+	}
+	CartDeleteByProductIdAndCartIdCommand.execute(params)
 		.then((productDeleteCommandResponse: CommandResponse<void>) => {
 			res.send(productDeleteCommandResponse.status);
 

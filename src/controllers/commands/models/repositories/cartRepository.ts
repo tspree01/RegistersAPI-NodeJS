@@ -1,7 +1,10 @@
 import Bluebird from "bluebird";
 import Sequelize from "sequelize";
+import { Params } from "..../../../src/controllers/typeDefinitions";
 import { CartFieldName } from "../constants/fieldNames/cartFieldNames";
 import { CartAttributes, CartEntity, CartInstance } from "../entities/cartEntity";
+
+const Op = Sequelize.Op;
 
 export let queryByCartId = (cartid: string, queryTransaction?: Sequelize.Transaction): Bluebird<CartInstance | null> => {
 	return CartEntity.findOne(<Sequelize.FindOptions<CartAttributes>>{
@@ -10,10 +13,11 @@ export let queryByCartId = (cartid: string, queryTransaction?: Sequelize.Transac
 	});
 };
 
-export let queryByProductId = (productid: string, queryTransaction?: Sequelize.Transaction): Bluebird<CartInstance | null> => {
+export let queryByProductIdAndCartId = (params: Params, queryTransaction?: Sequelize.Transaction): Bluebird<CartInstance | null> => {
 	return CartEntity.findOne(<Sequelize.FindOptions<CartAttributes>>{
 		transaction: queryTransaction,
-		where: <Sequelize.WhereOptions<CartAttributes>>{ id: productid }
+		where: <Sequelize.WhereOptions<CartAttributes>>
+		{ [Op.and]: [{id: params.product_id}, {id: params.cart_id}] }
 	});
 };
 
@@ -44,7 +48,7 @@ export let destroyByCartId = (queriedCart: CartInstance, destroyTransaction?: Se
 		});
 };
 
-export let destroyByProductId = (queriedProduct: CartInstance, destroyTransaction?: Sequelize.Transaction): Bluebird<void> => {
+export let destroyByProductIdAndCartId = (queriedProduct: CartInstance, destroyTransaction?: Sequelize.Transaction): Bluebird<void> => {
 	return queriedProduct.destroy(<Sequelize.InstanceDestroyOptions>{
 		where: <Sequelize.WhereOptions<CartAttributes>>{ id: queriedProduct.id },
 		transaction: destroyTransaction
