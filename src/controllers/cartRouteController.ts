@@ -4,7 +4,8 @@ import * as CartsQuery from "./commands/carts/cartQueryAll";
 import * as CartQueryAllByCartId from "./commands/carts/cartQueryAllByCartId";
 import { ParameterLookup, ErrorCodeLookup } from "./lookups/stringLookup";
 import * as CartCreateCommand from "./commands/carts/cartCreateCommand";
-import * as CartDeleteCommand from "./commands/carts/cartDeleteCommand";
+import * as CartDeleteByCartIdCommand from "./commands/carts/cartDeleteByCartIdCommand";
+import * as CartDeleteByProductIdCommand from "./commands/carts/cartDeleteByProductIdCommand";
 import * as CartUpdateCommand from "./commands/carts/cartUpdateCommand";
 import { CommandResponse, Cart, CartSaveRequest } from "./typeDefinitions";
 
@@ -26,7 +27,7 @@ export let queryCarts = (req: restify.Request, res: restify.Response, next: rest
 };
 
 export let queryCart = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	CartQueryAllByCartId.queryAllByCartID(req.params[ParameterLookup.CartId])
+	return CartQueryAllByCartId.queryAllByCartID(req.params[ParameterLookup.CartId])
 		.then((cartsQueryCommandResponse: CommandResponse<Cart[]>) => {
 			res.send(
 				cartsQueryCommandResponse.status,
@@ -74,8 +75,8 @@ export let updateCart = (req: restify.Request, res: restify.Response, next: rest
 	saveCart(req, res, next, CartUpdateCommand.execute);
 };
 
-export let deleteCart = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	CartDeleteCommand.execute(req.params[ParameterLookup.CartId])
+export let deleteByCartId = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+	CartDeleteByCartIdCommand.execute(req.params[ParameterLookup.CartId])
 		.then((productDeleteCommandResponse: CommandResponse<void>) => {
 			res.send(productDeleteCommandResponse.status);
 
@@ -88,3 +89,19 @@ export let deleteCart = (req: restify.Request, res: restify.Response, next: rest
 			return next();
 		});
 };
+
+export let deleteByProductId = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+	CartDeleteByProductIdCommand.execute(req.params[ParameterLookup.ProductId])
+		.then((productDeleteCommandResponse: CommandResponse<void>) => {
+			res.send(productDeleteCommandResponse.status);
+
+			return next();
+		}, (error: any) => {
+			res.send(
+				(error.status || 500),
+				(error.message || ErrorCodeLookup.EC1003B));
+
+			return next();
+		});
+};
+

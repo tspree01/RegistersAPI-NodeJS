@@ -10,6 +10,13 @@ export let queryByCartId = (cartid: string, queryTransaction?: Sequelize.Transac
 	});
 };
 
+export let queryByProductId = (productid: string, queryTransaction?: Sequelize.Transaction): Bluebird<CartInstance | null> => {
+	return CartEntity.findOne(<Sequelize.FindOptions<CartAttributes>>{
+		transaction: queryTransaction,
+		where: <Sequelize.WhereOptions<CartAttributes>>{ id: productid }
+	});
+};
+
 export let queryAll = (): Bluebird<CartInstance[]> => {
 	return CartEntity.findAll(<Sequelize.FindOptions<CartAttributes>>{
 		order: [ [CartFieldName.CreatedOn, "ASC"] ]
@@ -30,11 +37,18 @@ export let create = (newCart: CartAttributes, createTransaction?: Sequelize.Tran
 		});
 };
 
-export let destroy = (cartListEntry: CartInstance, destroyTransaction?: Sequelize.Transaction): Bluebird<void> => {
-		return cartListEntry.destroy(<Sequelize.InstanceDestroyOptions>{
-			where: <Sequelize.WhereOptions<CartAttributes>>{ cartid: cartListEntry.cartid },
+export let destroyByCartId = (queriedCart: CartInstance, destroyTransaction?: Sequelize.Transaction): Bluebird<void> => {
+		return queriedCart.destroy(<Sequelize.InstanceDestroyOptions>{
+			where: <Sequelize.WhereOptions<CartAttributes>>{ cartid: queriedCart.cartid },
 			transaction: destroyTransaction
 		});
+};
+
+export let destroyByProductId = (queriedProduct: CartInstance, destroyTransaction?: Sequelize.Transaction): Bluebird<void> => {
+	return queriedProduct.destroy(<Sequelize.InstanceDestroyOptions>{
+		where: <Sequelize.WhereOptions<CartAttributes>>{ id: queriedProduct.id },
+		transaction: destroyTransaction
+	});
 };
 
 export let destroyAll = (cartListEntry: CartInstance[], destroyTransaction?: Sequelize.Transaction): void => {

@@ -65,9 +65,6 @@ export let execute = (saveEmployeeRequest: EmployeeSaveRequest): Bluebird<Comman
 					message: ErrorCodeLookup.EC1004
 				});
 			}
-			console.log("employee_id: " + saveEmployeeRequest.employee_id);
-			console.log("amount of money: " + queriedEmployee.amount_of_money_made + saveEmployeeRequest.amount_of_money_made);
-			console.log("queried employee_id: " + queriedEmployee.employee_id);
 
 			if (saveEmployeeRequest.amount_of_money_made > 0)
 				

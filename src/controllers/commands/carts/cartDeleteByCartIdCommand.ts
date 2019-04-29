@@ -23,7 +23,7 @@ export let execute = (cartId?: string): Bluebird<CommandResponse<void>> => {
 				return Bluebird.resolve();
 			}
 
-			return CartRepository.destroy(queriedCart, deleteTransaction);
+			return CartRepository.destroyByCartId(queriedCart, deleteTransaction);
 		}).then((): Bluebird<CommandResponse<void>> => {
 			deleteTransaction.commit();
 
