@@ -20,6 +20,7 @@ export enum RouteLookup {
 
 	// Cart
 	Cart = "/cart",
+	ByProductId = "/byproductid",
 
 	// Search
 	Search = "/search",
