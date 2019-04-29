@@ -17,15 +17,17 @@ export let queryByProductIdAndCartId = (params: Params, queryTransaction?: Seque
 	return CartEntity.findOne(<Sequelize.FindOptions<CartAttributes>>{
 		transaction: queryTransaction,
 		where: <Sequelize.WhereOptions<CartAttributes>>
-		{ [Op.and]: [{id: params.product_id}, {id: params.cart_id}] }
+		{ [Op.and]: [{id: params.product_id}, {cartid: params.cart_id}] }
 	});
 };
 
 export let queryAllByProductIdAndCartId = (params: Params, queryTransaction?: Sequelize.Transaction): Bluebird<CartInstance[]> => {
+	console.log("product id in query: " + params.product_id);
+	console.log("cart_id in query: " + params.cart_id);
 	return CartEntity.findAll(<Sequelize.FindOptions<CartAttributes>>{
 		transaction: queryTransaction,
 		where: <Sequelize.WhereOptions<CartAttributes>>
-		{ [Op.and]: [{id: params.product_id}, {id: params.cart_id}] }
+		{ [Op.and]: [{id: params.product_id}, {cartid: params.cart_id}] }
 	});
 };
 
