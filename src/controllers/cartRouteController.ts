@@ -10,7 +10,7 @@ import * as CartUpdateCommand from "./commands/carts/cartUpdateCommand";
 import { CommandResponse, Cart, CartSaveRequest } from "./typeDefinitions";
 
 export let queryCarts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	CartsQuery.query()
+	return CartsQuery.query()
 		.then((cartsQueryCommandResponse: CommandResponse<Cart[]>) => {
 			res.send(
 				cartsQueryCommandResponse.status,
@@ -27,7 +27,7 @@ export let queryCarts = (req: restify.Request, res: restify.Response, next: rest
 };
 
 export let queryCart = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	CartQueryAllByCartId.queryAllByCartID(req.params[ParameterLookup.CartId])
+	return CartQueryAllByCartId.queryAllByCartID(req.params[ParameterLookup.CartId])
 		.then((cartsQueryCommandResponse: CommandResponse<Cart[]>) => {
 			res.send(
 				cartsQueryCommandResponse.status,
