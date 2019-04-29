@@ -26,12 +26,9 @@ export let queryAll = (): Bluebird<ProductInstance[]> => {
 };
 
 export let searchAll = (query: string): Bluebird<ProductInstance[]> => {
-	console.log("query going in: " + query + "%");
 	return ProductEntity.findAll({
 		where: {
-			lookupCode: {
-				[Op.like]: query + "%"
-			}
+			lookupCode: { [Op.like]: query + "%" }
 		}
 	});
 };
