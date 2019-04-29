@@ -10,7 +10,7 @@ import * as CartUpdateCommand from "./commands/carts/cartUpdateCommand";
 import { CommandResponse, Cart, CartSaveRequest } from "./typeDefinitions";
 
 export let queryCarts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	return CartsQuery.query()
+	CartsQuery.query()
 		.then((cartsQueryCommandResponse: CommandResponse<Cart[]>) => {
 			res.send(
 				cartsQueryCommandResponse.status,
@@ -27,7 +27,7 @@ export let queryCarts = (req: restify.Request, res: restify.Response, next: rest
 };
 
 export let queryCart = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	return CartQueryAllByCartId.queryAllByCartID(req.params[ParameterLookup.CartId])
+	CartQueryAllByCartId.queryAllByCartID(req.params[ParameterLookup.CartId])
 		.then((cartsQueryCommandResponse: CommandResponse<Cart[]>) => {
 			res.send(
 				cartsQueryCommandResponse.status,
@@ -76,7 +76,7 @@ export let updateCart = (req: restify.Request, res: restify.Response, next: rest
 };
 
 export let deleteByCartId = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	return CartDeleteByCartIdCommand.execute(req.params[ParameterLookup.CartId]) // may bugged
+	CartDeleteByCartIdCommand.execute(req.params[ParameterLookup.CartId])
 		.then((productDeleteCommandResponse: CommandResponse<void>) => {
 			res.send(productDeleteCommandResponse.status);
 
@@ -91,7 +91,7 @@ export let deleteByCartId = (req: restify.Request, res: restify.Response, next: 
 };
 
 export let deleteByProductId = (req: restify.Request, res: restify.Response, next: restify.Next) => {
-	return CartDeleteByProductIdCommand.execute(req.params[ParameterLookup.ProductId]) // may bugged
+	CartDeleteByProductIdCommand.execute(req.params[ParameterLookup.ProductId])
 		.then((productDeleteCommandResponse: CommandResponse<void>) => {
 			res.send(productDeleteCommandResponse.status);
 
