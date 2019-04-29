@@ -7,7 +7,7 @@ function cartRoute(server: restify.Server) {
 
 	server.get({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.CartIdParameter), version: "0.0.1" }, CartRouteController.queryCart);
 
-	server.get({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.Test + RouteLookup.ProductIdParameterAndCartIdParameter), version: "0.0.1" }, CartRouteController.queryTest);
+	server.get({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.Test + RouteLookup.ProductIdParameter + RouteLookup.CartIdParameter), version: "0.0.1" }, CartRouteController.queryTest);
 	
 	server.post({ path: (RouteLookup.API + RouteLookup.Cart), version: "0.0.1" }, CartRouteController.createCart);
 
