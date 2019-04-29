@@ -60,7 +60,7 @@ export let destroyByCartId = (queriedCart: CartInstance, destroyTransaction?: Se
 
 export let destroyByProductIdAndCartId = (queriedProduct: CartInstance, destroyTransaction?: Sequelize.Transaction): Bluebird<void> => {
 	return queriedProduct.destroy(<Sequelize.InstanceDestroyOptions>{
-		where: <Sequelize.WhereOptions<CartAttributes>>{ id: queriedProduct.id },
+		where: <Sequelize.WhereOptions<CartAttributes>>{ [Op.and]: [{id: queriedProduct.id}, {cartid: queriedProduct.cartid}] },
 		transaction: destroyTransaction
 	});
 };
