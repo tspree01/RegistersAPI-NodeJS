@@ -39,17 +39,13 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 		product_id: <string>saveCartRequest.id,
 		cart_id: <string>saveCartRequest.cartid
 	};
-
 	let updateTransaction: Sequelize.Transaction;
 	return DatabaseConnection.startTransaction()
 		.then((startedTransaction: Sequelize.Transaction): Bluebird<CartInstance | null> => {
 			updateTransaction = startedTransaction;
 
-			const query: Params = {
-				product_id: <string>saveCartRequest.id, 
-				cart_id: <string>saveCartRequest.cartid 
-			};
-			return CartRepository.queryByProductIdAndCartId(query, updateTransaction);
+
+			return CartRepository.queryByProductIdAndCartId(params, updateTransaction);
 		}).then((queriedCart: (CartInstance | null)): Bluebird<CartInstance> => {
 			if (queriedCart == null) {
 				return Bluebird.reject(<CommandResponse<Cart>>{
@@ -57,15 +53,16 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 					message: ErrorCodeLookup.EC1001B
 				});
 			}
-			console.log("product id in query: " + params.product_id);
-			console.log("cart_id in query: " + params.cart_id);
 
 			return queriedCart.update(
 				<Object>{
-					quantity_sold: saveCartRequest.quantity_sold
-				},<Sequelize.InstanceUpdateOptions>{
-					fields: ['id', 'cartid'],
-					transaction: updateTransaction });
+					quantity_sold: saveCartRequest.quantity_sold + queriedCart.quantity_sold
+				},
+				<Sequelize.InstanceUpdateOptions>{
+					where: <Sequelize.WhereOptions<CartAttributes>>
+						{ [Op.and]: [{id: params.product_id}, {cartid: params.cart_id}] },
+					transaction: updateTransaction
+				});
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
 			updateTransaction.commit();
 

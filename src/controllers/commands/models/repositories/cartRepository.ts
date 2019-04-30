@@ -1,6 +1,6 @@
 import Bluebird from "bluebird";
 import Sequelize from "sequelize";
-import { Params } from "..../../../src/controllers/typeDefinitions";
+import { Params } from "../../../typeDefinitions";
 import { CartFieldName } from "../constants/fieldNames/cartFieldNames";
 import { CartAttributes, CartEntity, CartInstance } from "../entities/cartEntity";
 
