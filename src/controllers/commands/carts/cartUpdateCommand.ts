@@ -2,7 +2,7 @@ import Bluebird from "bluebird";
 import Sequelize from "sequelize";
 import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
-import { CartAttributes, CartInstance } from "../models/entities/cartEntity";
+import { CartInstance } from "../models/entities/cartEntity";
 import * as DatabaseConnection from "../models/databaseConnection";
 import * as CartRepository from "../models/repositories/cartRepository";
 import { CommandResponse, Cart, CartSaveRequest, Params } from "../../typeDefinitions";
@@ -61,9 +61,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 					quantity_sold: saveCartRequest.quantity_sold
 				},
 				<Sequelize.InstanceUpdateOptions>{
-					where: <Sequelize.WhereOptions<CartAttributes>>
-						{ [Op.and]: [{id: params.product_id}, {cartid: params.cart_id}] },
-					transaction: updateTransaction
+					where: { [Op.and]: [{id: params.product_id}, {cartid: params.cart_id}] }
 				});
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
 			updateTransaction.commit();
