@@ -61,7 +61,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 					quantity_sold: saveCartRequest.quantity_sold
 				},
 				{
-					where: { [Op.and]: [{id: params.product_id}, {cartid: params.cart_id}] },
+					where:  {cartid: params.cart_id} ,
 					transaction: updateTransaction
 				});
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
