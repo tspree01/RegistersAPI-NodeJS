@@ -8,6 +8,7 @@ import * as CartCreateCommand from "./commands/carts/cartCreateCommand";
 import * as CartDeleteByCartIdCommand from "./commands/carts/cartDeleteByCartIdCommand";
 import * as CartDeleteByProductIdAndCartIdCommand from "./commands/carts/cartDeleteByProductIdAndCartIdCommand";
 import * as CartUpdateCommand from "./commands/carts/cartUpdateCommand";
+import * as CartUpdateFromProductListingCommand from "./commands/carts/cartUpdateFromProductListingCommand";
 import { CommandResponse, Cart, CartSaveRequest, Params } from "./typeDefinitions";
 
 export let queryCarts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
@@ -96,6 +97,10 @@ export let createCart = (req: restify.Request, res: restify.Response, next: rest
 
 export let updateCartByProductAndCartId = (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	saveCart(req, res, next, CartUpdateCommand.execute);
+};
+
+export let updateCartByProductAndCartIdFromProductListing = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+	saveCart(req, res, next, CartUpdateFromProductListingCommand.execute);
 };
 
 export let deleteByCartId = (req: restify.Request, res: restify.Response, next: restify.Next) => {
