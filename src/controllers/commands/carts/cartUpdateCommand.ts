@@ -5,7 +5,7 @@ import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import { CartInstance } from "../models/entities/cartEntity";
 import * as DatabaseConnection from "../models/databaseConnection";
 import * as CartRepository from "../models/repositories/cartRepository";
-import { CommandResponse, Cart, CartSaveRequest } from "../../typeDefinitions";
+import { CommandResponse, Cart, CartSaveRequest, Params } from "../../typeDefinitions";
 
 const validateSaveRequest = (saveCartRequest: CartSaveRequest): CommandResponse<Cart> => {
 	const validationResponse: CommandResponse<Cart> =
@@ -35,12 +35,15 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 	}
 
 	let updateTransaction: Sequelize.Transaction;
-
 	return DatabaseConnection.startTransaction()
 		.then((startedTransaction: Sequelize.Transaction): Bluebird<CartInstance | null> => {
 			updateTransaction = startedTransaction;
 
-			return CartRepository.queryByCartId(<string>saveCartRequest.cartid, updateTransaction);
+			const params: Params = {
+				product_id: <string>saveCartRequest.id, 
+				cart_id: <string>saveCartRequest.cartid 
+			};
+			return CartRepository.queryByProductIdAndCartId(params, updateTransaction);
 		}).then((queriedCart: (CartInstance | null)): Bluebird<CartInstance> => {
 			if (queriedCart == null) {
 				return Bluebird.reject(<CommandResponse<Cart>>{

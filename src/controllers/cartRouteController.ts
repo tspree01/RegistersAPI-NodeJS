@@ -94,7 +94,7 @@ export let createCart = (req: restify.Request, res: restify.Response, next: rest
 	saveCart(req, res, next, CartCreateCommand.execute);
 };
 
-export let updateCart = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+export let updateCartByProductAndCartId = (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	saveCart(req, res, next, CartUpdateCommand.execute);
 };
 

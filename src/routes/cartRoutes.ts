@@ -11,7 +11,7 @@ function cartRoute(server: restify.Server) {
 	
 	server.post({ path: (RouteLookup.API + RouteLookup.Cart), version: "0.0.1" }, CartRouteController.createCart);
 
-	server.put({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.CartIdParameter), version: "0.0.1" }, CartRouteController.updateCart);
+	server.put({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.ProductIdParameter + RouteLookup.CartIdParameter), version: "0.0.1" }, CartRouteController.updateCartByProductAndCartId);
 
 	server.del({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.ByCartId + RouteLookup.CartIdParameter), version: "0.0.1" }, CartRouteController.deleteByCartId);
 
