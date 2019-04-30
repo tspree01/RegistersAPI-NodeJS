@@ -27,7 +27,7 @@ export let queryAllByProductIdAndCartId = (params: Params, queryTransaction?: Se
 	return CartEntity.findAll(<Sequelize.FindOptions<CartAttributes>>{
 		transaction: queryTransaction,
 		where: <Sequelize.WhereOptions<CartAttributes>>
-			{ [Op.and]: [{id: params.product_id}, {cartid: params.cart_id}] }
+		{ [Op.and]: [{id: params.product_id}, {cartid: params.cart_id}] }
 	});
 };
 
