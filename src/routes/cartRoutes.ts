@@ -3,13 +3,11 @@ import { RouteLookup } from "../controllers/lookups/stringLookup";
 import * as CartRouteController from "../controllers/cartRouteController";
 
 function cartRoute(server: restify.Server) {
-	server.use(restify.plugins.queryParser());
-
 	server.get({ path: (RouteLookup.API + RouteLookup.Cart), version: "0.0.1" }, CartRouteController.queryCarts);
 
 	server.get({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.CartIdParameter), version: "0.0.1" }, CartRouteController.queryCart);
 
-	server.get({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.Test + RouteLookup.ProductIdParameterAndCartIdParameter), version: "0.0.1" }, CartRouteController.queryTest);
+	server.get({ path: (RouteLookup.API + RouteLookup.Cart + RouteLookup.Test + RouteLookup.ProductIdParameter + RouteLookup.CartIdParameter), version: "0.0.1" }, CartRouteController.queryTest);
 	
 	server.post({ path: (RouteLookup.API + RouteLookup.Cart), version: "0.0.1" }, CartRouteController.createCart);
 
