@@ -2,10 +2,12 @@ import Bluebird from "bluebird";
 import Sequelize from "sequelize";
 import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
-import { CartInstance } from "../models/entities/cartEntity";
+import { CartAttributes, CartInstance } from "../models/entities/cartEntity";
 import * as DatabaseConnection from "../models/databaseConnection";
 import * as CartRepository from "../models/repositories/cartRepository";
 import { CommandResponse, Cart, CartSaveRequest, Params } from "../../typeDefinitions";
+
+const Op = Sequelize.Op;
 
 const validateSaveRequest = (saveCartRequest: CartSaveRequest): CommandResponse<Cart> => {
 	const validationResponse: CommandResponse<Cart> =
@@ -33,16 +35,16 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 	if (validationResponse.status !== 200) {
 		return Bluebird.reject(validationResponse);
 	}
+	const params: Params = {
+		product_id: <string>saveCartRequest.id,
+		cart_id: <string>saveCartRequest.cartid
+	};
 
 	let updateTransaction: Sequelize.Transaction;
 	return DatabaseConnection.startTransaction()
 		.then((startedTransaction: Sequelize.Transaction): Bluebird<CartInstance | null> => {
 			updateTransaction = startedTransaction;
 
-			const params: Params = {
-				product_id: <string>saveCartRequest.id, 
-				cart_id: <string>saveCartRequest.cartid 
-			};
 			return CartRepository.queryByProductIdAndCartId(params, updateTransaction);
 		}).then((queriedCart: (CartInstance | null)): Bluebird<CartInstance> => {
 			if (queriedCart == null) {
@@ -51,12 +53,18 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 					message: ErrorCodeLookup.EC1001B
 				});
 			}
+			console.log("product id in query: " + params.product_id);
+			console.log("cart_id in query: " + params.cart_id);
 
 			return queriedCart.update(
 				<Object>{
 					quantity_sold: saveCartRequest.quantity_sold
 				},
-				<Sequelize.InstanceUpdateOptions>{ transaction: updateTransaction });
+				<Sequelize.InstanceUpdateOptions>{
+					where: <Sequelize.WhereOptions<CartAttributes>>
+						{ [Op.and]: [{id: params.product_id}, {cartid: params.cart_id}] },
+					transaction: updateTransaction
+				});
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
 			updateTransaction.commit();
 

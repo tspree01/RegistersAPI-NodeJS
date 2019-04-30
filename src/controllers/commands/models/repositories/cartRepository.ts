@@ -1,6 +1,6 @@
 import Bluebird from "bluebird";
 import Sequelize from "sequelize";
-import { Params } from "..../../../src/controllers/typeDefinitions";
+import { Params } from "../../../typeDefinitions";
 import { CartFieldName } from "../constants/fieldNames/cartFieldNames";
 import { CartAttributes, CartEntity, CartInstance } from "../entities/cartEntity";
 
@@ -27,7 +27,7 @@ export let queryAllByProductIdAndCartId = (params: Params, queryTransaction?: Se
 	return CartEntity.findAll(<Sequelize.FindOptions<CartAttributes>>{
 		transaction: queryTransaction,
 		where: <Sequelize.WhereOptions<CartAttributes>>
-		{ [Op.and]: [{id: params.product_id}, {cartid: params.cart_id}] }
+			{ [Op.and]: [{id: params.product_id}, {cartid: params.cart_id}] }
 	});
 };
 
