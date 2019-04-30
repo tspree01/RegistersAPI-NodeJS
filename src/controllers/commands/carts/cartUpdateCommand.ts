@@ -39,11 +39,11 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 		.then((startedTransaction: Sequelize.Transaction): Bluebird<CartInstance | null> => {
 			updateTransaction = startedTransaction;
 
-			const params: Params = {
+			const query: Params = {
 				product_id: <string>saveCartRequest.id, 
 				cart_id: <string>saveCartRequest.cartid 
 			};
-			return CartRepository.queryByProductIdAndCartId(params, updateTransaction);
+			return CartRepository.queryByProductIdAndCartId(query, updateTransaction);
 		}).then((queriedCart: (CartInstance | null)): Bluebird<CartInstance> => {
 			if (queriedCart == null) {
 				return Bluebird.reject(<CommandResponse<Cart>>{
@@ -55,8 +55,9 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 			return queriedCart.update(
 				<Object>{
 					quantity_sold: saveCartRequest.quantity_sold
-				},
-				<Sequelize.InstanceUpdateOptions>{ transaction: updateTransaction });
+				},<Sequelize.InstanceUpdateOptions>{
+					fields: ['id', 'cartid'],
+					transaction: updateTransaction });
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
 			updateTransaction.commit();
 
