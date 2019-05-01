@@ -63,7 +63,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 			queriedCart.quantity_sold = saveCartRequest.quantity_sold;
 
 			return queriedCart.save(<Sequelize.InstanceSaveOptions>{
-					fields: ['quantity_sold']
+					fields: ["quantity_sold"]
 				});
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
 			updateTransaction.commit();
