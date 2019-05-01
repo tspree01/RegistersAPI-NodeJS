@@ -41,7 +41,7 @@ export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
 			quantity_sold: <Sequelize.DefineAttributeColumnOptions>{
 				field: CartFieldName.QuantitySold,
 				type: Sequelize.INTEGER,
-				allowNull: false,
+				allowNull: true,
 				defaultValue: 0
 			},
 			createdOn: <Sequelize.DefineAttributeColumnOptions>{
