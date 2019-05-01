@@ -37,7 +37,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 	}
 	const params: Params = {
 		product_id: <string>saveCartRequest.id,
-		cart_id: <string>saveCartRequest.cartid
+		cart_id: saveCartRequest.cartid
 	};
 
 	let updateTransaction: Sequelize.Transaction;
@@ -47,7 +47,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 
 			const query: Params = {
 				product_id: <string>saveCartRequest.id, 
-				cart_id: <string>saveCartRequest.cartid 
+				cart_id: saveCartRequest.cartid 
 			};
 			return CartRepository.queryByProductIdAndCartId(query, updateTransaction);
 		}).then((queriedCart: (CartInstance | null)): Bluebird<CartInstance> => {
@@ -60,8 +60,15 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 			console.log("product id in query: " + params.product_id);
 			console.log("cart_id in query: " + params.cart_id);
 
-			return queriedCart.sequelize.query("UPDATE cart SET quantity_sold = " + saveCartRequest.quantity_sold 
-			+ " WHERE id = " + params.product_id + " AND cartid = " + params.cart_id);
+			return queriedCart.update({
+					quantity_sold: saveCartRequest.quantity_sold
+				},<Sequelize.InstanceUpdateOptions>{ where: { 
+						id: params.product_id,
+						cart_id: params.cart_id	
+					},
+					individualHooks: true,
+					transaction: updateTransaction 
+				});
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
 			updateTransaction.commit();
 
