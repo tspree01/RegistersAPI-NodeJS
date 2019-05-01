@@ -62,7 +62,11 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 
 			return queriedCart.update({
 					quantity_sold: saveCartRequest.quantity_sold
-				},{	transaction: updateTransaction });
+				},{	where: { 
+					id: params.product_id, 
+					cartid: params.cart_id
+				},
+					transaction: updateTransaction });
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
 			updateTransaction.commit();
 
