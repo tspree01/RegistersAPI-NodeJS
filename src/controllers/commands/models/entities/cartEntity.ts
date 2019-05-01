@@ -29,13 +29,12 @@ export let CartEntity: Sequelize.Model<CartInstance, CartAttributes> =
 		<Sequelize.DefineModelAttributes<CartAttributes>>{
 			id: <Sequelize.DefineAttributeColumnOptions>{
 				field: CartFieldName.ID,
-				type: Sequelize.UUID,
-				// primaryKey: true
+				type: Sequelize.UUID
 			},
 			lookupCode: <Sequelize.DefineAttributeColumnOptions>{
 				field: CartFieldName.LookupCode,
 				type: Sequelize.STRING,
-				allowNull: false,
+				allowNull: true,
 				defaultValue: ""
 			},
 			quantity_sold: <Sequelize.DefineAttributeColumnOptions>{

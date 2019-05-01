@@ -33,6 +33,19 @@ export let queryAllByProductIdAndCartId = (params: Params, queryTransaction?: Se
 	});
 };
 
+export const updateByCartIdAndProductId = (params: Params, quantitySold: number, updateTransaction?: Sequelize.Transaction): Bluebird<[number, CartInstance[]]> => {
+    return CartEntity.update(
+        <CartAttributes>{
+            quantity_sold: quantitySold
+        }, <Sequelize.UpdateOptions>{
+            where: <Sequelize.AnyWhereOptions>{
+                id: params.product_id,
+                cartid: params.cart_id
+            },
+            transaction: updateTransaction
+        });
+};
+
 export let queryAll = (): Bluebird<CartInstance[]> => {
 	return CartEntity.findAll(<Sequelize.FindOptions<CartAttributes>>{
 		order: [ [CartFieldName.CreatedOn, "ASC"] ]
