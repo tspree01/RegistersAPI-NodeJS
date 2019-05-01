@@ -80,9 +80,9 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Cart>> => {
-			if (updateTransaction != null) {
-				updateTransaction.rollback();
-			}
+			// if (updateTransaction != null) {
+				// updateTransaction.rollback();
+			// }
 
 			return Bluebird.reject(<CommandResponse<Cart>>{
 				status: (error.status || 500),
