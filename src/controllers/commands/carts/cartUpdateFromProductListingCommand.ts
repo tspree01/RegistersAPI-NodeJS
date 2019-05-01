@@ -55,7 +55,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 			}
 
 			return queriedCart.update({
-				quantity_sold: saveCartRequest.quantity_sold
+				quantity_sold: saveCartRequest.quantity_sold + queriedCart.quantity_sold
 			},<Sequelize.InstanceUpdateOptions>{ where: <Sequelize.WhereOptions<CartAttributes>>{ 
 					id: params.product_id,
 					cart_id: params.cart_id	
