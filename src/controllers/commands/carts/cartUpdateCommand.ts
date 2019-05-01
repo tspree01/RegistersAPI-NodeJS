@@ -1,5 +1,5 @@
 import Bluebird from "bluebird";
-import Sequelize from "sequelize";
+import Sequelize, { InstanceUpdateOptions } from "sequelize";
 import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import { CartAttributes, CartInstance } from "../models/entities/cartEntity";
@@ -40,16 +40,16 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 		cart_id: <string>saveCartRequest.cartid
 	};
 
-	// let updateTransaction: Sequelize.Transaction;
+	let updateTransaction: Sequelize.Transaction;
 	return DatabaseConnection.startTransaction()
 		.then((startedTransaction: Sequelize.Transaction): Bluebird<CartInstance | null> => {
-			// updateTransaction = startedTransaction;
+			updateTransaction = startedTransaction;
 
 			const query: Params = {
 				product_id: <string>saveCartRequest.id, 
 				cart_id: <string>saveCartRequest.cartid 
 			};
-			return CartRepository.queryByProductIdAndCartId(query);
+			return CartRepository.queryByProductIdAndCartId(query, updateTransaction);
 		}).then((queriedCart: (CartInstance | null)): Bluebird<CartInstance> => {
 			if (queriedCart == null) {
 				return Bluebird.reject(<CommandResponse<Cart>>{
@@ -59,15 +59,17 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 			}
 			console.log("product id in query: " + params.product_id);
 			console.log("cart_id in query: " + params.cart_id);
-
+			const selector = { 
+				where: { id: params.product_id, 
+					cartid: params.cart_id }
+			  };
+			  
 			return queriedCart.update({
 					quantity_sold: saveCartRequest.quantity_sold
-				},{	where: { 
-					id: params.product_id, 
-					cartid: params.cart_id
-				}});
+				},<Sequelize.InstanceUpdateOptions>{	selector,
+					transaction: updateTransaction });
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
-			// updateTransaction.commit();
+			updateTransaction.commit();
 
 			return Bluebird.resolve(<CommandResponse<Cart>>{
 				status: 200,
@@ -80,9 +82,9 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Cart>> => {
-			// if (updateTransaction != null) {
-				// updateTransaction.rollback();
-			// }
+			if (updateTransaction != null) {
+				updateTransaction.rollback();
+			}
 
 			return Bluebird.reject(<CommandResponse<Cart>>{
 				status: (error.status || 500),
