@@ -1,5 +1,5 @@
 import Bluebird from "bluebird";
-import Sequelize, { InstanceUpdateOptions } from "sequelize";
+import Sequelize from "sequelize";
 import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import { CartAttributes, CartInstance } from "../models/entities/cartEntity";
@@ -59,14 +59,13 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 			}
 			console.log("product id in query: " + params.product_id);
 			console.log("cart_id in query: " + params.cart_id);
-			const selector = { 
-				where: { id: params.product_id, 
-					cartid: params.cart_id }
-			  };
-			  
+
 			return queriedCart.update({
 					quantity_sold: saveCartRequest.quantity_sold
-				},<Sequelize.InstanceUpdateOptions>{	selector,
+				},{	where: { 
+					id: params.product_id, 
+					cartid: params.cart_id
+				},
 					transaction: updateTransaction });
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
 			updateTransaction.commit();
@@ -78,7 +77,8 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 					quantity_sold: updatedCart.quantity_sold,
 					lookupCode: updatedCart.lookupCode,
 					price: updatedCart.price,
-					createdOn: Helper.formatDate(updatedCart.createdOn)
+					createdOn: Helper.formatDate(updatedCart.createdOn),
+					cartid: updatedCart.cartid
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Cart>> => {

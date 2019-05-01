@@ -73,7 +73,8 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 					quantity_sold: updatedCart.quantity_sold,
 					lookupCode: updatedCart.lookupCode,
 					price: updatedCart.price,
-					createdOn: Helper.formatDate(updatedCart.createdOn)
+					createdOn: Helper.formatDate(updatedCart.createdOn),
+					cartid: updatedCart.cartid
 				}
 			});
 		}).catch((error: any): Bluebird<CommandResponse<Cart>> => {
