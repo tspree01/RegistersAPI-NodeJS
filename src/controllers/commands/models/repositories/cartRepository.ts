@@ -15,9 +15,9 @@ export let queryByCartId = (cartid: string, queryTransaction?: Sequelize.Transac
 
 export let queryByProductIdAndCartId = (query: Params, queryTransaction?: Sequelize.Transaction): Bluebird<CartInstance | null> => {
 	return CartEntity.findOne(<Sequelize.FindOptions<CartAttributes>>{
-		transaction: queryTransaction,
 		where: <Sequelize.WhereOptions<CartAttributes>>
-		{ [Op.and]: [{id: query.product_id}, {cartid: query.cart_id}] }
+		{ [Op.and]: [{id: query.product_id}, {cartid: query.cart_id}] },
+		transaction: queryTransaction
 	});
 };
 
