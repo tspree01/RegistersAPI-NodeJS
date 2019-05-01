@@ -40,16 +40,16 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 		cart_id: <string>saveCartRequest.cartid
 	};
 
-	let updateTransaction: Sequelize.Transaction;
+	// let updateTransaction: Sequelize.Transaction;
 	return DatabaseConnection.startTransaction()
 		.then((startedTransaction: Sequelize.Transaction): Bluebird<CartInstance | null> => {
-			updateTransaction = startedTransaction;
+			// updateTransaction = startedTransaction;
 
 			const query: Params = {
 				product_id: <string>saveCartRequest.id, 
 				cart_id: <string>saveCartRequest.cartid 
 			};
-			return CartRepository.queryByProductIdAndCartId(query, updateTransaction);
+			return CartRepository.queryByProductIdAndCartId(query);
 		}).then((queriedCart: (CartInstance | null)): Bluebird<CartInstance> => {
 			if (queriedCart == null) {
 				return Bluebird.reject(<CommandResponse<Cart>>{
@@ -67,7 +67,7 @@ export let execute = (saveCartRequest: CartSaveRequest): Bluebird<CommandRespons
 					cartid: params.cart_id
 				}});
 		}).then((updatedCart: CartInstance): Bluebird<CommandResponse<Cart>> => {
-			updateTransaction.commit();
+			// updateTransaction.commit();
 
 			return Bluebird.resolve(<CommandResponse<Cart>>{
 				status: 200,
