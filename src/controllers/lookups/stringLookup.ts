@@ -8,7 +8,7 @@ export enum ParameterLookup {
 
 export enum RouteLookup {
 	// API routing
-	API = "/api",
+	API = "/apis",
 	Test = "/test",
 
 	// Product

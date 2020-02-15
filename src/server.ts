@@ -1,4 +1,4 @@
-import apis from "./app";
+import api from "./app";
 
 let port: number;
 
@@ -8,6 +8,6 @@ if ((process.env.PORT != null) && !isNaN(+process.env.PORT)) {
 	port = 15100;
 }
 
-apis.listen(port, () => {
+api.listen(port, () => {
 	console.log("Listening on port " + port.toString());
 });
