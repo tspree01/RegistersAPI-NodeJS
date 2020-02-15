@@ -60,7 +60,7 @@
 	  "preserveConstEnums": true
 	},
 	"include": [
-	  "Application/**/*"
+	  "src/**/*"
 	],
 	"exclude": [
 	  "logs"

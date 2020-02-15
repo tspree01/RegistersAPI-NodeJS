@@ -11,7 +11,6 @@ export const DatabaseConnection: Sequelize.Sequelize =
 			protocol: "postgres",
 			omitNull: true,
 			freezeTableName: true,
-			operatorsAliases: false,
 			pool: <Sequelize.PoolOptions>{
 				min: 0,
 				acquire: 30000,
@@ -19,6 +18,6 @@ export const DatabaseConnection: Sequelize.Sequelize =
 			}
 		});
 
-export let startTransaction = (): Bluebird<Sequelize.Transaction> => {
+export const startTransaction = (): Bluebird<Sequelize.Transaction> => {
 	return DatabaseConnection.transaction();
 };
