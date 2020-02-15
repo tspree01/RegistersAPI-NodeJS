@@ -34,7 +34,7 @@
     "errorhandler": "^1.5.1",
     "restify": "^8.5.1",
     "pg": "^7.11.0",
-    "sequelize": "^4.44.3",
+    "sequelize": "^5.15.1",
     "moment": "^2.24.0",
     "express": "^5.0.0-alpha.7",
     "morgan": "^1.9.1",
