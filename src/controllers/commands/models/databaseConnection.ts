@@ -7,8 +7,8 @@ export const DatabaseConnection: Sequelize.Sequelize =
 	new Sequelize(
 		<string>process.env.DATABASE_URL,
 		<Sequelize.Options>{
-			dialect:  "postgres",
-			protocol: "postgres",
+			dialect:  "MySQL",
+			protocol: "MySQL",
 			omitNull: true,
 			freezeTableName: true,
 			pool: <Sequelize.PoolOptions>{
