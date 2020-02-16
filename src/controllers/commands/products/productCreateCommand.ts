@@ -28,10 +28,10 @@ const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandRes
 	return validationResponse;
 };
 
-export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandResponse<Product>> => {
+export let execute = (saveProductRequest: ProductSaveRequest): Promise<CommandResponse<Product>> => {
 	const validationResponse: CommandResponse<Product> = validateSaveRequest(saveProductRequest);
 	if (validationResponse.status !== 200) {
-		return Bluebird.reject(validationResponse);
+		return Promise.reject(validationResponse);
 	}
 
 	const productToCreate: ProductAttributes = <ProductAttributes>{
@@ -44,25 +44,25 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 	let createTransaction: Sequelize.Transaction;
 
 	return DatabaseConnection.startTransaction() 
-		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
+		.then((createdTransaction: Sequelize.Transaction): Promise<ProductInstance | null> => {
 			createTransaction = createdTransaction;
 
 			return ProductRepository.queryByLookupCode( 
 				saveProductRequest.lookupCode,
 				createTransaction);
-		}).then((existingProduct: (ProductInstance | null)): Bluebird<ProductInstance> => {
+		}).then((existingProduct: (ProductInstance | null)): Promise<ProductInstance> => {
 			if (existingProduct != null) {
-				return Bluebird.reject(<CommandResponse<Product>>{
+				return Promise.reject(<CommandResponse<Product>>{
 					status: 409,
 					message: ErrorCodeLookup.EC2029
 				});
 			}
 
 			return ProductRepository.create(productToCreate, createTransaction); 
-		}).then((createdProduct: ProductInstance): Bluebird<CommandResponse<Product>> => {
+		}).then((createdProduct: ProductInstance): Promise<CommandResponse<Product>> => {
 			createTransaction.commit();
 
-			return Bluebird.resolve(<CommandResponse<Product>>{
+			return Promise.resolve(<CommandResponse<Product>>{
 				status: 201,
 				data: <Product>{
 					id: createdProduct.id,
@@ -72,12 +72,12 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 					price: createdProduct.price
 				}
 			});
-		}).catch((error: any): Bluebird<CommandResponse<Product>> => {
+		}).catch((error: any): Promise<CommandResponse<Product>> => {
 			if (createTransaction != null) {
 				createTransaction.rollback();
 			}
 
-			return Bluebird.reject(<CommandResponse<Product>>{
+			return Promise.reject(<CommandResponse<Product>>{
 				status: (error.status || 500),
 				message: (error.message || ErrorCodeLookup.EC1002)
 			});
