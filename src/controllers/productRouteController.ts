@@ -81,7 +81,7 @@ const saveProduct = (
 	req: restify.Request,
 	res: restify.Response,
 	next: restify.Next,
-	performSave: (productSaveRequest: ProductSaveRequest) => Promise<CommandResponse<Product>>): void => {
+	performSave: (productSaveRequest: ProductSaveRequest) => Bluebird<CommandResponse<Product>>): void => {
 		
 	performSave(req.body)
 		.then((productSaveCommandResponse: CommandResponse<Product>) => {
