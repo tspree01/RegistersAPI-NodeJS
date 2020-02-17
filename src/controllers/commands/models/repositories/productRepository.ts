@@ -1,6 +1,5 @@
 import Sequelize from "sequelize";
 import { ProductFieldName } from "../constants/fieldNames/productFieldNames";
-import { ProductAttributes } from "../entities/productEntity";
 import { ProductModel } from "../entities/productModel";
 
 
@@ -34,7 +33,7 @@ export const searchAll = async (query: string): Promise<ProductModel[]> => {
 	});
 };
 
-export const create = async (newProduct: ProductAttributes, createTransaction?: Sequelize.Transaction): Promise<ProductModel> => {
+export const create = async (newProduct: ProductModel, createTransaction?: Sequelize.Transaction): Promise<ProductModel> => {
 	return ProductModel.create(
 		newProduct,
 		<Sequelize.CreateOptions>{

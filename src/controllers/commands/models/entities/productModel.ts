@@ -3,7 +3,7 @@ import { DatabaseConnection } from "../databaseConnection";
 import { DatabaseTableName } from "../constants/databaseTableNames";
 import { ProductFieldName } from "../constants/fieldNames/productFieldNames";
 import { Model, DataTypes, InitOptions, ModelAttributes, ModelAttributeColumnOptions } from "sequelize";
-import { ProductAttributes } from "./productEntity";
+
 
 export class ProductModel extends Model {
 	public count!: number;
@@ -119,7 +119,7 @@ export const searchAll = async (query: string): Promise<ProductModel[]> => {
 	});
 };
 
-export const create = async (newProduct: ProductAttributes, createTransaction?: Sequelize.Transaction): Promise<ProductModel> => {
+export const create = async (newProduct: ProductModel, createTransaction?: Sequelize.Transaction): Promise<ProductModel> => {
 	return ProductModel.create(
 		newProduct,
 		<Sequelize.CreateOptions>{
