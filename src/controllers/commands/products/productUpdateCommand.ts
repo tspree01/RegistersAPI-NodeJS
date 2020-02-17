@@ -1,11 +1,10 @@
-import Bluebird from "bluebird";
 import Sequelize from "sequelize";
 import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
-import { ProductInstance } from "../models/entities/productEntity";
 import * as DatabaseConnection from "../models/databaseConnection";
-import * as ProductRepository from "../models/repositories/productRepository";
+import * as ProductRepository from "../models/entities/productModel";
 import { CommandResponse, Product, ProductSaveRequest } from "../../typeDefinitions";
+import { ProductModel } from "../models/entities/productModel";
 
 const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandResponse<Product> => {
 	const validationResponse: CommandResponse<Product> =
@@ -28,22 +27,22 @@ const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandRes
 	return validationResponse;
 };
 
-export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandResponse<Product>> => {
+export const execute = async (saveProductRequest: ProductSaveRequest): Promise<CommandResponse<Product>> => {
 	const validationResponse: CommandResponse<Product> = validateSaveRequest(saveProductRequest);
 	if (validationResponse.status !== 200) {
-		return Bluebird.reject(validationResponse);
+		return Promise.reject(validationResponse);
 	}
 
 	let updateTransaction: Sequelize.Transaction;
 
 	return DatabaseConnection.startTransaction()
-		.then((startedTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
+		.then((startedTransaction: Sequelize.Transaction): Promise<ProductModel | null> => {
 			updateTransaction = startedTransaction;
 
 			return ProductRepository.queryById(<string>saveProductRequest.id, updateTransaction);
-		}).then((queriedProduct: (ProductInstance | null)): Bluebird<ProductInstance> => {
+		}).then((queriedProduct: (ProductModel | null)): Promise<ProductModel> => {
 			if (queriedProduct == null) {
-				return Bluebird.reject(<CommandResponse<Product>>{
+				return Promise.reject(<CommandResponse<Product>>{
 					status: 404,
 					message: ErrorCodeLookup.EC1001
 				});
@@ -64,10 +63,10 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 					price: saveProductRequest.price
 				},
 				<Sequelize.InstanceUpdateOptions>{ transaction: updateTransaction });
-		}).then((updatedProduct: ProductInstance): Bluebird<CommandResponse<Product>> => {
+		}).then((updatedProduct: ProductModel): Promise<CommandResponse<Product>> => {
 			updateTransaction.commit();
 
-			return Bluebird.resolve(<CommandResponse<Product>>{
+			return Promise.resolve(<CommandResponse<Product>>{
 				status: 200,
 				data: <Product>{
 					id: updatedProduct.id,
@@ -77,12 +76,12 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 					total_sold: updatedProduct.total_sold
 				}
 			});
-		}).catch((error: any): Bluebird<CommandResponse<Product>> => {
+		}).catch((error: any): Promise<CommandResponse<Product>> => {
 			if (updateTransaction != null) {
 				updateTransaction.rollback();
 			}
 
-			return Bluebird.reject(<CommandResponse<Product>>{
+			return Promise.reject(<CommandResponse<Product>>{
 				status: (error.status || 500),
 				message: (error.messsage || ErrorCodeLookup.EC1002)
 			});

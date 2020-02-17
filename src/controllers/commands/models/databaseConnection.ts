@@ -1,10 +1,9 @@
-import Bluebird from "bluebird";
 import Sequelize from "sequelize";
 
 const defaultMaximumPoolSize: number = 5;
 
 export const DatabaseConnection: Sequelize.Sequelize =
-	new Sequelize(
+	new Sequelize.Sequelize(
 		<string>process.env.JAWSDB_URL,
 		<Sequelize.Options>{
 			dialect:  "mysql",
@@ -18,6 +17,6 @@ export const DatabaseConnection: Sequelize.Sequelize =
 			}
 		});
 
-export const startTransaction = (): Bluebird<Sequelize.Transaction> => {
+export const startTransaction = (): Promise<Sequelize.Transaction> => {
 	return DatabaseConnection.transaction();
 };

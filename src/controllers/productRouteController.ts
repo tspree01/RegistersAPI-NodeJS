@@ -1,4 +1,3 @@
-import Bluebird from "bluebird";
 import * as restify from "restify";
 import * as ProductQuery from "./commands/products/productQuery";
 import * as ProductsQuery from "./commands/products/productsQuery";
@@ -9,7 +8,7 @@ import * as ProductUpdateCommand from "./commands/products/productUpdateCommand"
 import * as ProductSearchCommand from "./commands/products/productSearchCommand";
 import { CommandResponse, Product, ProductSaveRequest } from "./typeDefinitions";
 
-export let queryProducts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+export const queryProducts = async (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	ProductsQuery.query()
 		.then((productsQueryCommandResponse: CommandResponse<Product[]>) => {
 			res.send(
@@ -26,7 +25,7 @@ export let queryProducts = (req: restify.Request, res: restify.Response, next: r
 		});
 };
 
-export let searchProducts = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+export const searchProducts = async (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	ProductSearchCommand.search(req.params[ParameterLookup.ProductLookupCode])
 		.then((productsQueryCommandResponse: CommandResponse<Product[]>) => {
 			res.send(
@@ -43,7 +42,7 @@ export let searchProducts = (req: restify.Request, res: restify.Response, next: 
 		});
 };
 
-export let queryProductById = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+export const queryProductById = async (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	ProductQuery.queryById(req.params[ParameterLookup.ProductId])
 		.then((productQueryCommandResponse: CommandResponse<Product>) => {
 			res.send(
@@ -60,7 +59,7 @@ export let queryProductById = (req: restify.Request, res: restify.Response, next
 		});
 };
 
-export let queryProductByLookupCode = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+export const queryProductByLookupCode = async (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	ProductQuery.queryByLookupCode(req.params[ParameterLookup.ProductLookupCode])
 		.then((productQueryCommandResponse: CommandResponse<Product>) => {
 			res.send(
@@ -77,12 +76,12 @@ export let queryProductByLookupCode = (req: restify.Request, res: restify.Respon
 		});
 };
 
-const saveProduct = (
+const saveProduct = async (
 	req: restify.Request,
 	res: restify.Response,
 	next: restify.Next,
-	performSave: (productSaveRequest: ProductSaveRequest) => Bluebird<CommandResponse<Product>>): void => {
-		
+	performSave: (productSaveRequest: ProductSaveRequest) => Promise<CommandResponse<Product>>): Promise<void> => {
+
 	performSave(req.body)
 		.then((productSaveCommandResponse: CommandResponse<Product>) => {
 			res.send(
@@ -99,15 +98,15 @@ const saveProduct = (
 		});
 };
 
-export let createProduct = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+export const createProduct = async (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	saveProduct(req, res, next, ProductCreateCommand.execute);
 };
 
-export let updateProduct = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+export const updateProduct = async (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	saveProduct(req, res, next, ProductUpdateCommand.execute);
 };
 
-export let deleteProduct = (req: restify.Request, res: restify.Response, next: restify.Next) => {
+export const deleteProduct = async (req: restify.Request, res: restify.Response, next: restify.Next) => {
 	ProductDeleteCommand.execute(req.params[ParameterLookup.ProductId])
 		.then((productDeleteCommandResponse: CommandResponse<void>) => {
 			res.send(productDeleteCommandResponse.status);

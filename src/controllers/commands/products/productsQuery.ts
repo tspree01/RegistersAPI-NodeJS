@@ -1,15 +1,14 @@
-import Bluebird from "bluebird";
 import * as Helper from "../helpers/helper";
 import { CommandResponse, Product } from "../../typeDefinitions";
-import { ProductInstance } from "../models/entities/productEntity";
-import * as ProductRepository from "../models/repositories/productRepository";
+import * as ProductRepository from "../models/entities/productModel";
+import { ProductModel } from "../models/entities/productModel";
 
-export let query = (): Bluebird<CommandResponse<Product[]>> => {
+export const query = async (): Promise<CommandResponse<Product[]>> => {
 	return ProductRepository.queryAll()
-		.then((existingProducts: ProductInstance[]): Bluebird<CommandResponse<Product[]>> => {
-			return Bluebird.resolve(<CommandResponse<Product[]>>{
+		.then((existingProducts: ProductModel[]): Promise<CommandResponse<Product[]>> => {
+			return Promise.resolve(<CommandResponse<Product[]>>{
 				status: 200,
-				data: existingProducts.map<Product>((existingProduct: ProductInstance) => {
+				data: existingProducts.map<Product>((existingProduct: ProductModel) => {
 					return <Product>{
 						id: existingProduct.id,
 						count: existingProduct.count,

@@ -1,11 +1,10 @@
-import Bluebird from "bluebird";
 import Sequelize from "sequelize";
 import * as Helper from "../helpers/helper";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
 import * as DatabaseConnection from "../models/databaseConnection";
-import * as ProductRepository from "../models/repositories/productRepository";
+import * as ProductRepository from "../models/entities/productModel";
 import { CommandResponse, Product, ProductSaveRequest } from "../../typeDefinitions";
-import { ProductInstance, ProductAttributes } from "../models/entities/productEntity";
+import { ProductModel } from "../models/entities/productModel";
 
 const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandResponse<Product> => {
 	const validationResponse: CommandResponse<Product> =
@@ -28,13 +27,13 @@ const validateSaveRequest = (saveProductRequest: ProductSaveRequest): CommandRes
 	return validationResponse;
 };
 
-export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandResponse<Product>> => {
+export const execute = async (saveProductRequest: ProductSaveRequest): Promise<CommandResponse<Product>> => {
 	const validationResponse: CommandResponse<Product> = validateSaveRequest(saveProductRequest);
 	if (validationResponse.status !== 200) {
-		return Bluebird.reject(validationResponse);
+		return Promise.reject(validationResponse);
 	}
 
-	const productToCreate: ProductAttributes = <ProductAttributes>{
+	const productToCreate: ProductModel = <ProductModel>{
 		id:saveProductRequest.id,
 		count: saveProductRequest.count,
 		lookupCode: saveProductRequest.lookupCode,
@@ -44,25 +43,30 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 	let createTransaction: Sequelize.Transaction;
 
 	return DatabaseConnection.startTransaction() 
-		.then((createdTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
+		.then((createdTransaction: Sequelize.Transaction): Promise<ProductModel | null> => {
 			createTransaction = createdTransaction;
 
 			return ProductRepository.queryByLookupCode( 
 				saveProductRequest.lookupCode,
 				createTransaction);
-		}).then((existingProduct: (ProductInstance | null)): Bluebird<ProductInstance> => {
+		}).then((existingProduct: (ProductModel | null)): Promise<ProductModel> => {
 			if (existingProduct != null) {
-				return Bluebird.reject(<CommandResponse<Product>>{
+				return Promise.reject(<CommandResponse<Product>>{
 					status: 409,
 					message: ErrorCodeLookup.EC2029
 				});
 			}
 
-			return ProductRepository.create(productToCreate, createTransaction); 
-		}).then((createdProduct: ProductInstance): Bluebird<CommandResponse<Product>> => {
+			// return ProductRepository.create(productToCreate, createTransaction);
+			return ProductModel.create(
+				productToCreate,
+				<Sequelize.CreateOptions>{
+					transaction: createTransaction
+				});
+		}).then((createdProduct: ProductModel): Promise<CommandResponse<Product>> => {
 			createTransaction.commit();
 
-			return Bluebird.resolve(<CommandResponse<Product>>{
+			return Promise.resolve(<CommandResponse<Product>>{
 				status: 201,
 				data: <Product>{
 					id: createdProduct.id,
@@ -72,12 +76,12 @@ export let execute = (saveProductRequest: ProductSaveRequest): Bluebird<CommandR
 					price: createdProduct.price
 				}
 			});
-		}).catch((error: any): Bluebird<CommandResponse<Product>> => {
+		}).catch((error: any): Promise<CommandResponse<Product>> => {
 			if (createTransaction != null) {
 				createTransaction.rollback();
 			}
 
-			return Bluebird.reject(<CommandResponse<Product>>{
+			return Promise.reject(<CommandResponse<Product>>{
 				status: (error.status || 500),
 				message: (error.message || ErrorCodeLookup.EC1002)
 			});

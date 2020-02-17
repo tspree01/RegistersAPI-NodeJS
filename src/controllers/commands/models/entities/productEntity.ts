@@ -24,7 +24,7 @@ export interface ProductInstance extends Sequelize.Instance<ProductAttributes> {
 }
 
 export let ProductEntity: Sequelize.Model<ProductInstance, ProductAttributes> =
-	DatabaseConnection.define<ProductInstance, ProductAttributes>(
+	DatabaseConnection.define<>(
 		modelName,
 		<Sequelize.DefineModelAttributes<ProductAttributes>>{
 			id: <Sequelize.DefineAttributeColumnOptions>{

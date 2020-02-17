@@ -1,39 +1,38 @@
-import Bluebird from "bluebird";
 import Sequelize from "sequelize";
 import { CommandResponse } from "../../typeDefinitions";
 import { ErrorCodeLookup } from "../../lookups/stringLookup";
-import { ProductInstance } from "../models/entities/productEntity";
 import * as DatabaseConnection from "../models/databaseConnection";
-import * as ProductRepository from "../models/repositories/productRepository";
+import * as ProductRepository from "../models/entities/productModel";
+import { ProductModel } from "../models/entities/productModel";
 
-export let execute = (productId?: string): Bluebird<CommandResponse<void>> => {
+export let execute = (productId?: string): Promise<CommandResponse<void>> => {
 	if ((productId == null) || (productId.trim() === "")) {
-		return Bluebird.resolve(<CommandResponse<void>>{ status: 204 });
+		return Promise.resolve(<CommandResponse<void>>{ status: 204 });
 	}
 
 	let deleteTransaction: Sequelize.Transaction;
 
 	return DatabaseConnection.startTransaction()
-		.then((startedTransaction: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
+		.then((startedTransaction: Sequelize.Transaction): Promise<ProductModel | null> => {
 			deleteTransaction = startedTransaction;
 
 			return ProductRepository.queryById(productId, deleteTransaction);
-		}).then((queriedProduct: (ProductInstance | null)): Bluebird<void> => {
+		}).then((queriedProduct: (ProductModel | null)): Promise<void> => {
 			if (queriedProduct == null) {
-				return Bluebird.resolve();
+				return Promise.resolve();
 			}
 
 			return ProductRepository.destroy(queriedProduct, deleteTransaction);
-		}).then((): Bluebird<CommandResponse<void>> => {
+		}).then((): Promise<CommandResponse<void>> => {
 			deleteTransaction.commit();
 
-			return Bluebird.resolve(<CommandResponse<void>>{ status: 204 });
-		}).catch((error: any): Bluebird<CommandResponse<void>> => {
+			return Promise.resolve(<CommandResponse<void>>{ status: 204 });
+		}).catch((error: any): Promise<CommandResponse<void>> => {
 			if (deleteTransaction != null) {
 				deleteTransaction.rollback();
 			}
 
-			return Bluebird.reject(<CommandResponse<void>>{
+			return Promise.reject(<CommandResponse<void>>{
 				status: (error.status || 500),
 				message: (error.message || ErrorCodeLookup.EC1003)
 			});

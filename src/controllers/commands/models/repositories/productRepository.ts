@@ -1,49 +1,50 @@
-import Bluebird from "bluebird";
 import Sequelize from "sequelize";
 import { ProductFieldName } from "../constants/fieldNames/productFieldNames";
-import { ProductAttributes, ProductEntity, ProductInstance } from "../entities/productEntity";
+import { ProductAttributes } from "../entities/productEntity";
+import { ProductModel } from "../entities/productModel";
+
 
 const Op = Sequelize.Op;
 
-export let queryById = (id: string, queryTransaction?: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
-	return ProductEntity.findOne(<Sequelize.FindOptions<ProductAttributes>>{
+export const queryById = async (id: string, queryTransaction?: Sequelize.Transaction): Promise<ProductModel | null> => {
+	return ProductModel.findOne(<Sequelize.FindOptions>{
 		transaction: queryTransaction,
-		where: <Sequelize.WhereOptions<ProductAttributes>>{ id: id }
+		where: <Sequelize.WhereOptions>{ id: id }
 	});
 };
 
-export let queryByLookupCode = (lookupCode: string, queryTransaction?: Sequelize.Transaction): Bluebird<ProductInstance | null> => {
-	return ProductEntity.findOne(<Sequelize.FindOptions<ProductAttributes>>{
+export const queryByLookupCode = async (lookupCode: string, queryTransaction?: Sequelize.Transaction): Promise<ProductModel | null> => {
+	return ProductModel.findOne(<Sequelize.FindOptions>{
 		transaction: queryTransaction,
-		where: <Sequelize.WhereOptions<ProductAttributes>>{ lookupCode: lookupCode }
+		where: <Sequelize.WhereOptions>{ lookupCode: lookupCode }
 	});
 };
 
-export let queryAll = (): Bluebird<ProductInstance[]> => {
-	return ProductEntity.findAll(<Sequelize.FindOptions<ProductAttributes>>{
+export const queryAll = async (): Promise<ProductModel[]> => {
+	return ProductModel.findAll(<Sequelize.FindOptions>{
 		order: [ [ProductFieldName.CreatedOn, "ASC"] ]
 	});
 };
 
-export let searchAll = (query: string): Bluebird<ProductInstance[]> => {
-	return ProductEntity.findAll({
+export const searchAll = async (query: string): Promise<ProductModel[]> => {
+	return ProductModel.findAll({
 		where: {
 			lookupCode: { [Op.like]: query + "%" }
 		}
 	});
 };
 
-export let create = (newProduct: ProductAttributes, createTransaction?: Sequelize.Transaction): Bluebird<ProductInstance> => {
-	return ProductEntity.create(
+export const create = async (newProduct: ProductAttributes, createTransaction?: Sequelize.Transaction): Promise<ProductModel> => {
+	return ProductModel.create(
 		newProduct,
 		<Sequelize.CreateOptions>{
 			transaction: createTransaction
 		});
 };
 
-export let destroy = (productListEntry: ProductInstance, destroyTransaction?: Sequelize.Transaction): Bluebird<void> => {
+/*export const destroy = async (productListEntry: ProductInstance, destroyTransaction?: Sequelize.Transaction): Promise<void> => {
 	return productListEntry.destroy(
 		<Sequelize.InstanceDestroyOptions>{
 			transaction: destroyTransaction
 		});
-};
+};*/
