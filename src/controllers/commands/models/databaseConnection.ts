@@ -5,10 +5,10 @@ const defaultMaximumPoolSize: number = 5;
 
 export const DatabaseConnection: Sequelize.Sequelize =
 	new Sequelize(
-		<string>process.env.JAWSDB_URL,
+		<string>process.env.DATABASE_URL,
 		<Sequelize.Options>{
-			dialect:  "mysql",
-			protocol: "mysql",
+			dialect:  "postgres",
+			protocol: "postgres",
 			omitNull: true,
 			freezeTableName: true,
 			pool: <Sequelize.PoolOptions>{
